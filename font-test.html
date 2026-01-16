@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Test — Fabian Aguilar</title>
+
+    <!-- All Font Options -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Silkscreen:wght@400;700&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <style>
+        /* Font Switcher UI */
+        .font-switcher {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--cyan);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            z-index: 1000;
+            min-width: 200px;
+        }
+        .font-switcher h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--cyan);
+            margin-bottom: var(--space-sm);
+        }
+        .font-option {
+            display: block;
+            width: 100%;
+            padding: var(--space-sm);
+            margin-bottom: var(--space-xs);
+            background: var(--bg-secondary);
+            border: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+        .font-option:hover {
+            border-color: var(--cyan);
+        }
+        .font-option.active {
+            border-color: var(--magenta);
+            background: rgba(255,0,255,0.1);
+        }
+        .font-option span {
+            display: block;
+            font-size: 0.625rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Font Option A: Outfit + IBM Plex Mono (Clean Modern) */
+        [data-font="outfit"] {
+            --font-display: 'Outfit', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+            --font-pixel: 'IBM Plex Mono', monospace;
+        }
+
+        /* Font Option B: Space Grotesk + Space Mono (Techy) */
+        [data-font="space"] {
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --font-pixel: 'Space Mono', monospace;
+        }
+
+        /* Font Option C: Archivo (Bold & Punchy) */
+        [data-font="archivo"] {
+            --font-display: 'Archivo', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+            --font-pixel: 'IBM Plex Mono', monospace;
+        }
+
+        /* Font Option D: DM Sans (Friendly Modern) */
+        [data-font="dm"] {
+            --font-display: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --font-pixel: 'Space Mono', monospace;
+        }
+
+        /* Font Option E: Manrope (Geometric Clean) */
+        [data-font="manrope"] {
+            --font-display: 'Manrope', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+            --font-pixel: 'IBM Plex Mono', monospace;
+        }
+
+        /* Original: Syne + Silkscreen */
+        [data-font="original"] {
+            --font-display: 'Syne', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --font-pixel: 'Silkscreen', cursive;
+        }
+    </style>
+</head>
+<body data-font="original">
+    <!-- Page Loader -->
+    <div id="page-loader" class="loader">
+        <div class="loader-content">
+            <div class="loader-text">
+                <span class="loader-char">L</span>
+                <span class="loader-char">O</span>
+                <span class="loader-char">A</span>
+                <span class="loader-char">D</span>
+                <span class="loader-char">I</span>
+                <span class="loader-char">N</span>
+                <span class="loader-char">G</span>
+            </div>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Font Switcher -->
+    <div class="font-switcher">
+        <h3>Try Fonts</h3>
+        <button class="font-option active" data-set="original">
+            Syne + Silkscreen
+            <span>Original (pixel UI)</span>
+        </button>
+        <button class="font-option" data-set="outfit">
+            Outfit + IBM Plex
+            <span>Clean modern</span>
+        </button>
+        <button class="font-option" data-set="space">
+            Space Grotesk
+            <span>Techy geometric</span>
+        </button>
+        <button class="font-option" data-set="archivo">
+            Archivo
+            <span>Bold & punchy</span>
+        </button>
+        <button class="font-option" data-set="dm">
+            DM Sans
+            <span>Friendly modern</span>
+        </button>
+        <button class="font-option" data-set="manrope">
+            Manrope
+            <span>Geometric clean</span>
+        </button>
+    </div>
+
+    <!-- Cursor Trail -->
+    <div id="cursor-trail"></div>
+
+    <!-- Floating Particles -->
+    <div id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">FA<span class="accent">.</span></a>
+            <div class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#blog" class="nav-link">Blog</a>
+                <a href="#connect" class="nav-link">Connect</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <p class="hero-label">Builder / Thinker / Creator</p>
+                <h1 class="hero-title">
+                    <span class="hero-name">Fabian</span>
+                    <span class="hero-name accent">Aguilar</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Building tools that <span class="highlight-cyan">augment human capability</span>.
+                    Exploring the intersection of <span class="highlight-magenta">AI and personal knowledge</span>.
+                </p>
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#blog" class="btn btn-secondary">Read Blog</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-avatar" id="avatar">
+                    <div class="avatar-glow"></div>
+                    <div class="avatar-frame">
+                        <span class="avatar-placeholder">FA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="section-container">
+            <h2 class="section-title">
+                <span class="section-label">01</span>
+                About
+            </h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I build systems that help people think better and create more effectively.
+                        My focus is on the intersection of artificial intelligence and personal knowledge management.
+                    </p>
+                    <p>
+                        Currently working on <span class="highlight-cyan">DailyScribe</span>, a voice-to-publish
+                        pipeline that preserves natural voice while transforming raw thoughts into refined content.
+                    </p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <span class="stat-value">10+</span>
+                        <span class="stat-label">Projects Built</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">AI</span>
+                        <span class="stat-label">Focus Area</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">PKM</span>
+                        <span class="stat-label">Obsession</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects">
+        <div class="section-container">
+            <h2 class="section-title">
+                <span class="section-label">02</span>
+                Projects
+            </h2>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <div class="project-header">
+                        <span class="project-category">AI / Productivity</span>
+                        <span class="project-year">2026</span>
+                    </div>
+                    <h3 class="project-title">DailyScribe</h3>
+                    <p class="project-description">
+                        Voice-to-publish pipeline that preserves natural voice while transforming
+                        raw thoughts into organized content.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Whisper</span>
+                        <span class="tag">Obsidian</span>
+                    </div>
+                    <a href="#" class="project-link">View Project →</a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-header">
+                        <span class="project-category">Product</span>
+                        <span class="project-year">2026</span>
+                    </div>
+                    <h3 class="project-title">Art of Fact</h3>
+                    <p class="project-description">
+                        Teaching non-technical professionals how to get real value from AI
+                        through systems thinking.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Next.js</span>
+                        <span class="tag">Education</span>
+                    </div>
+                    <a href="#" class="project-link">Visit Site →</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                © 2026 Fabian Aguilar · Built with <span class="accent">obsession</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/loader.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Font switcher
+        document.querySelectorAll('.font-option').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.font-option').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.body.setAttribute('data-font', btn.dataset.set);
+            });
+        });
+    </script>
+</body>
+</html>

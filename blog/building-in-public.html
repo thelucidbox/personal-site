@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why I'm Building in Public — Fabian Aguilar</title>
+    <meta name="description" content="The case for sharing your work before it's ready, and why the vulnerability is worth it.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="blog.css">
+</head>
+<body>
+    <!-- Page Loader -->
+    <div id="page-loader" class="loader">
+        <div class="loader-content">
+            <div class="loader-text">
+                <span class="loader-char">L</span>
+                <span class="loader-char">O</span>
+                <span class="loader-char">A</span>
+                <span class="loader-char">D</span>
+                <span class="loader-char">I</span>
+                <span class="loader-char">N</span>
+                <span class="loader-char">G</span>
+            </div>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cursor Trail -->
+    <div id="cursor-trail"></div>
+
+    <!-- Floating Particles -->
+    <div id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">FA<span class="accent">.</span></a>
+            <div class="nav-links">
+                <a href="../#about" class="nav-link">About</a>
+                <a href="../#projects" class="nav-link">Projects</a>
+                <a href="./" class="nav-link">Blog</a>
+                <a href="../#connect" class="nav-link">Connect</a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Post Header -->
+    <header class="blog-post-header">
+        <a href="./" class="blog-back-link">← Back to Blog</a>
+        <div class="blog-post-meta">
+            <span class="blog-date">January 15, 2026</span>
+            <span class="blog-read-time">4 min read</span>
+        </div>
+        <h1 class="blog-post-title">Why I'm Building in Public</h1>
+        <div class="blog-post-tags">
+            <span class="tag">building</span>
+            <span class="tag">philosophy</span>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article class="blog-post-content">
+        <p>
+            There's a certain vulnerability in showing work that isn't finished. The instinct is to polish,
+            to perfect, to wait until something is "ready" before letting anyone see it.
+        </p>
+
+        <p>
+            But here's what I've learned: <strong>ready is a moving target</strong>. And while you're chasing it,
+            you're missing out on the most valuable part of creating—the feedback loop that shapes what you're building.
+        </p>
+
+        <h2>The Case for Sharing Early</h2>
+
+        <p>
+            When you build in public, you create accountability. Not the oppressive kind that makes you anxious,
+            but the generative kind that keeps you moving forward. You've made a promise, even if just to yourself,
+            that this thing will exist.
+        </p>
+
+        <p>
+            More importantly, you invite others into the process. And sometimes—often, actually—they see things
+            you've missed. They ask questions that reshape your approach. They point out blind spots you didn't
+            know you had.
+        </p>
+
+        <h2>The Fear Is Real</h2>
+
+        <p>
+            I won't pretend the fear isn't there. Every time I share something unfinished, there's a voice that says:
+        </p>
+
+        <blockquote>
+            What if it's not good enough? What if someone has already done this better?
+            What if I look foolish?
+        </blockquote>
+
+        <p>
+            That voice is protecting something—probably my ego. But it's not protecting the work. And the work
+            is what matters.
+        </p>
+
+        <h2>What I'm Building</h2>
+
+        <p>
+            Right now, I'm working on <strong>DailyScribe</strong>—a system that takes voice memos and transforms
+            them into refined content while preserving the original voice. It's part of a larger project called
+            ALOS (Agent-based Life Operating System) that I've been developing.
+        </p>
+
+        <p>
+            Is it done? No. Is it perfect? Definitely not. But it's real, and it's making progress, and sharing
+            that progress is part of how it gets better.
+        </p>
+
+        <h2>The Invitation</h2>
+
+        <p>
+            If you're building something—anything—consider sharing it before it feels ready. You might be surprised
+            by what happens. At worst, you'll get practice being vulnerable. At best, you'll get insights that
+            make your work significantly better.
+        </p>
+
+        <p>
+            Either way, you'll be building. And that's the point.
+        </p>
+
+        <hr>
+
+        <p>
+            <em>This is the first post on my new site. More to come as I continue building in public.</em>
+        </p>
+    </article>
+
+    <!-- Post Footer -->
+    <footer class="blog-post-footer">
+        <div class="blog-post-cta">
+            <p>Want to follow along as I build?</p>
+            <a href="../#connect" class="btn btn-primary">Connect with Me</a>
+        </div>
+    </footer>
+
+    <!-- Site Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                <span class="footer-year">© 2026</span>
+                Fabian Aguilar
+                <span class="footer-separator">·</span>
+                <a href="../" class="footer-link">Home</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <span class="back-to-top-icon">↑</span>
+    </button>
+
+    <!-- Scripts -->
+    <script src="../js/loader.js"></script>
+    <script src="../js/effects.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

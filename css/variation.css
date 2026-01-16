@@ -1,0 +1,963 @@
+/* ============================================
+   VARIATION: Warm Minimal
+   - Amber/gold accent instead of cyan/magenta
+   - Cleaner typography (no pixel font)
+   - More whitespace, editorial feel
+   - Keeps the cool interactions
+   ============================================ */
+
+:root {
+    /* Colors - Warm Dark */
+    --bg-primary: #0d0d0d;
+    --bg-secondary: #161616;
+    --bg-card: #1c1c1c;
+    --text-primary: #f5f5f5;
+    --text-secondary: #a0a0a0;
+    --text-muted: #666666;
+
+    /* Accent: Warm Amber + Cool Slate */
+    --accent-primary: #f59e0b;      /* Amber */
+    --accent-secondary: #64748b;    /* Slate */
+    --accent-glow: rgba(245, 158, 11, 0.25);
+    --accent-glow-secondary: rgba(100, 116, 139, 0.25);
+
+    /* Typography - Clean & Modern */
+    --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+
+    /* Keep spacing from main */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 2rem;
+    --space-xl: 4rem;
+    --space-2xl: 8rem;
+
+    --transition-fast: 150ms ease;
+    --transition-base: 300ms ease;
+
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+
+    --shadow-glow: 0 0 30px var(--accent-glow);
+}
+
+/* Light mode */
+[data-theme="light"] {
+    --bg-primary: #fafafa;
+    --bg-secondary: #f0f0f0;
+    --bg-card: #ffffff;
+    --text-primary: #0d0d0d;
+    --text-secondary: #525252;
+    --text-muted: #a0a0a0;
+    --accent-primary: #d97706;
+    --accent-glow: rgba(217, 119, 6, 0.15);
+}
+
+/* ============================================
+   Overrides for Variation
+   ============================================ */
+
+body {
+    font-family: var(--font-body);
+    letter-spacing: -0.01em;
+}
+
+/* Nav - Cleaner */
+.nav-logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.03em;
+}
+
+.nav-logo .accent {
+    color: var(--accent-primary);
+}
+
+.nav-link {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: -0.01em;
+}
+
+.nav-link::after {
+    background: var(--accent-primary);
+}
+
+.nav-link:hover {
+    color: var(--accent-primary);
+}
+
+/* Hero - Centered, Editorial */
+.hero {
+    text-align: center;
+}
+
+.hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 900px;
+}
+
+.hero-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent-primary);
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--accent-primary);
+    border-radius: 100px;
+    margin-bottom: var(--space-lg);
+}
+
+.hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    margin-bottom: var(--space-lg);
+}
+
+.hero-name {
+    display: block;
+}
+
+.hero-name.accent {
+    color: var(--accent-primary);
+    /* Subtle gradient */
+    background: linear-gradient(135deg, var(--accent-primary) 0%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+}
+
+.highlight-cyan {
+    color: var(--accent-primary);
+    font-weight: 500;
+}
+
+.highlight-magenta {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* No avatar in this variation - text focused */
+.hero-visual {
+    display: none;
+}
+
+/* Buttons - Refined */
+.btn {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: 100px;
+}
+
+.btn-primary {
+    background: var(--accent-primary);
+    color: #000;
+}
+
+.btn-primary:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    border: 1px solid var(--text-muted);
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+/* Section titles - Editorial */
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--accent-primary);
+}
+
+/* Cards - Subtle borders, cleaner */
+.project-card,
+.blog-card,
+.stat-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--bg-card);
+}
+
+.project-card:hover,
+.blog-card:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.project-card::before {
+    background: var(--accent-primary);
+}
+
+.project-category,
+.blog-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.project-title,
+.blog-title {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+}
+
+.tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--accent-primary);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.project-link,
+.blog-link {
+    color: var(--accent-primary);
+    font-weight: 500;
+}
+
+/* Stats - Horizontal */
+.about-stats {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    flex: 1;
+    min-width: 140px;
+    max-width: 180px;
+}
+
+.stat-card:hover {
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.stat-value {
+    color: var(--accent-primary);
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+}
+
+/* Social links */
+.social-link:hover {
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.social-icon {
+    color: var(--accent-primary);
+}
+
+.social-name {
+    font-family: var(--font-mono);
+}
+
+/* Footer */
+.accent {
+    color: var(--accent-primary);
+}
+
+/* Back to top */
+.back-to-top {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.back-to-top:hover {
+    background: var(--accent-primary);
+    color: #000;
+    box-shadow: var(--shadow-glow);
+}
+
+/* Loader - Warmer */
+.loader-char:nth-child(1) { color: var(--accent-primary); }
+.loader-char:nth-child(2) { color: var(--text-primary); }
+.loader-char:nth-child(3) { color: var(--accent-secondary); }
+.loader-char:nth-child(4) { color: var(--text-primary); }
+.loader-char:nth-child(5) { color: var(--accent-primary); }
+.loader-char:nth-child(6) { color: var(--text-primary); }
+.loader-char:nth-child(7) { color: var(--accent-secondary); }
+
+.loader-progress {
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+}
+
+/* Particles - Amber with more glow */
+.particle {
+    background: var(--accent-primary) !important;
+    box-shadow: 0 0 15px var(--accent-primary), 0 0 30px var(--accent-glow) !important;
+}
+
+/* Cursor trail - Amber with glow */
+.cursor-dot {
+    background: var(--accent-primary) !important;
+    box-shadow: 0 0 10px var(--accent-primary), 0 0 20px var(--accent-glow) !important;
+}
+
+/* Make cursor trail more visible */
+#cursor-trail .cursor-dot {
+    width: 10px;
+    height: 10px;
+}
+
+/* Scroll indicator */
+.scroll-text {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+}
+
+.scroll-line {
+    background: linear-gradient(to bottom, var(--accent-primary), transparent);
+}
+
+/* Theme toggle */
+.theme-toggle:hover {
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-glow);
+}
+
+/* ============================================
+   Enhanced Animations for Variation
+   ============================================ */
+
+/* Glow pulse on hero title */
+.hero-name.accent {
+    animation: subtleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes subtleGlow {
+    from {
+        filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.3));
+    }
+    to {
+        filter: drop-shadow(0 0 40px rgba(245, 158, 11, 0.5));
+    }
+}
+
+/* Card hover lift with glow */
+.project-card:hover,
+.blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.4),
+        0 0 30px var(--accent-glow);
+}
+
+/* Button glow pulse on hover */
+.btn-primary:hover {
+    animation: buttonPulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes buttonPulse {
+    from {
+        box-shadow: 0 0 20px var(--accent-glow);
+    }
+    to {
+        box-shadow: 0 0 40px var(--accent-glow), 0 0 60px var(--accent-glow);
+    }
+}
+
+/* Stat card glow on hover */
+.stat-card:hover .stat-value {
+    text-shadow: 0 0 20px var(--accent-primary);
+}
+
+/* Nav link underline animation */
+.nav-link::after {
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    height: 2px;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Social link icon glow */
+.social-link:hover .social-icon {
+    text-shadow: 0 0 20px var(--accent-primary);
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+/* Section title accent glow */
+.section-label {
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Tag hover effect */
+.tag:hover {
+    background: rgba(245, 158, 11, 0.2);
+    box-shadow: 0 0 15px var(--accent-glow);
+    transform: translateY(-2px);
+    transition: all 0.2s ease;
+}
+
+/* Links glow on hover */
+.project-link:hover,
+.blog-link:hover {
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* ============================================
+   AMBIENT FLAIR - Always Moving
+   ============================================ */
+
+/* Animated gradient background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse at 20% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(100, 116, 139, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.03) 0%, transparent 70%);
+    animation: ambientShift 20s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes ambientShift {
+    0% {
+        background-position: 0% 0%, 100% 100%, 50% 50%;
+        opacity: 1;
+    }
+    50% {
+        background-position: 100% 50%, 0% 50%, 50% 0%;
+        opacity: 0.8;
+    }
+    100% {
+        background-position: 50% 100%, 50% 0%, 0% 100%;
+        opacity: 1;
+    }
+}
+
+/* Floating ambient orbs */
+.hero::before,
+.hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: floatOrb 15s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero::before {
+    width: 400px;
+    height: 400px;
+    background: var(--accent-primary);
+    top: 10%;
+    left: -10%;
+    animation-delay: 0s;
+}
+
+.hero::after {
+    width: 300px;
+    height: 300px;
+    background: var(--accent-secondary);
+    bottom: 10%;
+    right: -5%;
+    animation-delay: -7s;
+    animation-direction: reverse;
+}
+
+@keyframes floatOrb {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(30px, -30px) scale(1.1);
+    }
+    50% {
+        transform: translate(60px, 20px) scale(0.95);
+    }
+    75% {
+        transform: translate(20px, 40px) scale(1.05);
+    }
+}
+
+/* Subtle film grain overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9999;
+    animation: grainShift 0.5s steps(10) infinite;
+}
+
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-1%, -1%); }
+    20% { transform: translate(1%, 1%); }
+    30% { transform: translate(-1%, 1%); }
+    40% { transform: translate(1%, -1%); }
+    50% { transform: translate(-1%, 0%); }
+    60% { transform: translate(1%, 0%); }
+    70% { transform: translate(0%, 1%); }
+    80% { transform: translate(0%, -1%); }
+    90% { transform: translate(1%, 1%); }
+}
+
+/* Hero title breathing effect */
+.hero-title {
+    animation: breathe 8s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.01);
+    }
+}
+
+/* Animated border on hero label */
+.hero-label {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.3), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    50%, 100% { left: 100%; }
+}
+
+/* Pulsing dot indicator on nav */
+.nav-logo::after {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    margin-left: 4px;
+    animation: pulse 2s ease-in-out infinite;
+    box-shadow: 0 0 10px var(--accent-primary);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+}
+
+/* Animated underline that travels */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-primary), transparent);
+    margin-top: var(--space-md);
+    animation: lineGrow 2s ease-out forwards;
+}
+
+@keyframes lineGrow {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+    to {
+        width: 60px;
+        opacity: 1;
+    }
+}
+
+/* Card border shimmer on idle */
+.project-card::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, transparent 40%, rgba(245, 158, 11, 0.1) 50%, transparent 60%);
+    border-radius: var(--radius-md);
+    z-index: -1;
+    animation: borderShimmer 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.project-card:hover::after {
+    opacity: 1;
+}
+
+@keyframes borderShimmer {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+/* ============================================
+   FUN + FUTURE FORWARD VIBES
+   ============================================ */
+
+/* Glitch effect on name hover - playful */
+.hero-name.accent:hover {
+    animation: glitchText 0.3s ease-in-out;
+}
+
+@keyframes glitchText {
+    0% { transform: translate(0); }
+    20% { transform: translate(-3px, 3px); filter: hue-rotate(90deg); }
+    40% { transform: translate(3px, -3px); filter: hue-rotate(180deg); }
+    60% { transform: translate(-3px, -3px); filter: hue-rotate(270deg); }
+    80% { transform: translate(3px, 3px); filter: hue-rotate(360deg); }
+    100% { transform: translate(0); filter: hue-rotate(0deg); }
+}
+
+/* Rotating emoji/icon in footer for fun */
+.footer-text::before {
+    content: '✦';
+    margin-right: 8px;
+    display: inline-block;
+    animation: spin 10s linear infinite;
+    color: var(--accent-primary);
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Playful bounce on scroll indicator */
+.scroll-indicator {
+    animation: playfulBounce 2s ease-in-out infinite;
+}
+
+@keyframes playfulBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Stats counter look - futuristic */
+.stat-value {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+}
+
+/* Futuristic scan line on section hover */
+.section:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+    animation: scanLine 1.5s ease-out;
+    pointer-events: none;
+}
+
+@keyframes scanLine {
+    0% { top: 0; opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+/* Tag hover - fun pop */
+.tag {
+    cursor: default;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.tag:hover {
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* Button micro-interaction - satisfying click */
+.btn:active {
+    transform: scale(0.97);
+    transition: transform 0.1s;
+}
+
+/* Typing cursor blink on hero subtitle */
+.hero-subtitle::after {
+    content: '|';
+    color: var(--accent-primary);
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Futuristic corner accents on cards */
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    border-top: 2px solid var(--accent-primary);
+    border-left: 2px solid var(--accent-primary);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translate(-5px, -5px);
+}
+
+.project-card:hover::before {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* Second corner accent */
+.project-card .project-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border-bottom: 2px solid var(--accent-primary);
+    border-right: 2px solid var(--accent-primary);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translate(5px, 5px);
+}
+
+.project-card:hover .project-link::after {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* Make project card position relative for corners */
+.project-card {
+    position: relative;
+}
+
+.project-card .project-link {
+    position: relative;
+}
+
+/* ============================================
+   JOURNEY TIMELINE
+   ============================================ */
+
+.journey {
+    background: var(--bg-secondary);
+}
+
+.journey-timeline {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-left: var(--space-xl);
+}
+
+/* Vertical timeline line */
+.journey-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom,
+        var(--accent-primary),
+        var(--accent-secondary),
+        var(--accent-primary)
+    );
+    opacity: 0.3;
+}
+
+.journey-item {
+    position: relative;
+    padding-bottom: var(--space-xl);
+}
+
+.journey-item:last-child {
+    padding-bottom: 0;
+}
+
+/* Timeline marker dot */
+.journey-marker {
+    position: absolute;
+    left: calc(-1 * var(--space-xl) + 2px);
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    background: var(--bg-card);
+    border: 2px solid var(--accent-secondary);
+    border-radius: 50%;
+    transition: all var(--transition-base);
+}
+
+.journey-item:hover .journey-marker,
+.journey-item.active .journey-marker {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 20px var(--accent-glow);
+    transform: scale(1.2);
+}
+
+.journey-item.active .journey-marker {
+    background: var(--accent-primary);
+    animation: markerPulse 2s ease-in-out infinite;
+}
+
+@keyframes markerPulse {
+    0%, 100% {
+        box-shadow: 0 0 20px var(--accent-glow);
+    }
+    50% {
+        box-shadow: 0 0 35px var(--accent-glow), 0 0 50px var(--accent-glow);
+    }
+}
+
+.journey-content {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: all var(--transition-base);
+}
+
+.journey-item:hover .journey-content,
+.journey-item.active .journey-content {
+    border-color: var(--accent-primary);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 20px var(--accent-glow);
+    transform: translateX(8px);
+}
+
+.journey-period {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: var(--space-sm);
+}
+
+.journey-role {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--space-xs) 0;
+}
+
+.journey-place {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0 0 var(--space-md) 0;
+}
+
+.journey-desc {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Journey section title centered */
+.journey .section-title {
+    text-align: center;
+}
+
+.journey .section-title::after {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .journey-timeline {
+        padding-left: var(--space-lg);
+    }
+
+    .journey-marker {
+        left: calc(-1 * var(--space-lg) + 2px);
+        width: 12px;
+        height: 12px;
+    }
+
+    .journey-timeline::before {
+        left: 6px;
+    }
+
+    .journey-content {
+        padding: var(--space-md);
+    }
+
+    .journey-role {
+        font-size: 1.1rem;
+    }
+}
