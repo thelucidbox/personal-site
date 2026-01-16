@@ -1,0 +1,443 @@
+/* ============================================
+   FORGE & BLUEPRINT - Design System Enhancement
+   Engineering graph paper + forge press animation
+   ============================================ */
+
+/* ============================================
+   ENGINEERING GRAPH PAPER BACKGROUND
+   Subtle gray grid on dark - modern approach
+   Overlays the existing ambient gradient from variation.css
+   ============================================ */
+
+/* Grid overlay - separate element to avoid conflict with body::before */
+.grid-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    /* Engineering graph paper pattern */
+    background-image:
+        /* Major grid lines - more visible */
+        linear-gradient(to right, rgba(100, 100, 120, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(100, 100, 120, 0.07) 1px, transparent 1px),
+        /* Minor grid lines - subtle */
+        linear-gradient(to right, rgba(100, 100, 120, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(100, 100, 120, 0.025) 1px, transparent 1px);
+
+    background-size:
+        80px 80px,  /* Major grid */
+        80px 80px,
+        16px 16px,  /* Minor grid (5 subdivisions) */
+        16px 16px;
+
+    /* Subtle vignette - grid fades at edges */
+    mask-image: radial-gradient(ellipse 120% 120% at 50% 50%, black 20%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 120% 120% at 50% 50%, black 20%, transparent 80%);
+}
+
+/* Ensure content stays above grid */
+body > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================
+   BLUEPRINT DRAFT ANIMATION
+   Lines appear to be drawn/sketched in
+   ============================================ */
+
+@keyframes blueprintDraw {
+    0% {
+        stroke-dashoffset: 1000;
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes blueprintFade {
+    0% {
+        opacity: 0;
+        filter: blur(4px);
+    }
+    50% {
+        opacity: 0.7;
+        filter: blur(1px);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+/* ============================================
+   FORGE PRESS ANIMATION
+   Metallic stamp/press effect
+   ============================================ */
+
+@keyframes forgePress {
+    0% {
+        transform: scale(1.1) translateY(-20px);
+        opacity: 0;
+        filter: brightness(2) blur(2px);
+    }
+    30% {
+        transform: scale(1.02) translateY(-5px);
+        opacity: 0.8;
+        filter: brightness(1.5) blur(0);
+    }
+    50% {
+        transform: scale(0.98) translateY(2px);
+        filter: brightness(0.9);
+    }
+    70% {
+        transform: scale(1.01) translateY(-1px);
+        filter: brightness(1.1);
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        filter: brightness(1);
+    }
+}
+
+@keyframes forgeSpark {
+    0% {
+        box-shadow:
+            0 0 0 rgba(212, 165, 116, 0),
+            0 0 0 rgba(255, 200, 100, 0);
+    }
+    50% {
+        box-shadow:
+            0 0 30px rgba(212, 165, 116, 0.4),
+            0 0 60px rgba(255, 200, 100, 0.2),
+            0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+    100% {
+        box-shadow:
+            0 0 0 rgba(212, 165, 116, 0),
+            0 0 0 rgba(255, 200, 100, 0);
+    }
+}
+
+@keyframes forgeGlow {
+    0%, 100% {
+        text-shadow:
+            0 0 0 transparent;
+    }
+    50% {
+        text-shadow:
+            0 0 20px rgba(212, 165, 116, 0.5),
+            0 0 40px rgba(255, 180, 100, 0.3);
+    }
+}
+
+/* ============================================
+   COMBINED FORGE-BLUEPRINT ENTRANCE
+   Draft lines + press into existence
+   ============================================ */
+
+/* Phase 1: Blueprint sketch (light, ethereal) */
+@keyframes forgeBlueprint {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+        filter: blur(4px) brightness(0.5);
+    }
+    /* Sketch phase - ghostly outline */
+    20% {
+        opacity: 0.3;
+        transform: translateY(20px) scale(0.98);
+        filter: blur(2px) brightness(0.7);
+        color: rgba(100, 150, 180, 0.6);
+    }
+    /* Solidifying */
+    40% {
+        opacity: 0.6;
+        transform: translateY(10px) scale(0.99);
+        filter: blur(1px) brightness(0.9);
+    }
+    /* Forge press - impact */
+    60% {
+        opacity: 0.9;
+        transform: translateY(-5px) scale(1.02);
+        filter: blur(0) brightness(1.3);
+    }
+    /* Settle with spark */
+    80% {
+        opacity: 1;
+        transform: translateY(2px) scale(0.995);
+        filter: brightness(1.1);
+    }
+    /* Final state */
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: brightness(1);
+    }
+}
+
+/* Forge-blueprint reveal class */
+.forge-reveal {
+    opacity: 0;
+}
+
+.forge-reveal.active {
+    animation: forgeBlueprint 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Staggered forge reveals */
+.forge-stagger > * {
+    opacity: 0;
+}
+
+.forge-stagger.active > *:nth-child(1) { animation: forgeBlueprint 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards; }
+.forge-stagger.active > *:nth-child(2) { animation: forgeBlueprint 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards; }
+.forge-stagger.active > *:nth-child(3) { animation: forgeBlueprint 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards; }
+.forge-stagger.active > *:nth-child(4) { animation: forgeBlueprint 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards; }
+.forge-stagger.active > *:nth-child(5) { animation: forgeBlueprint 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards; }
+.forge-stagger.active > *:nth-child(6) { animation: forgeBlueprint 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards; }
+
+/* ============================================
+   HERO FORGE ENTRANCE
+   Special treatment for hero elements
+   ============================================ */
+
+/* Override default hero animations with forge effect */
+.forge-hero .hero-label {
+    animation: forgeBlueprint 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+
+.forge-hero .hero-title .hero-name:first-child {
+    animation: forgeBlueprint 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
+}
+
+.forge-hero .hero-title .hero-name:last-child {
+    animation: forgeBlueprint 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s both;
+}
+
+.forge-hero .hero-subtitle {
+    animation: forgeBlueprint 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s both;
+}
+
+.forge-hero .hero-cta {
+    animation: forgeBlueprint 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.1s both;
+}
+
+/* ============================================
+   SECTION TITLE FORGE EFFECT
+   Section headers get stamped in
+   ============================================ */
+
+.section-title {
+    position: relative;
+}
+
+.section-title.forged::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-primary), transparent);
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: forgeUnderline 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+}
+
+@keyframes forgeUnderline {
+    0% {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+/* ============================================
+   CARD FORGE HOVER EFFECT
+   Cards get a subtle press/emboss on hover
+   ============================================ */
+
+.project-card,
+.blog-card,
+.stat-card {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.project-card:hover,
+.blog-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(245, 158, 11, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.stat-card:hover {
+    transform: scale(1.05);
+    box-shadow:
+        0 15px 30px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(245, 158, 11, 0.15);
+}
+
+/* ============================================
+   BLUEPRINT ACCENT LINE
+   Decorative technical drawing elements
+   ============================================ */
+
+.blueprint-line {
+    position: relative;
+}
+
+.blueprint-line::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -40px;
+    width: 30px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(100, 150, 180, 0.4));
+}
+
+.blueprint-line::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -45px;
+    width: 6px;
+    height: 6px;
+    border: 1px solid rgba(100, 150, 180, 0.4);
+    border-radius: 50%;
+    transform: translateY(-50%);
+}
+
+/* ============================================
+   JOURNEY TIMELINE FORGE MARKERS
+   Timeline markers get forged in
+   ============================================ */
+
+.journey-marker {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.journey-item.active .journey-marker,
+.journey-item:hover .journey-marker {
+    transform: scale(1.3);
+    box-shadow:
+        0 0 20px var(--accent-glow),
+        0 0 40px rgba(245, 158, 11, 0.2);
+}
+
+/* ============================================
+   BUTTON FORGE PRESS
+   Buttons feel like being pressed into metal
+   ============================================ */
+
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn:hover::before {
+    opacity: 1;
+}
+
+.btn:active {
+    transform: translateY(1px) scale(0.98);
+    filter: brightness(0.95);
+}
+
+/* ============================================
+   SCROLL INDICATOR BLUEPRINT STYLE
+   ============================================ */
+
+.scroll-line {
+    position: relative;
+}
+
+.scroll-line::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    border: 1px solid rgba(100, 150, 180, 0.4);
+    border-radius: 50%;
+}
+
+/* ============================================
+   MOBILE OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Lighter grid on mobile for performance */
+    .grid-overlay {
+        background-image:
+            linear-gradient(to right, rgba(100, 100, 120, 0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(100, 100, 120, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+
+    /* Faster animations on mobile */
+    .forge-reveal.active {
+        animation-duration: 0.6s;
+    }
+
+    .forge-stagger.active > * {
+        animation-duration: 0.5s;
+    }
+}
+
+/* ============================================
+   REDUCED MOTION PREFERENCE
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .forge-reveal.active,
+    .forge-stagger.active > *,
+    .forge-hero .hero-label,
+    .forge-hero .hero-title .hero-name,
+    .forge-hero .hero-subtitle,
+    .forge-hero .hero-cta {
+        animation: fadeIn 0.3s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .project-card:hover,
+    .blog-card:hover,
+    .stat-card:hover {
+        transform: none;
+    }
+}

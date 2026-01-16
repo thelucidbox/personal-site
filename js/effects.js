@@ -167,7 +167,23 @@
     }
 
     /**
-     * Scroll Reveal
+     * Engineering Grid Background
+     * Creates the graph paper overlay
+     */
+    class GridOverlay {
+        constructor() {
+            this.init();
+        }
+
+        init() {
+            const grid = document.createElement('div');
+            grid.className = 'grid-overlay';
+            document.body.insertBefore(grid, document.body.firstChild);
+        }
+    }
+
+    /**
+     * Scroll Reveal with Forge Animation
      */
     class ScrollReveal {
         constructor() {
@@ -176,9 +192,9 @@
         }
 
         init() {
-            // Add reveal class to elements
+            // Add forge-reveal class for the forge/blueprint animation
             this.elements.forEach(el => {
-                el.classList.add('reveal');
+                el.classList.add('forge-reveal');
             });
 
             // Create intersection observer
@@ -187,6 +203,10 @@
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('active');
+                            // Add forged class to section titles for the underline effect
+                            if (entry.target.classList.contains('section-title')) {
+                                entry.target.classList.add('forged');
+                            }
                         }
                     });
                 },
@@ -201,17 +221,18 @@
     }
 
     /**
-     * Staggered Grid Animation
+     * Staggered Grid Animation with Forge Effect
      */
     class StaggeredGrid {
         constructor() {
-            this.grids = document.querySelectorAll('.projects-grid, .blog-grid, .social-links');
+            this.grids = document.querySelectorAll('.projects-grid, .blog-grid, .social-links, .about-stats');
             this.init();
         }
 
         init() {
             this.grids.forEach(grid => {
-                grid.classList.add('stagger-children');
+                // Use forge-stagger for the forge/blueprint animation
+                grid.classList.add('forge-stagger');
             });
 
             const observer = new IntersectionObserver(
@@ -231,8 +252,51 @@
         }
     }
 
+    /**
+     * Journey Timeline Observer
+     * Triggers forge animations on journey items
+     */
+    class JourneyReveal {
+        constructor() {
+            this.items = document.querySelectorAll('.journey-item');
+            this.init();
+        }
+
+        init() {
+            // Add forge-reveal to journey content
+            this.items.forEach(item => {
+                const content = item.querySelector('.journey-content');
+                if (content) {
+                    content.classList.add('forge-reveal');
+                }
+            });
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const content = entry.target.querySelector('.journey-content');
+                            if (content) {
+                                content.classList.add('active');
+                            }
+                        }
+                    });
+                },
+                {
+                    threshold: 0.3,
+                    rootMargin: '0px 0px -100px 0px'
+                }
+            );
+
+            this.items.forEach(item => observer.observe(item));
+        }
+    }
+
     // Initialize effects when DOM is ready
     document.addEventListener('DOMContentLoaded', () => {
+        // Create grid overlay first
+        new GridOverlay();
+
         // Only enable cursor trail on non-touch devices
         if (!('ontouchstart' in window)) {
             new CursorTrail();
@@ -242,5 +306,6 @@
         new AvatarInteraction();
         new ScrollReveal();
         new StaggeredGrid();
+        new JourneyReveal();
     });
 })();
