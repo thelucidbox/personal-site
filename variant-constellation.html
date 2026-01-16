@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabian Aguilar</title>
+    <meta name="description" content="Former teacher turned AI builder. M.Ed., 10+ years in SaaS & EdTech. Building tools that augment human capability.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-panel: #16161f;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent-primary: #d4a574;
+            --accent-secondary: #c9956c;
+            --accent-glow: rgba(212, 165, 116, 0.3);
+            --node-size: 120px;
+            --font-display: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-display);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ============================================
+           CONSTELLATION CANVAS
+           ============================================ */
+
+        .constellation {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .constellation.dimmed {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Connection Lines SVG */
+        .connections {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection-line {
+            stroke: var(--accent-primary);
+            stroke-width: 1;
+            opacity: 0.15;
+            stroke-dasharray: 4 4;
+        }
+
+        /* ============================================
+           HERO CENTER
+           ============================================ */
+
+        .hero-center {
+            position: absolute;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .hero-name {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-name .accent {
+            color: var(--accent-primary);
+        }
+
+        .hero-tagline {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+        }
+
+        /* ============================================
+           NAVIGATION NODES
+           ============================================ */
+
+        .node {
+            position: absolute;
+            width: var(--node-size);
+            height: var(--node-size);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .node-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 2px solid rgba(212, 165, 116, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .node-circle::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 1px solid rgba(212, 165, 116, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .node:hover .node-circle {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 30px var(--accent-glow);
+            transform: scale(1.1);
+        }
+
+        .node:hover .node-circle::before {
+            border-color: rgba(212, 165, 116, 0.3);
+            inset: -12px;
+        }
+
+        .node-icon {
+            font-size: 1.25rem;
+            color: var(--accent-primary);
+        }
+
+        .node-label {
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .node:hover .node-label {
+            color: var(--text-primary);
+        }
+
+        /* Node Positions - Constellation Layout */
+        .node[data-section="about"] {
+            top: 20%;
+            left: 25%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .node[data-section="journey"] {
+            top: 15%;
+            right: 25%;
+            animation: float 7s ease-in-out infinite 0.5s;
+        }
+
+        .node[data-section="work"] {
+            bottom: 25%;
+            left: 20%;
+            animation: float 8s ease-in-out infinite 1s;
+        }
+
+        .node[data-section="writing"] {
+            bottom: 20%;
+            right: 20%;
+            animation: float 6.5s ease-in-out infinite 1.5s;
+        }
+
+        .node[data-section="connect"] {
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: float 7.5s ease-in-out infinite 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-10px) translateX(5px); }
+            50% { transform: translateY(-5px) translateX(-5px); }
+            75% { transform: translateY(-15px) translateX(3px); }
+        }
+
+        .node[data-section="connect"] {
+            animation: floatCenter 7.5s ease-in-out infinite 2s;
+        }
+
+        @keyframes floatCenter {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            25% { transform: translateX(-50%) translateY(-10px); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+            75% { transform: translateX(-50%) translateY(-15px); }
+        }
+
+        /* ============================================
+           CONTENT PANELS
+           ============================================ */
+
+        .panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: min(90vw, 800px);
+            max-height: 85vh;
+            background: var(--bg-panel);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            overflow-y: auto;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 100;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .panel.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .panel-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .panel-close:hover {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .panel-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--accent-primary);
+        }
+
+        .panel-content p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .panel-content .highlight {
+            color: var(--accent-primary);
+            font-weight: 500;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.25rem;
+        }
+
+        /* Journey Timeline */
+        .timeline {
+            margin-top: 1.5rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+            border-left-color: var(--accent-primary);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--bg-panel);
+            border: 2px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .timeline-item:last-child::before {
+            border-color: var(--accent-primary);
+            background: var(--accent-primary);
+        }
+
+        .timeline-period {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent-primary);
+        }
+
+        .timeline-role {
+            font-weight: 600;
+            margin: 0.25rem 0;
+        }
+
+        .timeline-place {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .timeline-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Project Cards */
+        .projects-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-category {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+        }
+
+        .project-year {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(212, 165, 116, 0.1);
+            border-radius: 100px;
+            color: var(--accent-primary);
+        }
+
+        /* Writing List */
+        .writing-list {
+            margin-top: 1.5rem;
+        }
+
+        .writing-item {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .writing-item:last-child {
+            border-bottom: none;
+        }
+
+        .writing-meta {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .writing-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            transition: color 0.2s ease;
+        }
+
+        .writing-item:hover .writing-title {
+            color: var(--accent-primary);
+        }
+
+        .writing-excerpt {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Connect Links */
+        .connect-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .connect-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .connect-link:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .connect-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(212, 165, 116, 0.1);
+            border-radius: 10px;
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        .connect-name {
+            font-weight: 500;
+        }
+
+        /* ============================================
+           BACKGROUND PARTICLES
+           ============================================ */
+
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        /* ============================================
+           ESCAPE HINT
+           ============================================ */
+
+        .escape-hint {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 101;
+        }
+
+        .escape-hint.visible {
+            opacity: 1;
+        }
+
+        .escape-hint kbd {
+            padding: 0.25rem 0.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            margin: 0 0.25rem;
+        }
+
+        /* ============================================
+           MOBILE RESPONSIVE
+           ============================================ */
+
+        @media (max-width: 768px) {
+            :root {
+                --node-size: 100px;
+            }
+
+            .node-circle {
+                width: 50px;
+                height: 50px;
+            }
+
+            .node-label {
+                font-size: 0.65rem;
+            }
+
+            .node[data-section="about"] {
+                top: 12%;
+                left: 15%;
+            }
+
+            .node[data-section="journey"] {
+                top: 12%;
+                right: 15%;
+            }
+
+            .node[data-section="work"] {
+                bottom: 30%;
+                left: 10%;
+            }
+
+            .node[data-section="writing"] {
+                bottom: 30%;
+                right: 10%;
+            }
+
+            .node[data-section="connect"] {
+                bottom: 12%;
+            }
+
+            .hero-name {
+                font-size: 2rem;
+            }
+
+            .panel {
+                padding: 2rem 1.5rem;
+                border-radius: 16px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .connect-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================
+           SCROLLBAR
+           ============================================ */
+
+        .panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .panel::-webkit-scrollbar-thumb {
+            background: rgba(212, 165, 116, 0.3);
+            border-radius: 3px;
+        }
+
+        .panel::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Connection Lines -->
+    <svg class="connections" id="connections">
+        <!-- Lines drawn dynamically -->
+    </svg>
+
+    <!-- Constellation Navigation -->
+    <div class="constellation" id="constellation">
+        <!-- Center Hero -->
+        <div class="hero-center">
+            <h1 class="hero-name">Fabian <span class="accent">Aguilar</span></h1>
+            <p class="hero-tagline">Learner · Teacher · Builder</p>
+        </div>
+
+        <!-- Navigation Nodes -->
+        <div class="node" data-section="about">
+            <div class="node-circle">
+                <span class="node-icon">?</span>
+            </div>
+            <span class="node-label">About</span>
+        </div>
+
+        <div class="node" data-section="journey">
+            <div class="node-circle">
+                <span class="node-icon">→</span>
+            </div>
+            <span class="node-label">Journey</span>
+        </div>
+
+        <div class="node" data-section="work">
+            <div class="node-circle">
+                <span class="node-icon">◈</span>
+            </div>
+            <span class="node-label">Work</span>
+        </div>
+
+        <div class="node" data-section="writing">
+            <div class="node-circle">
+                <span class="node-icon">✎</span>
+            </div>
+            <span class="node-label">Writing</span>
+        </div>
+
+        <div class="node" data-section="connect">
+            <div class="node-circle">
+                <span class="node-icon">@</span>
+            </div>
+            <span class="node-label">Connect</span>
+        </div>
+    </div>
+
+    <!-- Content Panels -->
+
+    <!-- About Panel -->
+    <div class="panel" id="panel-about">
+        <button class="panel-close" aria-label="Close">&times;</button>
+        <h2 class="panel-title">About</h2>
+        <div class="panel-content">
+            <p>
+                I started in the classroom as a social studies teacher and campus technology coordinator.
+                That experience shaped how I think about <span class="highlight">learning, adoption, and human behavior</span>.
+            </p>
+            <p>
+                After 10+ years in SaaS and EdTech—from Compass Learning to Tableau to Juniper Square—I'm
+                now focused on building tools that leverage AI to help people think better and create more effectively.
+            </p>
+            <p>
+                Currently working on <span class="highlight">DailyScribe</span>, a voice-to-publish
+                pipeline, and <span class="highlight">Art of Fact</span>, teaching non-technical
+                professionals how to actually use AI through systems thinking.
+            </p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value">M.Ed.</span>
+                    <span class="stat-label">UTEP</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">10+</span>
+                    <span class="stat-label">Years SaaS</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">LLM</span>
+                    <span class="stat-label">Trained</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Journey Panel -->
+    <div class="panel" id="panel-journey">
+        <button class="panel-close" aria-label="Close">&times;</button>
+        <h2 class="panel-title">Journey</h2>
+        <div class="panel-content">
+            <p>From the classroom to the command line—each phase built on the last.</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="timeline-period">2008–2011</span>
+                    <h3 class="timeline-role">Teacher & Tech Coordinator</h3>
+                    <p class="timeline-place">Horizon High School, El Paso</p>
+                    <p class="timeline-desc">Social studies teacher who became the go-to person for classroom technology. This is where I learned that adoption is about people, not features.</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-period">2013–2017</span>
+                    <h3 class="timeline-role">EdTech Success & Services</h3>
+                    <p class="timeline-place">Compass Learning, Raptor Technologies</p>
+                    <p class="timeline-desc">Managed 50+ educational institutions. Built training programs, led implementations, and learned how to drive adoption at scale.</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-period">2018–2024</span>
+                    <h3 class="timeline-role">Enterprise Account Management</h3>
+                    <p class="timeline-place">Tableau, Juniper Square</p>
+                    <p class="timeline-desc">Account Manager of the Year (2021). Top 5% company-wide. Closed $1.2M+ deals. Learned enterprise sales and customer success at scale.</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-period">2024–Present</span>
+                    <h3 class="timeline-role">Key Account Manager</h3>
+                    <p class="timeline-place">Intuit, Austin</p>
+                    <p class="timeline-desc">Driving mid-market growth for QuickBooks. Pioneering GenAI workflows for consultative selling. Multiple "Spotlight" awards for AI innovation.</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-period">Building Now</span>
+                    <h3 class="timeline-role">AI Builder</h3>
+                    <p class="timeline-place">Side Projects</p>
+                    <p class="timeline-desc">Combining everything I've learned: teaching, technology adoption, and systems thinking. Building AI tools that actually help people work better.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Work Panel -->
+    <div class="panel" id="panel-work">
+        <button class="panel-close" aria-label="Close">&times;</button>
+        <h2 class="panel-title">Work</h2>
+        <div class="panel-content">
+            <p>Tools and systems I'm building to augment human capability.</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-category">AI / Productivity</span>
+                        <span class="project-year">2026</span>
+                    </div>
+                    <h3 class="project-title">DailyScribe</h3>
+                    <p class="project-description">
+                        Voice-to-publish pipeline that preserves natural voice while transforming
+                        raw thoughts into organized, refined content.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Whisper</span>
+                        <span class="tag">Obsidian</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-category">Product</span>
+                        <span class="project-year">2026</span>
+                    </div>
+                    <h3 class="project-title">Art of Fact</h3>
+                    <p class="project-description">
+                        Teaching non-technical professionals how to get real value from AI
+                        through systems thinking, not prompt tricks.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Next.js</span>
+                        <span class="tag">Education</span>
+                        <span class="tag">AI</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-category">System</span>
+                        <span class="project-year">2025</span>
+                    </div>
+                    <h3 class="project-title">ALOS</h3>
+                    <p class="project-description">
+                        Agent-based Life Operating System. A framework for building AI agents
+                        that work together to augment personal productivity.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Agents</span>
+                        <span class="tag">Automation</span>
+                        <span class="tag">PKM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Writing Panel -->
+    <div class="panel" id="panel-writing">
+        <button class="panel-close" aria-label="Close">&times;</button>
+        <h2 class="panel-title">Writing</h2>
+        <div class="panel-content">
+            <p>Thoughts on AI, productivity, and building in public.</p>
+            <div class="writing-list">
+                <div class="writing-item">
+                    <div class="writing-meta">Coming Soon</div>
+                    <h3 class="writing-title">Building in Public: Week 1</h3>
+                    <p class="writing-excerpt">What I learned shipping my first AI tool as a non-engineer.</p>
+                </div>
+                <div class="writing-item">
+                    <div class="writing-meta">Coming Soon</div>
+                    <h3 class="writing-title">The Unlikely Coder</h3>
+                    <p class="writing-excerpt">Why your non-technical background might be your superpower.</p>
+                </div>
+                <div class="writing-item">
+                    <div class="writing-meta">Coming Soon</div>
+                    <h3 class="writing-title">Voice Preservation in AI</h3>
+                    <p class="writing-excerpt">How to use AI without losing yourself in the process.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connect Panel -->
+    <div class="panel" id="panel-connect">
+        <button class="panel-close" aria-label="Close">&times;</button>
+        <h2 class="panel-title">Connect</h2>
+        <div class="panel-content">
+            <p>Want to collaborate, chat about AI, or just say hi?</p>
+            <div class="connect-grid">
+                <a href="https://www.linkedin.com/in/fabian-aguilar-4a1711a/" class="connect-link" target="_blank" rel="noopener">
+                    <span class="connect-icon">in</span>
+                    <span class="connect-name">LinkedIn</span>
+                </a>
+                <a href="https://github.com/thelucidbox" class="connect-link" target="_blank" rel="noopener">
+                    <span class="connect-icon">gh</span>
+                    <span class="connect-name">GitHub</span>
+                </a>
+                <a href="mailto:fabianjagu@gmail.com" class="connect-link">
+                    <span class="connect-icon">@</span>
+                    <span class="connect-name">Email</span>
+                </a>
+                <a href="https://thelucidbox.github.io/personal-site/" class="connect-link" target="_blank" rel="noopener">
+                    <span class="connect-icon">◈</span>
+                    <span class="connect-name">Portfolio</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Escape Hint -->
+    <div class="escape-hint" id="escape-hint">
+        Press <kbd>Esc</kbd> or click outside to close
+    </div>
+
+    <script>
+        /**
+         * Constellation Navigation
+         * Non-linear, node-based portfolio navigation
+         */
+
+        (function() {
+            'use strict';
+
+            const constellation = document.getElementById('constellation');
+            const nodes = document.querySelectorAll('.node');
+            const panels = document.querySelectorAll('.panel');
+            const escapeHint = document.getElementById('escape-hint');
+            const connectionsEl = document.getElementById('connections');
+            let activePanel = null;
+
+            // Initialize
+            function init() {
+                drawConnections();
+                createParticles();
+                bindEvents();
+            }
+
+            // Draw connection lines between nodes
+            function drawConnections() {
+                const nodePositions = [];
+                nodes.forEach(node => {
+                    const rect = node.getBoundingClientRect();
+                    nodePositions.push({
+                        x: rect.left + rect.width / 2,
+                        y: rect.top + rect.height / 2,
+                        section: node.dataset.section
+                    });
+                });
+
+                // Get center (hero)
+                const heroCenter = document.querySelector('.hero-center');
+                const heroRect = heroCenter.getBoundingClientRect();
+                const centerX = heroRect.left + heroRect.width / 2;
+                const centerY = heroRect.top + heroRect.height / 2;
+
+                let svg = '';
+
+                // Connect each node to center
+                nodePositions.forEach(node => {
+                    svg += `<line class="connection-line"
+                        x1="${centerX}" y1="${centerY}"
+                        x2="${node.x}" y2="${node.y}"/>`;
+                });
+
+                // Connect some nodes to each other (journey → work, work → writing)
+                const connections = [
+                    ['about', 'journey'],
+                    ['journey', 'work'],
+                    ['work', 'writing'],
+                    ['writing', 'connect']
+                ];
+
+                connections.forEach(([from, to]) => {
+                    const fromNode = nodePositions.find(n => n.section === from);
+                    const toNode = nodePositions.find(n => n.section === to);
+                    if (fromNode && toNode) {
+                        svg += `<line class="connection-line"
+                            x1="${fromNode.x}" y1="${fromNode.y}"
+                            x2="${toNode.x}" y2="${toNode.y}"/>`;
+                    }
+                });
+
+                connectionsEl.innerHTML = svg;
+            }
+
+            // Create floating particles
+            function createParticles() {
+                const particlesEl = document.getElementById('particles');
+                const count = 30;
+
+                for (let i = 0; i < count; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDuration = (3 + Math.random() * 4) + 's';
+                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    particle.style.opacity = 0.1 + Math.random() * 0.3;
+                    particlesEl.appendChild(particle);
+                }
+            }
+
+            // Bind events
+            function bindEvents() {
+                // Node clicks
+                nodes.forEach(node => {
+                    node.addEventListener('click', () => {
+                        openPanel(node.dataset.section);
+                    });
+                });
+
+                // Close buttons
+                panels.forEach(panel => {
+                    const closeBtn = panel.querySelector('.panel-close');
+                    closeBtn.addEventListener('click', closePanel);
+                });
+
+                // Click outside to close
+                document.addEventListener('click', (e) => {
+                    if (activePanel && !e.target.closest('.panel') && !e.target.closest('.node')) {
+                        closePanel();
+                    }
+                });
+
+                // Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && activePanel) {
+                        closePanel();
+                    }
+                });
+
+                // Redraw connections on resize
+                window.addEventListener('resize', debounce(drawConnections, 200));
+            }
+
+            // Open panel
+            function openPanel(section) {
+                const panel = document.getElementById(`panel-${section}`);
+                if (!panel) return;
+
+                // Close any existing panel
+                if (activePanel) {
+                    activePanel.classList.remove('active');
+                }
+
+                // Dim constellation
+                constellation.classList.add('dimmed');
+
+                // Show panel
+                panel.classList.add('active');
+                activePanel = panel;
+
+                // Show escape hint
+                escapeHint.classList.add('visible');
+            }
+
+            // Close panel
+            function closePanel() {
+                if (!activePanel) return;
+
+                activePanel.classList.remove('active');
+                constellation.classList.remove('dimmed');
+                escapeHint.classList.remove('visible');
+                activePanel = null;
+            }
+
+            // Debounce utility
+            function debounce(fn, delay) {
+                let timeout;
+                return function(...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => fn.apply(this, args), delay);
+                };
+            }
+
+            // Start
+            init();
+        })();
+    </script>
+</body>
+</html>

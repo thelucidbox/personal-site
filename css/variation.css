@@ -123,12 +123,14 @@ body {
     font-size: clamp(3.5rem, 10vw, 7rem);
     font-weight: 800;
     letter-spacing: -0.04em;
-    line-height: 0.95;
+    line-height: 1.1;
     margin-bottom: var(--space-lg);
+    overflow: visible;
 }
 
 .hero-name {
     display: block;
+    padding-bottom: 0.1em;  /* Room for descenders */
 }
 
 .hero-name.accent {
@@ -138,6 +140,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    padding-bottom: 0.15em;  /* Extra room for the G descender */
 }
 
 .hero-subtitle {
