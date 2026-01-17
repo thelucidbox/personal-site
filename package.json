@@ -1,0 +1,28 @@
+{
+  "name": "fabian-aguilar-portfolio",
+  "version": "1.0.0",
+  "description": "AI-powered personal portfolio with interactive resume features",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build required'",
+    "start": "python -m http.server 8000"
+  },
+  "dependencies": {
+    "@google/genai": "^0.14.0"
+  },
+  "devDependencies": {
+    "vercel": "^37.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "portfolio",
+    "ai",
+    "resume",
+    "gemini"
+  ],
+  "author": "Fabian Aguilar",
+  "license": "MIT"
+}

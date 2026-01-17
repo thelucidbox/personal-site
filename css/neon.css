@@ -1,0 +1,380 @@
+/**
+ * NEON THEME: Tech Forward
+ *
+ * Inspired by modern dark-mode portfolios
+ * Clean, bold, with strategic color pops
+ *
+ * Palette: Electric Blue + Warm Coral
+ */
+
+/* ==========================================================================
+   Color System
+   ========================================================================== */
+
+body.neon-theme {
+  /* Primary: Electric Blue - tech-forward, trustworthy */
+  --accent-primary: #3b82f6;
+  --accent-primary-light: #60a5fa;
+  --accent-glow: rgba(59, 130, 246, 0.5);
+
+  /* Secondary: Warm Coral - creative energy */
+  --accent-secondary: #f97316;
+  --accent-secondary-glow: rgba(249, 115, 22, 0.5);
+
+  /* Backgrounds - true dark */
+  --bg-primary: #09090b;
+  --bg-secondary: #18181b;
+  --bg-elevated: #27272a;
+
+  /* Text */
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  /* Override base background */
+  background: var(--bg-primary);
+}
+
+/* ==========================================================================
+   Typography Enhancements
+   ========================================================================== */
+
+body.neon-theme .hero-name {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+body.neon-theme .hero-name.accent {
+  color: var(--accent-primary);
+  text-shadow: 0 0 40px var(--accent-glow);
+}
+
+body.neon-theme .hero-label {
+  color: var(--accent-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+body.neon-theme .hero-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  max-width: 540px;
+}
+
+body.neon-theme .highlight-cyan {
+  color: var(--accent-primary);
+}
+
+/* ==========================================================================
+   Section Headers
+   ========================================================================== */
+
+body.neon-theme .section-label {
+  color: var(--accent-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+}
+
+body.neon-theme .section-title {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+body.neon-theme .btn-primary {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  border: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+body.neon-theme .btn-primary:hover {
+  background: var(--accent-primary-light);
+  box-shadow: 0 0 30px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+body.neon-theme .btn-secondary {
+  background: transparent;
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+  transition: all 0.2s ease;
+}
+
+body.neon-theme .btn-secondary:hover {
+  background: rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+body.neon-theme .nav {
+  background: rgba(9, 9, 11, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.neon-theme .nav-logo .accent {
+  color: var(--accent-primary);
+}
+
+body.neon-theme .nav-link {
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+body.neon-theme .nav-link:hover {
+  color: var(--accent-primary);
+}
+
+body.neon-theme .nav-chat-btn {
+  background: var(--accent-primary) !important;
+  color: var(--bg-primary) !important;
+}
+
+/* ==========================================================================
+   Cards
+   ========================================================================== */
+
+body.neon-theme .project-card,
+body.neon-theme .review-card {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+body.neon-theme .project-card:hover,
+body.neon-theme .review-card:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+  transform: translateY(-4px);
+}
+
+body.neon-theme .project-title {
+  color: var(--text-primary);
+}
+
+body.neon-theme .project-description {
+  color: var(--text-secondary);
+}
+
+body.neon-theme .project-tag {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--accent-primary);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* ==========================================================================
+   Journey Timeline
+   ========================================================================== */
+
+body.neon-theme .journey-timeline::before {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--accent-primary) 20%,
+    var(--accent-secondary) 80%,
+    transparent
+  );
+  width: 2px;
+}
+
+body.neon-theme .journey-marker {
+  background: var(--bg-primary);
+  border: 2px solid var(--accent-primary);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+body.neon-theme .journey-item:hover .journey-marker,
+body.neon-theme .journey-item.active .journey-marker {
+  background: var(--accent-primary);
+  transform: scale(1.2);
+}
+
+body.neon-theme .journey-period {
+  color: var(--accent-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+body.neon-theme .journey-title {
+  color: var(--text-primary);
+}
+
+body.neon-theme .journey-company {
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Skills Section
+   ========================================================================== */
+
+body.neon-theme .skill-item {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+body.neon-theme .skill-item:hover {
+  border-color: var(--accent-primary);
+}
+
+body.neon-theme .confidence-track {
+  background: var(--bg-elevated);
+}
+
+body.neon-theme .confidence-fill {
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-primary-light));
+}
+
+body.neon-theme .skills-strong .skills-level-icon {
+  color: var(--accent-primary);
+}
+
+body.neon-theme .skills-moderate .skills-level-icon {
+  color: var(--accent-secondary);
+}
+
+body.neon-theme .skills-learning .skills-level-icon {
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Scroll Indicator
+   ========================================================================== */
+
+body.neon-theme .scroll-text {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+body.neon-theme .scroll-line {
+  background: linear-gradient(180deg, var(--accent-primary), transparent);
+}
+
+/* ==========================================================================
+   Chat Elements
+   ========================================================================== */
+
+body.neon-theme .chat-container {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+body.neon-theme .chat-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.neon-theme .chat-title {
+  color: var(--accent-primary);
+}
+
+body.neon-theme .mode-btn.active {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+body.neon-theme .chat-fab {
+  background: var(--accent-primary);
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+/* ==========================================================================
+   Particles - Dual Color
+   ========================================================================== */
+
+body.neon-theme #particles .particle:nth-child(odd) {
+  background: var(--accent-primary);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+body.neon-theme #particles .particle:nth-child(even) {
+  background: var(--accent-secondary);
+  box-shadow: 0 0 6px var(--accent-secondary-glow);
+}
+
+/* ==========================================================================
+   Stats
+   ========================================================================== */
+
+body.neon-theme .stat-value {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+body.neon-theme .stat-card:nth-child(2) .stat-value {
+  color: var(--accent-secondary);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+body.neon-theme .footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.neon-theme .footer-link:hover {
+  color: var(--accent-primary);
+}
+
+/* ==========================================================================
+   Entrance Animations
+   ========================================================================== */
+
+body.neon-theme .hero-label {
+  animation: fadeSlideUp 0.6s ease-out 0.1s both;
+}
+
+body.neon-theme .hero-name:first-of-type {
+  animation: fadeSlideUp 0.6s ease-out 0.2s both;
+}
+
+body.neon-theme .hero-name:last-of-type {
+  animation: fadeSlideUp 0.6s ease-out 0.3s both;
+}
+
+body.neon-theme .hero-subtitle {
+  animation: fadeSlideUp 0.6s ease-out 0.4s both;
+}
+
+body.neon-theme .hero-cta {
+  animation: fadeSlideUp 0.6s ease-out 0.5s both;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  body.neon-theme * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

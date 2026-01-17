@@ -1,0 +1,263 @@
+{
+  "roles": {
+    "teacher-tech-coordinator": {
+      "id": "teacher-tech-coordinator",
+      "period": "2008-2011",
+      "title": "Teacher & Tech Coordinator",
+      "company": "Horizon High School, El Paso",
+      "star": {
+        "situation": {
+          "title": "The Challenge",
+          "content": "Title I school with limited technology budget, students who'd never used computers for learning, and teachers skeptical of 'tech for tech's sake.' The school had just received a grant for new computers but no plan for how to actually use them.",
+          "metrics": null
+        },
+        "approach": {
+          "title": "My Approach",
+          "content": "Instead of pushing technology on reluctant teachers, I started by understanding their actual pain points. Created simple integrations that solved real problems—like a shared grading system that saved 5 hours per week. Won over skeptics by making their lives easier, not by preaching innovation.",
+          "highlights": [
+            "Started with teacher problems, not technology solutions",
+            "Built simple tools before complex systems",
+            "Created peer training programs so teachers taught teachers"
+          ]
+        },
+        "technical": {
+          "title": "What I Built/Used",
+          "content": "Basic web-based tools, Google Workspace integrations, simple database for tracking student progress. Nothing fancy—just things that worked reliably.",
+          "tools": ["Google Workspace", "Basic HTML/CSS", "Spreadsheet automation", "LMS integration"]
+        },
+        "lessons": {
+          "title": "Key Lessons",
+          "content": "The best technology disappears into the workflow. If users have to think about the tool, the tool has failed. Also learned that adoption is a human problem, not a technical one—you can't logic people into using something they don't trust.",
+          "takeaways": [
+            "Technology adoption is a trust problem, not a training problem",
+            "Solve real problems, not interesting problems",
+            "Meet people where they are, not where you think they should be"
+          ]
+        }
+      },
+      "suggested_questions": [
+        "What was the hardest part of getting teachers to adopt new technology?",
+        "How did your teaching experience influence your approach to sales later?",
+        "What would you do differently if you went back to education today?"
+      ]
+    },
+    "sales-development": {
+      "id": "sales-development",
+      "period": "2011-2015",
+      "title": "SDR → Account Executive",
+      "company": "Various Tech Companies",
+      "star": {
+        "situation": {
+          "title": "The Challenge",
+          "content": "Career transition from education to tech with no sales experience, no network in tech, and a resume that screamed 'teacher.' Had to prove I could sell without any track record.",
+          "metrics": null
+        },
+        "approach": {
+          "title": "My Approach",
+          "content": "Treated the job search like a sales cycle—researched companies, identified my unique value prop (communication skills + tech comfort), and pitched myself relentlessly. Once in, outworked everyone on activity metrics while learning the craft. Moved from SDR to AE in 18 months.",
+          "highlights": [
+            "Reframed teaching experience as 'presentation and persuasion' skills",
+            "Hit 150% of activity metrics while learning",
+            "Built internal champions who advocated for my promotion"
+          ]
+        },
+        "technical": {
+          "title": "What I Learned",
+          "content": "Full sales tech stack—CRM, prospecting tools, sales engagement platforms. More importantly, learned the entire B2B sales cycle from cold outreach to closed deal.",
+          "tools": ["Salesforce", "Outreach", "LinkedIn Sales Navigator", "ZoomInfo"]
+        },
+        "lessons": {
+          "title": "Key Lessons",
+          "content": "Discovered that enterprise sales is really just teaching with higher stakes. The same skills that worked in a classroom—breaking down complex ideas, reading the room, adjusting on the fly—work in a boardroom. Career changes are about reframing, not restarting.",
+          "takeaways": [
+            "Skills transfer more than job titles suggest",
+            "Outwork your lack of experience",
+            "Enterprise sales is teaching with a quota"
+          ]
+        }
+      },
+      "suggested_questions": [
+        "How did you make the transition from teaching to tech sales?",
+        "What surprised you most about enterprise sales?",
+        "What skills from teaching do you still use today?"
+      ]
+    },
+    "tableau-ae": {
+      "id": "tableau-ae",
+      "period": "2015-2018",
+      "title": "Account Executive",
+      "company": "Tableau Software",
+      "star": {
+        "situation": {
+          "title": "The Challenge",
+          "content": "Selling complex data visualization software to enterprises that often didn't understand their own data problems. Competition from Microsoft Power BI was intensifying. Had to differentiate on value, not price.",
+          "metrics": {
+            "quota": "$1.2M annual",
+            "attainment": "112% average"
+          }
+        },
+        "approach": {
+          "title": "My Approach",
+          "content": "Positioned myself as a data strategy consultant, not a software salesperson. Spent more time understanding how organizations actually made decisions than demoing features. Built relationships with data teams AND business leaders—the rare AE who could speak both languages.",
+          "highlights": [
+            "Led with business outcomes, not product features",
+            "Built technical credibility through Tableau certifications",
+            "Created custom demos that mirrored each client's actual data challenges"
+          ]
+        },
+        "technical": {
+          "title": "Technical Depth",
+          "content": "Became genuinely proficient in Tableau—not just demo-level, but could build real dashboards. This credibility with data teams opened doors that pure salespeople couldn't access.",
+          "tools": ["Tableau Desktop", "Tableau Server", "SQL basics", "Data visualization best practices"]
+        },
+        "lessons": {
+          "title": "Key Lessons",
+          "content": "Most companies have more data than insight. The gap between data collection and data-driven decisions is human, not technical. Also learned that technical credibility—even at a basic level—opens doors that pure sales skills cannot.",
+          "takeaways": [
+            "Data problems are usually people problems",
+            "Technical credibility multiplies sales effectiveness",
+            "Speak the language of both data teams and executives"
+          ]
+        }
+      },
+      "suggested_questions": [
+        "What did you learn about how organizations actually use data?",
+        "How did you compete against Microsoft's bundled offerings?",
+        "What made your approach different from other Tableau salespeople?"
+      ]
+    },
+    "tableau-am": {
+      "id": "tableau-am",
+      "period": "2018-2022",
+      "title": "Enterprise Account Manager",
+      "company": "Tableau (Salesforce)",
+      "star": {
+        "situation": {
+          "title": "The Challenge",
+          "content": "Promoted to manage strategic accounts worth $2M+ annually. These weren't sales cycles—they were relationships. Had to expand existing deployments while navigating Salesforce's acquisition of Tableau, which created uncertainty among customers.",
+          "metrics": {
+            "quota": "$2.4M annual",
+            "attainment": "118% (Account Manager of the Year 2021)",
+            "retention": "94% gross retention"
+          }
+        },
+        "approach": {
+          "title": "My Approach",
+          "content": "Became a genuine partner to my accounts, not a vendor. Spent time understanding their internal politics, helped them build business cases for expansion, and positioned myself as their advocate inside Salesforce. During the acquisition, proactively addressed concerns before they became objections.",
+          "highlights": [
+            "Built executive relationships at VP+ level across all accounts",
+            "Created 'value realization' frameworks that documented ROI",
+            "Navigated acquisition uncertainty by over-communicating and under-promising"
+          ]
+        },
+        "technical": {
+          "title": "Organizational Navigation",
+          "content": "At this level, the 'technology' is organizational dynamics. Learned to map stakeholder landscapes, identify hidden blockers, and build consensus across competing priorities. Also deepened Salesforce platform knowledge.",
+          "tools": ["Salesforce CRM", "Gainsight", "Stakeholder mapping", "Executive presentation skills"]
+        },
+        "lessons": {
+          "title": "Key Lessons",
+          "content": "Enterprise deals aren't won in meetings—they're won between meetings. The real work is helping your champions sell internally. Also learned that retention is about value delivery, not relationship management. If they're not using the product well, relationships don't matter.",
+          "takeaways": [
+            "Your champion isn't the deal—the organization is",
+            "Win between meetings, not in them",
+            "Retention is about value delivery, not relationship management"
+          ]
+        }
+      },
+      "suggested_questions": [
+        "How did you navigate the Salesforce acquisition?",
+        "What does 'Account Manager of the Year' actually mean?",
+        "What's your approach to managing large enterprise accounts?",
+        "Tell me about a deal you lost and what you learned."
+      ]
+    },
+    "juniper-square": {
+      "id": "juniper-square",
+      "period": "2022-2024",
+      "title": "Senior Account Manager",
+      "company": "Juniper Square",
+      "star": {
+        "situation": {
+          "title": "The Challenge",
+          "content": "Moved from a large company (Salesforce) to a growth-stage fintech. Smaller team, more ownership, higher expectations for individual contribution. Also: learning an entirely new industry (real estate investment) from scratch.",
+          "metrics": {
+            "quota": "$1.8M annual",
+            "attainment": "108%",
+            "accounts_managed": "45"
+          }
+        },
+        "approach": {
+          "title": "My Approach",
+          "content": "Rapid industry immersion—read everything, talked to everyone, became genuinely knowledgeable about real estate investment operations. Also started building internal tools to automate repetitive parts of my job, which sparked my interest in AI tooling.",
+          "highlights": [
+            "Became product expert within 6 months",
+            "Built internal automation tools that saved 10+ hours/week",
+            "Identified product gaps that led to new feature development"
+          ]
+        },
+        "technical": {
+          "title": "Beginning to Build",
+          "content": "This is where I started coding for real. Built automation scripts to handle routine tasks, created reporting tools for my accounts, and started experimenting with AI APIs for content generation.",
+          "tools": ["Python basics", "Zapier/Make", "Notion API", "OpenAI API (early experiments)"]
+        },
+        "lessons": {
+          "title": "Key Lessons",
+          "content": "Discovered that I was more interested in building the tools than closing the deals. Also learned that smaller companies offer more surface area for impact—you can actually change things, not just work within them.",
+          "takeaways": [
+            "Building tools is more interesting than using tools",
+            "Smaller companies = more leverage for individual contribution",
+            "The best way to understand a problem is to build a solution for it"
+          ]
+        }
+      },
+      "suggested_questions": [
+        "Why did you leave a big company for a startup?",
+        "What automation tools did you build and why?",
+        "How did this role lead to your transition to AI building?"
+      ]
+    },
+    "ai-builder": {
+      "id": "ai-builder",
+      "period": "2024-Present",
+      "title": "AI Builder & Tools Creator",
+      "company": "Independent",
+      "star": {
+        "situation": {
+          "title": "The Challenge",
+          "content": "Made the leap to full-time building after realizing that my side projects were more energizing than my day job. No external funding, no team—just skills I'd been developing and problems I wanted to solve.",
+          "metrics": null
+        },
+        "approach": {
+          "title": "My Approach",
+          "content": "Building in public, learning by shipping. Started with problems I personally experienced—voice capture for ideas (DailyScribe), accelerated learning (ALOS), content generation from structured data (Art of Fact). Each project teaches me new skills while solving real problems.",
+          "highlights": [
+            "Shipped 3 working projects in 6 months",
+            "Learning full-stack development through building",
+            "Documenting the journey publicly"
+          ]
+        },
+        "technical": {
+          "title": "Current Stack",
+          "content": "Python for backend, JavaScript for frontend, Gemini/OpenAI APIs for AI capabilities. Learning system design and architecture through building increasingly complex projects. Still early, but improving rapidly.",
+          "tools": ["Python", "JavaScript", "Gemini API", "OpenAI API", "SQLite", "Vercel", "GitHub"]
+        },
+        "lessons": {
+          "title": "Key Lessons (So Far)",
+          "content": "Building something that works is very different from building something that scales. Also learning that solo building requires discipline—no team means no accountability except yourself. Still learning. That's the point.",
+          "takeaways": [
+            "Ship first, optimize later",
+            "Real problems > interesting problems",
+            "Building in public creates accountability"
+          ]
+        }
+      },
+      "suggested_questions": [
+        "What are you building right now?",
+        "How do you prioritize what to learn?",
+        "What's the hardest part of building alone?",
+        "What's your ideal next role?"
+      ]
+    }
+  }
+}

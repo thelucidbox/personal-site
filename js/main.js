@@ -105,6 +105,67 @@
     }
 
     /**
+     * Style Toggle (Forge vs Letterpress)
+     */
+    class StyleToggle {
+        constructor() {
+            this.toggle = document.getElementById('style-toggle');
+            this.icon = this.toggle?.querySelector('.style-icon');
+            this.storageKey = 'style-preference';
+            this.styles = {
+                forge: { icon: '🔨', title: 'Forge Style (current)' },
+                letterpress: { icon: '📜', title: 'Letterpress Style (current)' }
+            };
+
+            this.init();
+        }
+
+        init() {
+            // Load saved preference (default to letterpress for preview)
+            const savedStyle = localStorage.getItem(this.storageKey) || 'letterpress';
+            this.setStyle(savedStyle);
+
+            // Handle toggle click
+            this.toggle?.addEventListener('click', () => this.toggleStyle());
+        }
+
+        setStyle(style) {
+            const body = document.body;
+
+            if (style === 'letterpress') {
+                body.classList.add('letterpress-theme');
+                body.classList.remove('forge-theme');
+            } else {
+                body.classList.add('forge-theme');
+                body.classList.remove('letterpress-theme');
+            }
+
+            // Update icon
+            if (this.icon) {
+                this.icon.textContent = this.styles[style].icon;
+            }
+            if (this.toggle) {
+                this.toggle.title = this.styles[style].title;
+            }
+
+            this.currentStyle = style;
+        }
+
+        toggleStyle() {
+            const newStyle = this.currentStyle === 'forge' ? 'letterpress' : 'forge';
+            this.setStyle(newStyle);
+            localStorage.setItem(this.storageKey, newStyle);
+
+            // Trigger re-animation for visible elements
+            document.querySelectorAll('.section-title, .project-card, .skill-item, .review-card').forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight; // Trigger reflow
+                el.style.animation = '';
+            });
+        }
+    }
+
+    /**
      * Back to Top Button
      */
     class BackToTop {
@@ -262,6 +323,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         new Navigation();
         new ThemeToggle();
+        new StyleToggle();
         new BackToTop();
         new BlogLoader();
         new ProjectTilt();

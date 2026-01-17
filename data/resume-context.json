@@ -1,0 +1,220 @@
+{
+  "identity": {
+    "name": "Fabian Aguilar",
+    "title": "AI Builder & Tools Creator",
+    "tagline": "Building tools that think with you, not for you",
+    "location": "Based in the US",
+    "email": "contact@fabianaguilar.com"
+  },
+  "philosophy": {
+    "core": "I believe in radical transparency and honest self-assessment. I'd rather tell you what I can't do than oversell what I can.",
+    "approach": "I build AI tools that augment human capability rather than replace human judgment. Every tool I create starts with a real problem I personally experienced.",
+    "values": [
+      "Clarity over complexity",
+      "Honesty over salesmanship",
+      "Building in public",
+      "Learning through shipping"
+    ]
+  },
+  "career": {
+    "summary": "I've spent 15+ years in roles that all share a common thread: teaching complex ideas to people who need to make decisions. From high school classrooms to enterprise boardrooms to AI-powered tools, I've always been the person who translates complexity into clarity.",
+    "trajectory": "Teacher → Enterprise Sales → AI Builder. Each transition built on the previous: teaching gave me communication skills, enterprise sales gave me business acumen, and now I'm combining both to build AI tools that actually help people think.",
+    "timeline": [
+      {
+        "period": "2008-2011",
+        "role": "Teacher & Tech Coordinator",
+        "company": "Horizon High School, El Paso",
+        "description": "Started as a teacher in a Title I school, quickly became the go-to person for integrating technology into curriculum. Learned that the best technology disappears into the workflow.",
+        "key_learning": "Teaching isn't about showing what you know—it's about meeting people where they are."
+      },
+      {
+        "period": "2011-2015",
+        "role": "Sales Development Representative → Account Executive",
+        "company": "Various Tech Companies",
+        "description": "Transitioned from education to tech sales. Started at the bottom, learned the entire sales cycle. Discovered that enterprise sales is really just teaching with higher stakes.",
+        "key_learning": "The best salespeople are educators who happen to have a quota."
+      },
+      {
+        "period": "2015-2018",
+        "role": "Account Executive",
+        "company": "Tableau Software",
+        "description": "Sold data visualization software to enterprises. This role taught me how organizations actually make decisions with data (spoiler: often badly).",
+        "key_learning": "Most companies have more data than insight. The gap is human, not technical."
+      },
+      {
+        "period": "2018-2022",
+        "role": "Enterprise Account Manager",
+        "company": "Tableau (Salesforce)",
+        "description": "Managed strategic accounts worth $2M+ annually. Account Manager of the Year 2021. Learned to navigate complex organizations and build genuine relationships at the executive level.",
+        "key_learning": "Enterprise deals aren't won in meetings—they're won between meetings."
+      },
+      {
+        "period": "2022-2024",
+        "role": "Senior Account Manager",
+        "company": "Juniper Square",
+        "description": "Moved to fintech, serving real estate investment firms. Smaller company, more ownership. Started building internal tools to automate my own workflows.",
+        "key_learning": "The best way to understand a problem is to build a solution for it."
+      },
+      {
+        "period": "2024-Present",
+        "role": "AI Builder & Tools Creator",
+        "company": "Independent",
+        "description": "Full-time building AI-powered tools. Currently building DailyScribe (voice journaling), ALOS (AI learning system), and Art of Fact (content generation platform).",
+        "key_learning": "Still learning. That's the point."
+      }
+    ]
+  },
+  "projects": {
+    "current": [
+      {
+        "name": "DailyScribe",
+        "type": "Voice Journaling Tool",
+        "description": "Capture thoughts via voice, get them organized and searchable automatically. Built because I kept losing my best ideas.",
+        "stack": ["Python", "Whisper", "Gemini API", "SQLite"],
+        "status": "Active development",
+        "url": null
+      },
+      {
+        "name": "ALOS",
+        "type": "AI Learning Operating System",
+        "description": "A system for accelerated learning that adapts to how you actually learn, not how textbooks think you should learn.",
+        "stack": ["Python", "Gemini API", "Obsidian integration"],
+        "status": "Active development",
+        "url": null
+      },
+      {
+        "name": "Art of Fact",
+        "type": "Content Generation Platform",
+        "description": "Transform research and notes into polished content. Data-first architecture where structured data auto-generates UI components.",
+        "stack": ["JavaScript", "Node.js", "Gemini API"],
+        "status": "Active development",
+        "url": null
+      }
+    ],
+    "past": [
+      {
+        "name": "Internal Sales Tools",
+        "description": "Built automation tools at Juniper Square that saved 10+ hours per week in manual work.",
+        "outcome": "Led to my transition into full-time building"
+      }
+    ]
+  },
+  "skills": {
+    "strong": [
+      {
+        "name": "Enterprise Sales",
+        "evidence": "8+ years, $2M+ annual quotas, Account Manager of the Year",
+        "honest_assessment": "This is genuinely my strongest skill. I can navigate complex organizations and build executive relationships."
+      },
+      {
+        "name": "Communication & Storytelling",
+        "evidence": "Teacher training + sales experience = can explain anything to anyone",
+        "honest_assessment": "I can take complex technical concepts and make them accessible. This is what I do best."
+      },
+      {
+        "name": "AI Tool Development",
+        "evidence": "Building DailyScribe, ALOS, Art of Fact",
+        "honest_assessment": "I'm good at identifying problems and building solutions, but I'm still learning best practices in production AI systems."
+      }
+    ],
+    "moderate": [
+      {
+        "name": "Python",
+        "evidence": "All current projects use Python as primary language",
+        "honest_assessment": "Functional and improving daily. Not writing production-grade code for Fortune 500s yet, but I build working tools."
+      },
+      {
+        "name": "JavaScript/Web Development",
+        "evidence": "Built this portfolio, various web-based tools",
+        "honest_assessment": "Can build functional web apps. Frontend design is not my strength—I focus on functionality over aesthetics."
+      },
+      {
+        "name": "Product Thinking",
+        "evidence": "Designing my own tools, identifying user problems",
+        "honest_assessment": "Good instincts from years of customer-facing work. Still learning to validate assumptions properly."
+      }
+    ],
+    "learning": [
+      {
+        "name": "System Architecture",
+        "current_level": "Beginner",
+        "learning_path": "Building increasingly complex projects, learning patterns as I go",
+        "honest_assessment": "I know enough to build things that work. Scaling and optimization are areas where I need mentorship."
+      },
+      {
+        "name": "DevOps/Infrastructure",
+        "current_level": "Beginner",
+        "learning_path": "Learning through deploying my own projects",
+        "honest_assessment": "I can deploy to Vercel and set up basic CI. Kubernetes and AWS at scale? Not yet."
+      },
+      {
+        "name": "Machine Learning Theory",
+        "current_level": "Beginner",
+        "learning_path": "Using APIs effectively, understanding when to use what",
+        "honest_assessment": "I use ML/AI as a tool, not as a practitioner. I can't build models, but I can build with them."
+      }
+    ]
+  },
+  "failures_and_gaps": {
+    "notable_failures": [
+      {
+        "title": "The Startup That Wasn't",
+        "description": "In 2019, I tried to start a EdTech company while working full-time. Spent 6 months building features no one asked for. Never validated the idea with actual users.",
+        "lesson": "Shipping beats planning. Talk to users before you build."
+      },
+      {
+        "title": "The Enterprise Deal I Lost",
+        "description": "Lost a $400K deal in 2020 because I assumed the executive champion had internal buy-in. Didn't map the full stakeholder landscape.",
+        "lesson": "In enterprise sales, your champion isn't the deal—the organization is."
+      }
+    ],
+    "honest_gaps": [
+      "I have no computer science degree—I'm entirely self-taught in programming",
+      "I've never worked at a tech company as an engineer",
+      "I don't have experience managing engineering teams",
+      "My system design skills are nascent at best",
+      "I sometimes move too fast and skip proper testing"
+    ],
+    "what_critics_say": [
+      "He's a 'career changer'—can he really code?",
+      "His projects are impressive but none are at scale",
+      "Sales background might mean he oversells his technical skills"
+    ],
+    "my_response": "All fair points. I'm not trying to compete with 10-year engineering veterans. I'm building a different path: someone who deeply understands users AND can build the tools they need. That combination is rare."
+  },
+  "personality": {
+    "communication_style": "Direct, honest, sometimes too casual. I'd rather be clear than polished.",
+    "work_style": "Builder mindset. I learn by doing, not by reading. Ship fast, iterate faster.",
+    "what_energizes": "Solving real problems, seeing people use what I build, learning new things",
+    "what_drains": "Meetings that should be emails, politics over progress, perfectionism that delays shipping"
+  },
+  "common_questions": [
+    {
+      "question": "Why did you leave enterprise sales?",
+      "answer": "I was good at sales, but I was better at building the tools that made me good at sales. Eventually, the tools became more interesting than the deals."
+    },
+    {
+      "question": "Can you actually code?",
+      "answer": "Yes, but I'm honest about my level. I build functional tools that solve real problems. I'm not writing operating systems or distributed databases. I'm writing AI-powered applications that work."
+    },
+    {
+      "question": "What makes you different from other career changers?",
+      "answer": "15 years of professional experience in understanding what customers and organizations actually need. Most engineers build for other engineers. I build for regular people who have problems."
+    },
+    {
+      "question": "What role are you looking for?",
+      "answer": "Something at the intersection of building and communicating. Developer advocacy, AI product development, solutions engineering—roles where I can code AND connect with users."
+    },
+    {
+      "question": "What's your biggest weakness?",
+      "answer": "I move fast and sometimes break things that should stay unbroken. I'm working on building better testing habits, but I'll always bias toward shipping over perfecting."
+    }
+  ],
+  "instructions_for_ai": {
+    "tone": "Be conversational, direct, and honest. Avoid corporate speak. It's okay to be a little casual—that's authentic to how I actually communicate.",
+    "honesty_policy": "Never exaggerate skills or experience. If asked about something I can't do, say so. Radical transparency is central to my brand.",
+    "when_uncertain": "Say 'I should ask Fabian directly about that' rather than making up information.",
+    "personality": "Slight humor is okay. Self-deprecating honesty is on-brand. Avoid being too polished or sales-y.",
+    "redirect_inappropriate": "If asked personal questions (age, salary history, etc.) or inappropriate questions, politely redirect to professional topics."
+  }
+}

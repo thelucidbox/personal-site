@@ -1,0 +1,235 @@
+{
+  "categories": {
+    "strong": {
+      "label": "Strong",
+      "description": "Skills I'm confident in and can demonstrate with real results",
+      "color": "var(--accent-primary)"
+    },
+    "moderate": {
+      "label": "Moderate",
+      "description": "Skills I use regularly but am still developing",
+      "color": "var(--text-secondary)"
+    },
+    "learning": {
+      "label": "I'll Tell You",
+      "description": "Skills I'm actively learning—ask me where I'm at",
+      "color": "var(--text-muted)"
+    }
+  },
+  "skills": [
+    {
+      "id": "enterprise-sales",
+      "name": "Enterprise Sales",
+      "category": "strong",
+      "confidence": 0.95,
+      "evidence": [
+        "8+ years of enterprise sales experience",
+        "$2M+ annual quotas, consistently exceeding",
+        "Account Manager of the Year 2021",
+        "94% gross retention rate"
+      ],
+      "related_projects": ["tableau-am", "juniper-square"],
+      "honest_assessment": "This is genuinely my strongest skill. I can navigate complex organizations, build executive relationships, and close deals. This isn't just resume talk—I have the numbers to back it up.",
+      "voice_quote_available": true
+    },
+    {
+      "id": "communication",
+      "name": "Communication & Storytelling",
+      "category": "strong",
+      "confidence": 0.95,
+      "evidence": [
+        "3 years teaching experience",
+        "8+ years presenting to executives",
+        "Can explain complex technical concepts to non-technical audiences"
+      ],
+      "related_projects": ["teacher-tech-coordinator"],
+      "honest_assessment": "Teaching + sales = I can explain anything to anyone. This is what I do best, and it's the foundation of everything else I do well.",
+      "voice_quote_available": true
+    },
+    {
+      "id": "stakeholder-management",
+      "name": "Stakeholder Management",
+      "category": "strong",
+      "confidence": 0.90,
+      "evidence": [
+        "Managed accounts with 10+ decision makers",
+        "Built executive relationships at VP+ level",
+        "Navigated Salesforce acquisition with 0 customer churn"
+      ],
+      "related_projects": ["tableau-am"],
+      "honest_assessment": "I can map organizational dynamics, identify hidden blockers, and build consensus. This is really just applied psychology with business stakes.",
+      "voice_quote_available": false
+    },
+    {
+      "id": "relationship-building",
+      "name": "Relationship Building",
+      "category": "strong",
+      "confidence": 0.90,
+      "evidence": [
+        "Multi-year customer relationships",
+        "Customers followed me between companies",
+        "Built internal champion networks at every company"
+      ],
+      "related_projects": ["tableau-am", "juniper-square"],
+      "honest_assessment": "I build genuine relationships, not transactional ones. People take my calls because they trust me, not because I'm persistent.",
+      "voice_quote_available": false
+    },
+    {
+      "id": "product-thinking",
+      "name": "Product Thinking",
+      "category": "moderate",
+      "confidence": 0.70,
+      "evidence": [
+        "Building multiple AI products from scratch",
+        "Identified features that became product updates",
+        "Years of customer feedback collection"
+      ],
+      "related_projects": ["dailyscribe", "alos", "art-of-fact"],
+      "honest_assessment": "Good instincts from years of customer-facing work. I understand user problems deeply. Still learning to validate assumptions properly and prioritize ruthlessly.",
+      "voice_quote_available": true
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "category": "moderate",
+      "confidence": 0.65,
+      "evidence": [
+        "All current projects use Python",
+        "Working with APIs, file processing, basic web servers",
+        "Daily coding for 12+ months"
+      ],
+      "related_projects": ["dailyscribe", "alos", "art-of-fact"],
+      "honest_assessment": "Functional and improving daily. I can build working tools that solve real problems. Not writing production-grade code for Fortune 500s, but I ship things that work.",
+      "voice_quote_available": true
+    },
+    {
+      "id": "javascript",
+      "name": "JavaScript / Web Dev",
+      "category": "moderate",
+      "confidence": 0.55,
+      "evidence": [
+        "Built this portfolio site",
+        "Created web-based interfaces for tools",
+        "Working with APIs and frontend frameworks"
+      ],
+      "related_projects": ["personal-site", "art-of-fact"],
+      "honest_assessment": "Can build functional web apps. Frontend design is not my strength—I focus on functionality over aesthetics. Still learning modern frameworks.",
+      "voice_quote_available": false
+    },
+    {
+      "id": "ai-integration",
+      "name": "AI API Integration",
+      "category": "moderate",
+      "confidence": 0.70,
+      "evidence": [
+        "Working with Gemini and OpenAI APIs daily",
+        "Built streaming chat interfaces",
+        "Implemented RAG-style systems"
+      ],
+      "related_projects": ["dailyscribe", "alos", "art-of-fact"],
+      "honest_assessment": "I know how to use LLM APIs effectively—prompt engineering, streaming, context management. I'm not building models, but I can build with them.",
+      "voice_quote_available": false
+    },
+    {
+      "id": "data-visualization",
+      "name": "Data Visualization",
+      "category": "moderate",
+      "confidence": 0.60,
+      "evidence": [
+        "Tableau certified",
+        "Years of helping customers build dashboards",
+        "Understand data storytelling principles"
+      ],
+      "related_projects": ["tableau-ae", "tableau-am"],
+      "honest_assessment": "I know what good looks like and can build basic visualizations. Not a designer, but I understand the principles of presenting data clearly.",
+      "voice_quote_available": false
+    },
+    {
+      "id": "system-architecture",
+      "name": "System Architecture",
+      "category": "learning",
+      "confidence": 0.35,
+      "evidence": [
+        "Building increasingly complex projects",
+        "Learning patterns through building",
+        "Reading system design resources"
+      ],
+      "related_projects": ["alos"],
+      "honest_assessment": "I know enough to build things that work. Scaling and optimization are areas where I need mentorship. I can architect small systems; large systems are aspirational.",
+      "voice_quote_available": false
+    },
+    {
+      "id": "devops",
+      "name": "DevOps / Infrastructure",
+      "category": "learning",
+      "confidence": 0.30,
+      "evidence": [
+        "Deploy my own projects to Vercel",
+        "Basic CI/CD setup",
+        "Learning through doing"
+      ],
+      "related_projects": ["personal-site"],
+      "honest_assessment": "I can deploy to Vercel and set up basic CI. Kubernetes? AWS at scale? Docker orchestration? Not yet. Learning as I need it.",
+      "voice_quote_available": false
+    },
+    {
+      "id": "ml-theory",
+      "name": "Machine Learning Theory",
+      "category": "learning",
+      "confidence": 0.25,
+      "evidence": [
+        "Using ML/AI as a tool effectively",
+        "Understanding when to use what",
+        "Taking courses to deepen understanding"
+      ],
+      "related_projects": ["dailyscribe", "alos"],
+      "honest_assessment": "I use ML/AI as a tool, not as a practitioner. I can't build models from scratch, but I can build effective applications with them. The theory is something I'm actively studying.",
+      "voice_quote_available": false
+    },
+    {
+      "id": "databases",
+      "name": "Databases",
+      "category": "learning",
+      "confidence": 0.40,
+      "evidence": [
+        "Using SQLite in current projects",
+        "Basic SQL queries",
+        "Learning about database design"
+      ],
+      "related_projects": ["dailyscribe"],
+      "honest_assessment": "Can work with SQLite and write basic queries. Not designing schemas for high-scale systems. This is a clear growth area.",
+      "voice_quote_available": false
+    },
+    {
+      "id": "testing",
+      "name": "Testing & QA",
+      "category": "learning",
+      "confidence": 0.30,
+      "evidence": [
+        "Writing basic tests for my projects",
+        "Learning testing best practices",
+        "Historically moved too fast"
+      ],
+      "related_projects": [],
+      "honest_assessment": "Honestly, this is a weakness. I ship fast and sometimes skip proper testing. Working on building better habits, but I'll be honest—it's not muscle memory yet.",
+      "voice_quote_available": true
+    }
+  ],
+  "skill_groups": [
+    {
+      "name": "Business & People",
+      "icon": "briefcase",
+      "skills": ["enterprise-sales", "communication", "stakeholder-management", "relationship-building"]
+    },
+    {
+      "name": "Building & Creating",
+      "icon": "code",
+      "skills": ["python", "javascript", "ai-integration", "product-thinking"]
+    },
+    {
+      "name": "Technical Foundation",
+      "icon": "layers",
+      "skills": ["data-visualization", "databases", "system-architecture", "devops", "ml-theory", "testing"]
+    }
+  ]
+}

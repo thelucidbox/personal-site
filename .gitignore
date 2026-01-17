@@ -3,4 +3,8 @@
 *.swo
 .env
 .env.*
+!.env.example
 node_modules/
+
+# Vercel
+.vercel

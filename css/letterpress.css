@@ -1,0 +1,526 @@
+/**
+ * Letterpress / Craftsman Variation
+ *
+ * Metaphor: A master typographer's printing press
+ * - Elements "print" onto the page with ink impression
+ * - Subtle paper texture background
+ * - Debossed/embossed text effects
+ * - Ink spread animations
+ * - Woodblock/copper plate accent elements
+ */
+
+/* ==========================================================================
+   Letterpress Theme - Immediate Visual Changes
+   ========================================================================== */
+
+/* Override accent color globally when letterpress is active */
+body.letterpress-theme {
+  --accent-primary: #b87333 !important;
+  --accent-secondary: #d4956a !important;
+}
+
+/* Make buttons copper colored */
+body.letterpress-theme .btn-primary {
+  background: #b87333 !important;
+}
+
+body.letterpress-theme .nav-chat-btn {
+  background: #b87333 !important;
+}
+
+/* Section titles get copper underline */
+body.letterpress-theme .section-title::after {
+  background: linear-gradient(90deg, transparent, #b87333 20%, #d4956a 50%, #b87333 80%, transparent) !important;
+}
+
+/* Cards get subtle copper border on hover */
+body.letterpress-theme .project-card:hover,
+body.letterpress-theme .review-card:hover {
+  border-color: #b87333 !important;
+  box-shadow: 0 0 20px rgba(184, 115, 51, 0.2) !important;
+}
+
+/* Journey markers become copper */
+body.letterpress-theme .journey-marker {
+  border-color: #b87333 !important;
+  box-shadow: 0 0 10px rgba(184, 115, 51, 0.3) !important;
+}
+
+body.letterpress-theme .journey-item.active .journey-marker,
+body.letterpress-theme .journey-item:hover .journey-marker {
+  background: #b87333 !important;
+}
+
+/* Confidence bars become copper */
+body.letterpress-theme .confidence-fill {
+  background: #b87333 !important;
+}
+
+/* Chat FAB becomes copper */
+body.letterpress-theme .chat-fab {
+  background: #b87333 !important;
+}
+
+/* Hero name accent becomes copper */
+body.letterpress-theme .hero-name.accent {
+  color: #b87333 !important;
+}
+
+/* Highlights become copper */
+body.letterpress-theme .highlight-cyan {
+  color: #b87333 !important;
+}
+
+/* Filter buttons active state */
+body.letterpress-theme .filter-btn.active {
+  background: #b87333 !important;
+  border-color: #b87333 !important;
+}
+
+/* Mode button active */
+body.letterpress-theme .mode-btn.active {
+  background: #b87333 !important;
+}
+
+/* ==========================================================================
+   Typography Scale (Gemini recommendation)
+   Using Major Third (1.25) scale from 16px base
+   ========================================================================== */
+
+:root {
+  /* Type scale */
+  --text-xs: 0.8rem;      /* 12.8px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.25rem;     /* 20px */
+  --text-xl: 1.563rem;    /* 25px */
+  --text-2xl: 1.953rem;   /* 31px */
+  --text-3xl: 2.441rem;   /* 39px */
+  --text-4xl: 3.052rem;   /* 49px */
+
+  /* Improved line heights */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  /* Letterpress color palette */
+  --ink-black: #0a0a0a;
+  --ink-dark: #1a1a1a;
+  --paper-dark: #141414;
+  --paper-texture: #1a1a1a;
+  --copper-accent: #b87333;
+  --copper-light: #d4956a;
+  --copper-glow: rgba(184, 115, 51, 0.3);
+  --ink-impression: rgba(0, 0, 0, 0.8);
+
+  /* Secondary accent (Gemini recommendation) */
+  --slate-accent: #64748b;
+  --slate-light: #94a3b8;
+}
+
+/* ==========================================================================
+   Paper Texture Background
+   ========================================================================== */
+
+body.letterpress-theme {
+  background:
+    /* Subtle noise texture */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, var(--ink-black) 0%, var(--paper-dark) 100%);
+  background-blend-mode: overlay, normal;
+}
+
+/* ==========================================================================
+   Letterpress Print Animation
+   Elements appear as if pressed by a printing plate
+   ========================================================================== */
+
+@keyframes letterpress-print {
+  0% {
+    opacity: 0;
+    transform: translateY(-3px) scale(1.01);
+    filter: blur(1px);
+    text-shadow: 0 0 0 transparent;
+  }
+  30% {
+    opacity: 0.7;
+    transform: translateY(1px) scale(0.99);
+    filter: blur(0);
+  }
+  50% {
+    /* The "press" moment - slight compression */
+    transform: translateY(2px) scale(0.995);
+    text-shadow:
+      0 1px 0 rgba(0, 0, 0, 0.5),
+      0 -1px 0 rgba(255, 255, 255, 0.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    text-shadow:
+      0 1px 0 rgba(0, 0, 0, 0.3),
+      0 -1px 0 rgba(255, 255, 255, 0.02);
+  }
+}
+
+/* Ink spread effect for larger elements */
+@keyframes ink-spread {
+  0% {
+    clip-path: inset(50% 50% 50% 50%);
+    opacity: 0;
+  }
+  40% {
+    clip-path: inset(0% 20% 0% 20%);
+    opacity: 0.8;
+  }
+  100% {
+    clip-path: inset(0% 0% 0% 0%);
+    opacity: 1;
+  }
+}
+
+/* Copper plate reveal (for accents) */
+@keyframes copper-reveal {
+  0% {
+    background-position: 200% center;
+    opacity: 0.5;
+  }
+  100% {
+    background-position: 0% center;
+    opacity: 1;
+  }
+}
+
+/* Typeset appear - letters setting into place */
+@keyframes typeset {
+  0% {
+    letter-spacing: 0.3em;
+    opacity: 0;
+  }
+  60% {
+    letter-spacing: -0.01em;
+  }
+  100% {
+    letter-spacing: normal;
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   Letterpress Elements
+   ========================================================================== */
+
+.letterpress-theme .section-title {
+  animation: letterpress-print 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 -1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.letterpress-theme .section-label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.2em;
+  color: var(--copper-accent);
+  animation: typeset 0.6s ease-out forwards;
+}
+
+/* Debossed text effect for headings */
+.letterpress-theme h1,
+.letterpress-theme h2,
+.letterpress-theme h3 {
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.5),
+    0 -1px 0 rgba(255, 255, 255, 0.02),
+    1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Copper accent line (like a rule/ornament) */
+.letterpress-theme .section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  margin-top: 1rem;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--copper-accent) 20%,
+    var(--copper-light) 50%,
+    var(--copper-accent) 80%,
+    transparent
+  );
+  animation: copper-reveal 1s ease-out 0.3s both;
+}
+
+/* ==========================================================================
+   Cards with Letterpress Treatment
+   ========================================================================== */
+
+.letterpress-theme .project-card,
+.letterpress-theme .skill-item,
+.letterpress-theme .review-card {
+  background: var(--paper-dark);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.02),
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.letterpress-theme .project-card:hover,
+.letterpress-theme .skill-item:hover,
+.letterpress-theme .review-card:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 0 30px var(--copper-glow);
+  border-color: var(--copper-accent);
+  transform: translateY(-2px);
+}
+
+/* Card title with impression effect */
+.letterpress-theme .project-title,
+.letterpress-theme .review-card-title {
+  animation: letterpress-print 0.5s ease-out forwards;
+}
+
+/* ==========================================================================
+   Craftsman Details
+   ========================================================================== */
+
+/* Ornamental dividers */
+.letterpress-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  color: var(--copper-accent);
+  font-size: 0.75rem;
+  letter-spacing: 0.5em;
+}
+
+.letterpress-divider::before,
+.letterpress-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 100px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--copper-accent)
+  );
+}
+
+.letterpress-divider::after {
+  background: linear-gradient(
+    90deg,
+    var(--copper-accent),
+    transparent
+  );
+}
+
+/* Craftsman quote styling */
+.letterpress-theme blockquote,
+.letterpress-theme .review-card-quote {
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--copper-accent);
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.letterpress-theme blockquote::before {
+  content: '"';
+  position: absolute;
+  left: -0.5rem;
+  top: -1rem;
+  font-size: 4rem;
+  font-family: Georgia, serif;
+  color: var(--copper-accent);
+  opacity: 0.2;
+}
+
+/* Registration marks removed - too distracting */
+
+/* ==========================================================================
+   Staggered Print Animation for Grids
+   ========================================================================== */
+
+.letterpress-theme .projects-grid > *,
+.letterpress-theme .skills-list > *,
+.letterpress-theme .review-grid > * {
+  opacity: 0;
+  animation: ink-spread 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.letterpress-theme .projects-grid > *:nth-child(1),
+.letterpress-theme .skills-list > *:nth-child(1),
+.letterpress-theme .review-grid > *:nth-child(1) { animation-delay: 0.1s; }
+
+.letterpress-theme .projects-grid > *:nth-child(2),
+.letterpress-theme .skills-list > *:nth-child(2),
+.letterpress-theme .review-grid > *:nth-child(2) { animation-delay: 0.2s; }
+
+.letterpress-theme .projects-grid > *:nth-child(3),
+.letterpress-theme .skills-list > *:nth-child(3),
+.letterpress-theme .review-grid > *:nth-child(3) { animation-delay: 0.3s; }
+
+.letterpress-theme .projects-grid > *:nth-child(4),
+.letterpress-theme .skills-list > *:nth-child(4),
+.letterpress-theme .review-grid > *:nth-child(4) { animation-delay: 0.4s; }
+
+.letterpress-theme .projects-grid > *:nth-child(5),
+.letterpress-theme .skills-list > *:nth-child(5),
+.letterpress-theme .review-grid > *:nth-child(5) { animation-delay: 0.5s; }
+
+.letterpress-theme .projects-grid > *:nth-child(6),
+.letterpress-theme .skills-list > *:nth-child(6),
+.letterpress-theme .review-grid > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* ==========================================================================
+   Hero Letterpress Treatment
+   ========================================================================== */
+
+.letterpress-theme .hero-title {
+  animation: letterpress-print 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.letterpress-theme .hero-name {
+  display: inline-block;
+  animation: typeset 0.8s ease-out forwards;
+}
+
+.letterpress-theme .hero-name:first-child {
+  animation-delay: 0.2s;
+}
+
+.letterpress-theme .hero-name:last-child {
+  animation-delay: 0.4s;
+  color: var(--copper-accent);
+}
+
+.letterpress-theme .hero-subtitle {
+  animation: letterpress-print 0.8s ease-out 0.6s both;
+}
+
+.letterpress-theme .hero-label {
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: var(--text-xs);
+  color: var(--slate-accent);
+  animation: typeset 0.5s ease-out both;
+}
+
+/* ==========================================================================
+   Journey Timeline - Letterpress Style
+   ========================================================================== */
+
+.letterpress-theme .journey-marker {
+  background: var(--copper-accent);
+  box-shadow:
+    0 0 0 3px var(--paper-dark),
+    0 0 10px var(--copper-glow);
+}
+
+.letterpress-theme .journey-timeline::before {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--copper-accent) 10%,
+    var(--copper-accent) 90%,
+    transparent
+  );
+  opacity: 0.5;
+}
+
+.letterpress-theme .journey-content {
+  animation: ink-spread 0.6s ease-out forwards;
+}
+
+/* ==========================================================================
+   Buttons - Copperplate Style
+   ========================================================================== */
+
+.letterpress-theme .btn-primary {
+  background: var(--copper-accent);
+  color: var(--ink-black);
+  border: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.letterpress-theme .btn-primary:hover {
+  background: var(--copper-light);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px var(--copper-glow);
+  transform: translateY(-1px);
+}
+
+.letterpress-theme .btn-secondary {
+  background: transparent;
+  border: 1px solid var(--copper-accent);
+  color: var(--copper-accent);
+}
+
+.letterpress-theme .btn-secondary:hover {
+  background: rgba(184, 115, 51, 0.1);
+  box-shadow: 0 0 20px var(--copper-glow);
+}
+
+/* ==========================================================================
+   Chat Modal - Letterpress Edition
+   ========================================================================== */
+
+.letterpress-theme .chat-container {
+  background: var(--paper-dark);
+  border: 1px solid var(--copper-accent);
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.letterpress-theme .chat-header {
+  background: var(--ink-dark);
+  border-bottom: 1px solid var(--copper-accent);
+}
+
+.letterpress-theme .chat-title {
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: var(--text-sm);
+}
+
+.letterpress-theme .mode-btn.active {
+  background: var(--copper-accent);
+  color: var(--ink-black);
+}
+
+.letterpress-theme .chat-message.assistant .message-bubble {
+  background: var(--ink-dark);
+  border-color: rgba(184, 115, 51, 0.2);
+  animation: letterpress-print 0.4s ease-out forwards;
+}
+
+/* ==========================================================================
+   Reduced Motion Support
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .letterpress-theme *,
+  .letterpress-theme *::before,
+  .letterpress-theme *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

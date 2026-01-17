@@ -1,0 +1,263 @@
+{
+  "items": [
+    {
+      "id": "tableau-am",
+      "type": "experience",
+      "category": "enterprise-sales",
+      "title": "Enterprise Account Manager",
+      "subtitle": "Tableau (Salesforce)",
+      "period": "2018-2022",
+      "highlights": [
+        "Account Manager of the Year 2021",
+        "$2.4M annual quota, 118% attainment",
+        "94% gross retention rate"
+      ],
+      "skills": ["enterprise-sales", "stakeholder-management", "relationship-building", "data-visualization"],
+      "fitIndicators": {
+        "leadership": 0.85,
+        "technical": 0.55,
+        "communication": 0.95,
+        "sales": 0.98
+      },
+      "quote": "I learned that enterprise deals aren't won in meetings—they're won between meetings.",
+      "starRef": "tableau-am",
+      "voiceClip": null
+    },
+    {
+      "id": "juniper-square",
+      "type": "experience",
+      "category": "enterprise-sales",
+      "title": "Senior Account Manager",
+      "subtitle": "Juniper Square",
+      "period": "2022-2024",
+      "highlights": [
+        "$1.8M quota, 108% attainment",
+        "Built internal automation tools",
+        "45 accounts managed"
+      ],
+      "skills": ["enterprise-sales", "python", "product-thinking", "relationship-building"],
+      "fitIndicators": {
+        "leadership": 0.75,
+        "technical": 0.65,
+        "communication": 0.90,
+        "sales": 0.92
+      },
+      "quote": "This is where I started building tools instead of just using them.",
+      "starRef": "juniper-square",
+      "voiceClip": null
+    },
+    {
+      "id": "tableau-ae",
+      "type": "experience",
+      "category": "enterprise-sales",
+      "title": "Account Executive",
+      "subtitle": "Tableau Software",
+      "period": "2015-2018",
+      "highlights": [
+        "$1.2M annual quota, 112% average attainment",
+        "Tableau certified",
+        "Built technical credibility with data teams"
+      ],
+      "skills": ["enterprise-sales", "communication", "data-visualization"],
+      "fitIndicators": {
+        "leadership": 0.60,
+        "technical": 0.50,
+        "communication": 0.90,
+        "sales": 0.88
+      },
+      "quote": "Most companies have more data than insight. The gap is human, not technical.",
+      "starRef": "tableau-ae",
+      "voiceClip": null
+    },
+    {
+      "id": "teacher-tech-coordinator",
+      "type": "experience",
+      "category": "teaching",
+      "title": "Teacher & Tech Coordinator",
+      "subtitle": "Horizon High School, El Paso",
+      "period": "2008-2011",
+      "highlights": [
+        "Led school-wide technology adoption",
+        "Created peer training programs",
+        "Built simple tools for teacher efficiency"
+      ],
+      "skills": ["communication", "stakeholder-management", "product-thinking"],
+      "fitIndicators": {
+        "leadership": 0.70,
+        "technical": 0.40,
+        "communication": 0.95,
+        "sales": 0.30
+      },
+      "quote": "The best technology disappears into the workflow.",
+      "starRef": "teacher-tech-coordinator",
+      "voiceClip": null
+    },
+    {
+      "id": "dailyscribe",
+      "type": "project",
+      "category": "ai-tools",
+      "title": "DailyScribe",
+      "subtitle": "Voice Journaling Tool",
+      "period": "2024-Present",
+      "highlights": [
+        "Voice capture with automatic organization",
+        "AI-powered transcription and tagging",
+        "Personal knowledge management"
+      ],
+      "skills": ["python", "ai-integration", "product-thinking"],
+      "fitIndicators": {
+        "leadership": 0.50,
+        "technical": 0.75,
+        "communication": 0.60,
+        "product": 0.85
+      },
+      "quote": "I got tired of losing my best ideas to forgetfulness.",
+      "projectUrl": null,
+      "githubUrl": null,
+      "voiceClip": null
+    },
+    {
+      "id": "alos",
+      "type": "project",
+      "category": "ai-tools",
+      "title": "ALOS",
+      "subtitle": "AI Learning Operating System",
+      "period": "2024-Present",
+      "highlights": [
+        "Adaptive learning system",
+        "Integrates with Obsidian",
+        "Personalized curriculum generation"
+      ],
+      "skills": ["python", "ai-integration", "system-architecture", "product-thinking"],
+      "fitIndicators": {
+        "leadership": 0.50,
+        "technical": 0.80,
+        "communication": 0.50,
+        "product": 0.90
+      },
+      "quote": "Learning systems should adapt to you, not the other way around.",
+      "projectUrl": null,
+      "githubUrl": null,
+      "voiceClip": null
+    },
+    {
+      "id": "art-of-fact",
+      "type": "project",
+      "category": "ai-tools",
+      "title": "Art of Fact",
+      "subtitle": "Content Generation Platform",
+      "period": "2024-Present",
+      "highlights": [
+        "Data-first architecture",
+        "Auto-generates UI from structured data",
+        "Research to content pipeline"
+      ],
+      "skills": ["javascript", "python", "ai-integration", "product-thinking"],
+      "fitIndicators": {
+        "leadership": 0.50,
+        "technical": 0.85,
+        "communication": 0.70,
+        "product": 0.95
+      },
+      "quote": "Structure your data once, generate content forever.",
+      "projectUrl": null,
+      "githubUrl": null,
+      "voiceClip": null
+    },
+    {
+      "id": "skill-enterprise-sales",
+      "type": "skill",
+      "category": "business",
+      "title": "Enterprise Sales",
+      "subtitle": "8+ Years Experience",
+      "highlights": [
+        "$2M+ annual quotas",
+        "Account Manager of the Year",
+        "94% retention rate"
+      ],
+      "level": "strong",
+      "confidence": 0.95,
+      "fitIndicators": {
+        "sales": 1.0,
+        "communication": 0.90,
+        "leadership": 0.80
+      },
+      "quote": "The best salespeople are educators who happen to have a quota.",
+      "voiceClip": null
+    },
+    {
+      "id": "skill-communication",
+      "type": "skill",
+      "category": "business",
+      "title": "Communication",
+      "subtitle": "Teaching + Sales Background",
+      "highlights": [
+        "Can explain anything to anyone",
+        "Executive-level presentations",
+        "Technical-to-business translation"
+      ],
+      "level": "strong",
+      "confidence": 0.95,
+      "fitIndicators": {
+        "communication": 1.0,
+        "leadership": 0.75
+      },
+      "quote": "Teaching + sales = I can break down any complex idea.",
+      "voiceClip": null
+    },
+    {
+      "id": "skill-python",
+      "type": "skill",
+      "category": "technical",
+      "title": "Python",
+      "subtitle": "Daily Use, Still Learning",
+      "highlights": [
+        "All current projects use Python",
+        "API integration, file processing",
+        "Building working tools"
+      ],
+      "level": "moderate",
+      "confidence": 0.65,
+      "fitIndicators": {
+        "technical": 0.65
+      },
+      "quote": "I build things that work. Not elegant, but functional.",
+      "voiceClip": null
+    },
+    {
+      "id": "skill-ai-integration",
+      "type": "skill",
+      "category": "technical",
+      "title": "AI/LLM Integration",
+      "subtitle": "Gemini, OpenAI APIs",
+      "highlights": [
+        "Streaming chat interfaces",
+        "Prompt engineering",
+        "Context management"
+      ],
+      "level": "moderate",
+      "confidence": 0.70,
+      "fitIndicators": {
+        "technical": 0.70,
+        "product": 0.80
+      },
+      "quote": "I can't build models, but I can build powerful things with them.",
+      "voiceClip": null
+    }
+  ],
+  "categories": [
+    {"id": "enterprise-sales", "name": "Enterprise Sales", "icon": "briefcase", "color": "var(--accent-primary)"},
+    {"id": "teaching", "name": "Teaching", "icon": "graduation-cap", "color": "var(--text-secondary)"},
+    {"id": "ai-tools", "name": "AI Tools", "icon": "cpu", "color": "var(--accent-secondary)"},
+    {"id": "business", "name": "Business Skills", "icon": "trending-up", "color": "var(--accent-primary)"},
+    {"id": "technical", "name": "Technical Skills", "icon": "code", "color": "var(--text-secondary)"}
+  ],
+  "filters": {
+    "types": ["experience", "project", "skill"],
+    "sortOptions": [
+      {"id": "most-interesting", "name": "Most Interesting", "description": "Hand-picked order"},
+      {"id": "most-relevant", "name": "Most Relevant", "description": "Based on your JD (paste one first)"},
+      {"id": "latest", "name": "Latest First", "description": "Most recent experience"}
+    ]
+  }
+}

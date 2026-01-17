@@ -1,0 +1,1425 @@
+/**
+ * MINIMAL THEME: Millennial Chic
+ *
+ * Clean, refined, plant-inspired
+ * Rich greens + warm neutrals + generous whitespace
+ */
+
+/* ==========================================================================
+   Google Fonts - Plus Jakarta Sans (clean, modern)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ==========================================================================
+   Color System
+   ========================================================================== */
+
+body.minimal-theme {
+  /* Primary: Forest Green - rich, grounded */
+  --minimal-green: #166534;
+  --minimal-green-light: #22c55e;
+  --minimal-green-muted: #4ade80;
+
+  /* Secondary: Sage - subtle, calming */
+  --minimal-sage: #a3a78e;
+
+  /* Backgrounds - warm cream tones */
+  --minimal-cream: #faf8f5;
+  --minimal-warm: #f5f2ed;
+  --minimal-card: #ffffff;
+
+  /* Text - warm grays */
+  --minimal-text: #1f2937;
+  --minimal-text-secondary: #6b7280;
+  --minimal-text-muted: #9ca3af;
+
+  /* Borders */
+  --minimal-border: #e5e2dd;
+  --minimal-border-light: #f0ede8;
+
+  /* Override base vars */
+  --accent-primary: var(--minimal-green);
+  --accent-secondary: var(--minimal-sage);
+  --bg-primary: var(--minimal-cream);
+  --bg-secondary: var(--minimal-warm);
+  --text-primary: var(--minimal-text);
+  --text-secondary: var(--minimal-text-secondary);
+
+  /* Apply */
+  background: var(--minimal-cream);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--minimal-text);
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+body.minimal-theme h1,
+body.minimal-theme h2,
+body.minimal-theme h3,
+body.minimal-theme .hero-name,
+body.minimal-theme .section-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--minimal-text);
+}
+
+body.minimal-theme p,
+body.minimal-theme .hero-subtitle,
+body.minimal-theme .about-text {
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--minimal-text-secondary);
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+
+body.minimal-theme .hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--minimal-cream);
+}
+
+body.minimal-theme .hero-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--minimal-green);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+body.minimal-theme .hero-name {
+  font-size: clamp(3rem, 8vw, 5rem);
+  line-height: 1.1;
+  color: var(--minimal-text);
+  margin: 0;
+}
+
+body.minimal-theme .hero-name.accent {
+  color: var(--minimal-green);
+}
+
+body.minimal-theme .hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--minimal-text-secondary);
+  max-width: 480px;
+  margin-top: 1.5rem;
+}
+
+body.minimal-theme .hero-subtitle .highlight-cyan {
+  color: var(--minimal-green);
+  font-weight: 600;
+}
+
+body.minimal-theme .hero-cta {
+  margin-top: 2.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+body.minimal-theme .btn {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+body.minimal-theme .btn-primary {
+  background: var(--minimal-green);
+  color: white;
+  border: none;
+}
+
+body.minimal-theme .btn-primary:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(22, 101, 52, 0.25);
+}
+
+body.minimal-theme .btn-secondary {
+  background: transparent;
+  color: var(--minimal-text);
+  border: 1px solid var(--minimal-border);
+}
+
+body.minimal-theme .btn-secondary:hover {
+  background: var(--minimal-warm);
+  border-color: var(--minimal-text-muted);
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+body.minimal-theme .nav {
+  background: rgba(250, 248, 245, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--minimal-border-light);
+}
+
+body.minimal-theme .nav-logo {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--minimal-text);
+}
+
+body.minimal-theme .nav-logo .accent {
+  color: var(--minimal-green);
+}
+
+body.minimal-theme .nav-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--minimal-text-secondary);
+  transition: color 0.2s ease;
+}
+
+body.minimal-theme .nav-link:hover {
+  color: var(--minimal-green);
+}
+
+body.minimal-theme .nav-chat-btn {
+  background: var(--minimal-green) !important;
+  color: white !important;
+  border-radius: 8px !important;
+}
+
+/* ==========================================================================
+   Sections
+   ========================================================================== */
+
+body.minimal-theme .section {
+  padding: 6rem 0;
+  background: var(--minimal-cream);
+}
+
+body.minimal-theme .section:nth-child(even) {
+  background: var(--minimal-warm);
+}
+
+body.minimal-theme .section-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--minimal-green);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Minimalist section icons */
+body.minimal-theme .section-label::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--minimal-green);
+  opacity: 0.6;
+}
+
+/* Different shapes for each section */
+body.minimal-theme .about .section-label::before {
+  border-radius: 50%;
+}
+
+body.minimal-theme .journey .section-label::before {
+  border-radius: 0;
+  transform: rotate(45deg);
+  width: 7px;
+  height: 7px;
+}
+
+body.minimal-theme .skills .section-label::before {
+  border-radius: 2px;
+}
+
+body.minimal-theme .job-fit .section-label::before {
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 8px solid var(--minimal-green);
+  opacity: 0.6;
+}
+
+body.minimal-theme .review .section-label::before {
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+  box-shadow: 6px 0 0 var(--minimal-green), 12px 0 0 var(--minimal-green);
+}
+
+body.minimal-theme .projects .section-label::before {
+  width: 10px;
+  height: 6px;
+  border-radius: 1px;
+}
+
+body.minimal-theme .blog .section-label::before {
+  border-radius: 0;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  width: 10px;
+  height: 10px;
+}
+
+body.minimal-theme .connect .section-label::before {
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  background: transparent;
+  border: 2px solid var(--minimal-green);
+}
+
+body.minimal-theme .section-title {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  margin-bottom: 3rem;
+}
+
+/* ==========================================================================
+   Cards
+   ========================================================================== */
+
+body.minimal-theme .project-card,
+body.minimal-theme .review-card {
+  background: var(--minimal-card);
+  border: 1px solid var(--minimal-border);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.2s ease;
+}
+
+body.minimal-theme .project-card:hover,
+body.minimal-theme .review-card:hover {
+  border-color: var(--minimal-green);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+body.minimal-theme .project-title {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--minimal-text);
+  margin-bottom: 0.5rem;
+}
+
+body.minimal-theme .project-description {
+  color: var(--minimal-text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+body.minimal-theme .project-tag {
+  background: var(--minimal-warm);
+  color: var(--minimal-text-secondary);
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.375rem 0.75rem;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   Journey Timeline
+   ========================================================================== */
+
+body.minimal-theme .journey-timeline::before {
+  background: var(--minimal-border);
+  width: 1px;
+}
+
+body.minimal-theme .journey-marker {
+  background: var(--minimal-cream);
+  border: 2px solid var(--minimal-green);
+  width: 12px;
+  height: 12px;
+}
+
+body.minimal-theme .journey-item:hover .journey-marker {
+  background: var(--minimal-green);
+  transform: scale(1.2);
+}
+
+body.minimal-theme .journey-item {
+  background: var(--minimal-card) !important;
+  border: 1px solid var(--minimal-border) !important;
+  border-radius: 12px;
+  padding: 1.5rem !important;
+  position: relative;
+  overflow: hidden;
+}
+
+body.minimal-theme .journey-item::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30%;
+  height: 60%;
+  opacity: 0.05;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+body.minimal-theme .journey-item:nth-child(odd)::before {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      var(--minimal-green) 0px,
+      var(--minimal-green) 2px,
+      transparent 2px,
+      transparent 10px
+    );
+}
+
+body.minimal-theme .journey-item:nth-child(even)::before {
+  background:
+    radial-gradient(circle at 50% 50%, var(--minimal-sage) 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+}
+
+body.minimal-theme .journey-item:hover {
+  border-color: var(--minimal-green) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+body.minimal-theme .journey-item:hover::before {
+  opacity: 0.08;
+}
+
+body.minimal-theme .journey-content {
+  background: transparent !important;
+}
+
+body.minimal-theme .journey-period {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--minimal-green);
+}
+
+body.minimal-theme .journey-title {
+  font-weight: 600;
+  color: var(--minimal-text) !important;
+  font-size: 1.125rem;
+}
+
+body.minimal-theme .journey-company {
+  color: var(--minimal-text-secondary) !important;
+  font-size: 0.9375rem;
+}
+
+body.minimal-theme .journey-description {
+  color: var(--minimal-text-secondary) !important;
+}
+
+body.minimal-theme .journey-chat-trigger {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--minimal-green) !important;
+  background: transparent !important;
+  border: 1px solid var(--minimal-green) !important;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+body.minimal-theme .journey-chat-trigger:hover {
+  background: var(--minimal-green) !important;
+  color: white !important;
+}
+
+/* ==========================================================================
+   Skills Section
+   ========================================================================== */
+
+body.minimal-theme .skills-column-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--minimal-text-secondary);
+}
+
+body.minimal-theme .skills-strong .skills-level-icon {
+  color: var(--minimal-green);
+}
+
+body.minimal-theme .skills-moderate .skills-level-icon {
+  color: var(--minimal-sage);
+}
+
+body.minimal-theme .skills-learning .skills-level-icon {
+  color: var(--minimal-text-muted);
+}
+
+body.minimal-theme .skill-item {
+  background: var(--minimal-card);
+  border: 1px solid var(--minimal-border);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+body.minimal-theme .skill-item::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 25%;
+  height: 50%;
+  opacity: 0.04;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+body.minimal-theme .skills-strong .skill-item::before {
+  background:
+    radial-gradient(circle at 50% 50%, var(--minimal-green) 1.5px, transparent 1.5px);
+  background-size: 8px 8px;
+}
+
+body.minimal-theme .skills-moderate .skill-item::before {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      var(--minimal-sage) 0px,
+      var(--minimal-sage) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+}
+
+body.minimal-theme .skills-learning .skill-item::before {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      var(--minimal-text-muted) 0px,
+      var(--minimal-text-muted) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+}
+
+body.minimal-theme .skill-item:hover {
+  border-color: var(--minimal-green);
+}
+
+body.minimal-theme .skill-item:hover::before {
+  opacity: 0.08;
+}
+
+body.minimal-theme .skill-name {
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+body.minimal-theme .confidence-track {
+  background: var(--minimal-warm);
+  border-radius: 4px;
+  height: 4px;
+}
+
+body.minimal-theme .confidence-fill {
+  background: var(--minimal-green);
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Chat Modal
+   ========================================================================== */
+
+body.minimal-theme .chat-container {
+  background: var(--minimal-card);
+  border: 1px solid var(--minimal-border);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+body.minimal-theme .chat-header {
+  background: var(--minimal-cream);
+  border-bottom: 1px solid var(--minimal-border-light);
+  border-radius: 16px 16px 0 0;
+}
+
+body.minimal-theme .chat-title {
+  font-weight: 600;
+  color: var(--minimal-text);
+}
+
+body.minimal-theme .chat-close {
+  color: var(--minimal-text-muted);
+}
+
+body.minimal-theme .mode-btn {
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+}
+
+body.minimal-theme .mode-btn.active {
+  background: var(--minimal-green);
+  color: white;
+}
+
+body.minimal-theme .chat-input {
+  background: var(--minimal-warm);
+  border: 1px solid var(--minimal-border);
+  border-radius: 8px;
+  color: var(--minimal-text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body.minimal-theme .chat-input:focus {
+  border-color: var(--minimal-green);
+  box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.1);
+}
+
+body.minimal-theme .chat-send {
+  background: var(--minimal-green);
+  color: white;
+  border-radius: 8px;
+}
+
+body.minimal-theme .chat-message.assistant {
+  background: var(--minimal-warm);
+  border-radius: 12px;
+}
+
+body.minimal-theme .chat-message.user {
+  background: var(--minimal-green);
+  color: white;
+  border-radius: 12px;
+}
+
+/* ==========================================================================
+   Chat FAB
+   ========================================================================== */
+
+body.minimal-theme .chat-fab {
+  background: var(--minimal-green);
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(22, 101, 52, 0.3);
+}
+
+body.minimal-theme .chat-fab:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(22, 101, 52, 0.4);
+}
+
+/* ==========================================================================
+   Scroll Indicator
+   ========================================================================== */
+
+body.minimal-theme .scroll-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--minimal-text-muted);
+  letter-spacing: 0.1em;
+}
+
+body.minimal-theme .scroll-line {
+  background: var(--minimal-border);
+  width: 1px;
+}
+
+/* ==========================================================================
+   Stats
+   ========================================================================== */
+
+body.minimal-theme .stat-card {
+  background: var(--minimal-card) !important;
+  border: 1px solid var(--minimal-border) !important;
+  border-radius: 12px;
+}
+
+body.minimal-theme .stat-card:hover {
+  border-color: var(--minimal-green) !important;
+}
+
+body.minimal-theme .stat-value {
+  font-weight: 700;
+  color: var(--minimal-green) !important;
+}
+
+body.minimal-theme .stat-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--minimal-text-muted) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   Job Fit Section
+   ========================================================================== */
+
+body.minimal-theme .job-fit-input {
+  background: var(--minimal-card);
+  border: 1px solid var(--minimal-border);
+  border-radius: 8px;
+  color: var(--minimal-text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body.minimal-theme .job-fit-input:focus {
+  border-color: var(--minimal-green);
+  box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.1);
+}
+
+body.minimal-theme .job-fit-btn {
+  background: var(--minimal-green);
+  color: white;
+  border-radius: 8px;
+}
+
+body.minimal-theme .fit-score-ring {
+  stroke: var(--minimal-green);
+}
+
+body.minimal-theme .fit-score-value {
+  color: var(--minimal-green);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Review Interface
+   ========================================================================== */
+
+body.minimal-theme .review-filter-btn {
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid var(--minimal-border);
+  color: var(--minimal-text-secondary);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+}
+
+body.minimal-theme .review-filter-btn:hover,
+body.minimal-theme .review-filter-btn.active {
+  border-color: var(--minimal-green);
+  color: var(--minimal-green);
+  background: rgba(22, 101, 52, 0.05);
+}
+
+body.minimal-theme .review-sort-select {
+  font-size: 0.8125rem;
+  background: var(--minimal-card);
+  border: 1px solid var(--minimal-border);
+  color: var(--minimal-text);
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   STAR Accordion
+   ========================================================================== */
+
+body.minimal-theme .star-tabs {
+  border-bottom: 1px solid var(--minimal-border);
+}
+
+body.minimal-theme .star-tab {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--minimal-text-muted);
+  border-radius: 6px 6px 0 0;
+  padding: 0.5rem 1rem;
+}
+
+body.minimal-theme .star-tab:hover {
+  color: var(--minimal-green);
+}
+
+body.minimal-theme .star-tab.active {
+  color: var(--minimal-green);
+  border-bottom: 2px solid var(--minimal-green);
+}
+
+body.minimal-theme .star-content {
+  color: var(--minimal-text-secondary);
+  line-height: 1.75;
+}
+
+/* ==========================================================================
+   Particles & Cursor - Light styled or hidden
+   ========================================================================== */
+
+body.minimal-theme #particles .particle {
+  background: var(--minimal-green) !important;
+  opacity: 0.15;
+  box-shadow: none !important;
+}
+
+body.minimal-theme #cursor-trail {
+  display: none;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+body.minimal-theme .footer {
+  background: var(--minimal-warm);
+  border-top: 1px solid var(--minimal-border-light);
+}
+
+body.minimal-theme .footer-link {
+  font-size: 0.875rem;
+  color: var(--minimal-text-muted);
+}
+
+body.minimal-theme .footer-link:hover {
+  color: var(--minimal-green);
+}
+
+/* ==========================================================================
+   Loader
+   ========================================================================== */
+
+body.minimal-theme .loader {
+  background: var(--minimal-cream) !important;
+}
+
+body.minimal-theme .loader-content {
+  background: transparent;
+}
+
+body.minimal-theme .loader-char {
+  color: var(--minimal-green) !important;
+  text-shadow: none !important;
+}
+
+body.minimal-theme .loader-bar {
+  background: var(--minimal-border) !important;
+}
+
+body.minimal-theme .loader-progress {
+  background: var(--minimal-green) !important;
+}
+
+/* ==========================================================================
+   Style Toggle Buttons - Light
+   ========================================================================== */
+
+body.minimal-theme .style-toggle {
+  background: var(--minimal-card) !important;
+  border: 1px solid var(--minimal-border) !important;
+  border-radius: 8px !important;
+}
+
+body.minimal-theme .style-toggle:hover {
+  background: var(--minimal-warm) !important;
+  border-color: var(--minimal-green) !important;
+}
+
+/* ==========================================================================
+   About Section
+   ========================================================================== */
+
+body.minimal-theme .about {
+  background: var(--minimal-cream) !important;
+}
+
+body.minimal-theme .about-text {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--minimal-text-secondary) !important;
+}
+
+body.minimal-theme .about-text strong {
+  color: var(--minimal-text) !important;
+  font-weight: 600;
+}
+
+/* Stat cards with geometric patterns */
+body.minimal-theme .stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+body.minimal-theme .stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  opacity: 0.06;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+body.minimal-theme .stat-card:nth-child(1)::before {
+  background:
+    radial-gradient(circle at 50% 50%, var(--minimal-green) 2px, transparent 2px);
+  background-size: 12px 12px;
+}
+
+body.minimal-theme .stat-card:nth-child(2)::before {
+  background:
+    linear-gradient(135deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(225deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(45deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(315deg, var(--minimal-green) 25%, transparent 25%);
+  background-size: 16px 16px;
+  background-position: 0 0, 8px 0, 8px -8px, 0 8px;
+}
+
+body.minimal-theme .stat-card:nth-child(3)::before {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      var(--minimal-sage) 0px,
+      var(--minimal-sage) 2px,
+      transparent 2px,
+      transparent 8px
+    );
+}
+
+body.minimal-theme .stat-card:hover::before {
+  opacity: 0.1;
+}
+
+/* ==========================================================================
+   Blog / Writing Section
+   ========================================================================== */
+
+body.minimal-theme .blog {
+  background: var(--minimal-warm) !important;
+}
+
+body.minimal-theme .blog-card {
+  background: var(--minimal-card) !important;
+  border: 1px solid var(--minimal-border) !important;
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+body.minimal-theme .blog-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  opacity: 0.4;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    var(--minimal-green) 0%,
+    var(--minimal-sage) 50%,
+    var(--minimal-green) 100%
+  );
+  transition: opacity 0.3s ease;
+}
+
+body.minimal-theme .blog-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 35%;
+  height: 50%;
+  opacity: 0.04;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(225deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(45deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(315deg, var(--minimal-green) 25%, transparent 25%);
+  background-size: 14px 14px;
+  background-position: 0 0, 7px 0, 7px -7px, 0 7px;
+  transition: opacity 0.3s ease;
+}
+
+body.minimal-theme .blog-card:hover {
+  border-color: var(--minimal-green) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+body.minimal-theme .blog-card:hover::before {
+  opacity: 0.6;
+}
+
+body.minimal-theme .blog-card:hover::after {
+  opacity: 0.08;
+}
+
+body.minimal-theme .blog-title {
+  color: var(--minimal-text) !important;
+  font-weight: 600;
+}
+
+body.minimal-theme .blog-excerpt,
+body.minimal-theme .blog-description {
+  color: var(--minimal-text-secondary) !important;
+}
+
+body.minimal-theme .blog-meta,
+body.minimal-theme .blog-date {
+  color: var(--minimal-text-muted) !important;
+}
+
+body.minimal-theme .blog-tag {
+  background: var(--minimal-warm) !important;
+  color: var(--minimal-text-secondary) !important;
+  border: none !important;
+}
+
+/* ==========================================================================
+   Connect Section
+   ========================================================================== */
+
+body.minimal-theme .connect {
+  background: var(--minimal-cream) !important;
+}
+
+body.minimal-theme .connect-text {
+  color: var(--minimal-text-secondary) !important;
+}
+
+body.minimal-theme .social-links {
+  background: transparent !important;
+}
+
+body.minimal-theme .social-link {
+  background: var(--minimal-card) !important;
+  border: 1px solid var(--minimal-border) !important;
+  border-radius: 12px;
+  color: var(--minimal-text) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+body.minimal-theme .social-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  opacity: 0.04;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+body.minimal-theme .social-link:nth-child(1)::before {
+  background:
+    radial-gradient(circle at 50% 50%, var(--minimal-green) 2px, transparent 2px);
+  background-size: 10px 10px;
+}
+
+body.minimal-theme .social-link:nth-child(2)::before {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--minimal-sage) 0px,
+      var(--minimal-sage) 2px,
+      transparent 2px,
+      transparent 8px
+    );
+}
+
+body.minimal-theme .social-link:nth-child(3)::before {
+  background:
+    linear-gradient(135deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(225deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(45deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(315deg, var(--minimal-green) 25%, transparent 25%);
+  background-size: 12px 12px;
+  background-position: 0 0, 6px 0, 6px -6px, 0 6px;
+}
+
+body.minimal-theme .social-link:hover {
+  border-color: var(--minimal-green) !important;
+  background: var(--minimal-warm) !important;
+}
+
+body.minimal-theme .social-link:hover::before {
+  opacity: 0.08;
+}
+
+body.minimal-theme .social-icon {
+  color: var(--minimal-green) !important;
+  background: transparent !important;
+}
+
+body.minimal-theme .social-name {
+  color: var(--minimal-text) !important;
+}
+
+/* ==========================================================================
+   Projects Section - With Stylized Backgrounds
+   ========================================================================== */
+
+body.minimal-theme .projects {
+  background: var(--minimal-warm) !important;
+}
+
+/* Pixelated/abstract pattern backgrounds for project cards */
+body.minimal-theme .project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+body.minimal-theme .project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  opacity: 0.08;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Different patterns for each card */
+body.minimal-theme .project-card:nth-child(1)::before {
+  background:
+    linear-gradient(135deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(225deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(45deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(315deg, var(--minimal-green) 25%, transparent 25%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 0, 10px -10px, 0 10px;
+}
+
+body.minimal-theme .project-card:nth-child(2)::before {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      var(--minimal-sage) 0px,
+      var(--minimal-sage) 4px,
+      transparent 4px,
+      transparent 12px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--minimal-sage) 0px,
+      var(--minimal-sage) 4px,
+      transparent 4px,
+      transparent 12px
+    );
+}
+
+body.minimal-theme .project-card:nth-child(3)::before {
+  background:
+    radial-gradient(circle at 50% 50%, var(--minimal-green) 2px, transparent 2px);
+  background-size: 16px 16px;
+}
+
+body.minimal-theme .project-card:hover::before {
+  opacity: 0.12;
+}
+
+/* ==========================================================================
+   Job Fit Section
+   ========================================================================== */
+
+body.minimal-theme .job-fit {
+  background: var(--minimal-cream) !important;
+}
+
+body.minimal-theme .job-fit-container {
+  background: var(--minimal-card) !important;
+  border: 1px solid var(--minimal-border) !important;
+  border-radius: 12px;
+}
+
+/* ==========================================================================
+   Review Section - Poke Around My Brain
+   ========================================================================== */
+
+body.minimal-theme .review {
+  background: var(--minimal-warm) !important;
+}
+
+body.minimal-theme .review-item,
+body.minimal-theme .review-card {
+  background: var(--minimal-card) !important;
+  border: 1px solid var(--minimal-border) !important;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+body.minimal-theme .review-item::before,
+body.minimal-theme .review-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35%;
+  height: 100%;
+  opacity: 0.04;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Different patterns for review cards */
+body.minimal-theme .review-card:nth-child(3n+1)::before {
+  background:
+    radial-gradient(circle at 50% 50%, var(--minimal-green) 2px, transparent 2px);
+  background-size: 12px 12px;
+}
+
+body.minimal-theme .review-card:nth-child(3n+2)::before {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      var(--minimal-sage) 0px,
+      var(--minimal-sage) 2px,
+      transparent 2px,
+      transparent 10px
+    );
+}
+
+body.minimal-theme .review-card:nth-child(3n)::before {
+  background:
+    linear-gradient(135deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(225deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(45deg, var(--minimal-green) 25%, transparent 25%),
+    linear-gradient(315deg, var(--minimal-green) 25%, transparent 25%);
+  background-size: 14px 14px;
+  background-position: 0 0, 7px 0, 7px -7px, 0 7px;
+}
+
+body.minimal-theme .review-item:hover::before,
+body.minimal-theme .review-card:hover::before {
+  opacity: 0.08;
+}
+
+body.minimal-theme .review-item:hover,
+body.minimal-theme .review-card:hover {
+  border-color: var(--minimal-green) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+body.minimal-theme .review-title {
+  color: var(--minimal-text) !important;
+}
+
+body.minimal-theme .review-text {
+  color: var(--minimal-text-secondary) !important;
+}
+
+/* ==========================================================================
+   Elegant Float Animations
+   ========================================================================== */
+
+body.minimal-theme .hero-label,
+body.minimal-theme .hero-name,
+body.minimal-theme .hero-subtitle,
+body.minimal-theme .hero-cta {
+  animation: elegantFloat 0.9s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+body.minimal-theme .hero-label { animation-delay: 0.1s; }
+body.minimal-theme .hero-name:first-of-type { animation-delay: 0.2s; }
+body.minimal-theme .hero-name:last-of-type { animation-delay: 0.35s; }
+body.minimal-theme .hero-subtitle { animation-delay: 0.5s; }
+body.minimal-theme .hero-cta { animation-delay: 0.65s; }
+
+@keyframes elegantFloat {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth hover transitions throughout */
+body.minimal-theme * {
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Override all transform transitions to be smooth */
+body.minimal-theme .project-card,
+body.minimal-theme .review-card,
+body.minimal-theme .journey-item,
+body.minimal-theme .stat-card,
+body.minimal-theme .skill-item,
+body.minimal-theme .blog-card,
+body.minimal-theme .social-link,
+body.minimal-theme .btn {
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Gentle hover lift instead of bouncy */
+body.minimal-theme .project-card:hover,
+body.minimal-theme .review-card:hover,
+body.minimal-theme .blog-card:hover {
+  transform: translateY(-3px);
+}
+
+body.minimal-theme .journey-item:hover,
+body.minimal-theme .stat-card:hover,
+body.minimal-theme .skill-item:hover,
+body.minimal-theme .social-link:hover {
+  transform: translateY(-2px);
+}
+
+body.minimal-theme .btn:hover {
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  body.minimal-theme * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  body.minimal-theme .hero-name {
+    font-size: clamp(2.5rem, 10vw, 3.5rem);
+  }
+
+  body.minimal-theme .section {
+    padding: 4rem 0;
+  }
+}
+
+/* ==========================================================================
+   Disable Dark Mode Toggle - Minimal is light-only
+   ========================================================================== */
+
+body.minimal-theme .theme-toggle {
+  display: none;
+}
+
+/* Override any dark mode styles that might leak through */
+body.minimal-theme,
+body.minimal-theme.dark-mode {
+  --bg-primary: var(--minimal-cream) !important;
+  --bg-secondary: var(--minimal-warm) !important;
+  --text-primary: var(--minimal-text) !important;
+  --text-secondary: var(--minimal-text-secondary) !important;
+  background: var(--minimal-cream) !important;
+  color: var(--minimal-text) !important;
+}
+
+body.minimal-theme.dark-mode .nav,
+body.minimal-theme.dark-mode .section,
+body.minimal-theme.dark-mode .hero,
+body.minimal-theme.dark-mode .footer,
+body.minimal-theme.dark-mode .project-card,
+body.minimal-theme.dark-mode .review-card,
+body.minimal-theme.dark-mode .skill-item,
+body.minimal-theme.dark-mode .chat-container {
+  background: inherit;
+  color: inherit;
+}
+
+/* ==========================================================================
+   Force All Elements Light
+   ========================================================================== */
+
+body.minimal-theme * {
+  --bg-primary: var(--minimal-cream);
+  --bg-secondary: var(--minimal-warm);
+  --bg-tertiary: var(--minimal-card);
+  --text-primary: var(--minimal-text);
+  --text-secondary: var(--minimal-text-secondary);
+  --text-muted: var(--minimal-text-muted);
+  --accent-primary: var(--minimal-green);
+}
+
+/* Suggested questions in chat */
+body.minimal-theme .suggested-question {
+  background: var(--minimal-warm) !important;
+  border: 1px solid var(--minimal-border) !important;
+  color: var(--minimal-text) !important;
+}
+
+body.minimal-theme .suggested-question:hover {
+  background: var(--minimal-card) !important;
+  border-color: var(--minimal-green) !important;
+}
+
+/* Chat messages */
+body.minimal-theme .chat-messages {
+  background: var(--minimal-card) !important;
+}
+
+/* Mode toggle in chat */
+body.minimal-theme .mode-toggle {
+  background: var(--minimal-warm) !important;
+  border-radius: 8px;
+}
+
+body.minimal-theme .mode-btn {
+  background: transparent !important;
+  color: var(--minimal-text-secondary) !important;
+}
+
+body.minimal-theme .mode-btn.active {
+  background: var(--minimal-green) !important;
+  color: white !important;
+}
+
+/* Any remaining dark backgrounds */
+body.minimal-theme [style*="background"] {
+  background-color: var(--minimal-cream);
+}
+
+/* Tooltips */
+body.minimal-theme .skill-tooltip {
+  background: var(--minimal-card) !important;
+  border: 1px solid var(--minimal-border) !important;
+  color: var(--minimal-text) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Detail modal */
+body.minimal-theme .detail-modal {
+  background: var(--minimal-card) !important;
+}
+
+body.minimal-theme .detail-modal-header {
+  background: var(--minimal-cream) !important;
+  border-bottom: 1px solid var(--minimal-border) !important;
+}
+
+body.minimal-theme .detail-modal-close {
+  color: var(--minimal-text-muted) !important;
+}
+
+/* Filter/sort controls */
+body.minimal-theme .review-controls {
+  background: var(--minimal-cream) !important;
+}
