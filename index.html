@@ -1,128 +1,1322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fabian Aguilar - Coming Soon</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fabian Aguilar — AI Builder & Tools Creator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-        body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #faf8f5;
-            color: #1f2937;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
+:root {
+  --bg-left: #1a1a1a;
+  --bg-right: #faf7f2;
+  --text-left: #e8e4df;
+  --text-left-muted: #7a7570;
+  --text-right: #2a2520;
+  --text-right-muted: #6a6560;
+  --accent: #c4634a;
+  --accent-light: rgba(196, 99, 74, 0.12);
+  --heading-font: 'Playfair Display', Georgia, serif;
+  --body-font: 'Space Grotesk', -apple-system, sans-serif;
+}
 
-        .container {
-            text-align: center;
-            max-width: 500px;
-        }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-        .icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
+body {
+  font-family: var(--body-font);
+  font-weight: 300;
+  color: var(--text-right);
+  background: var(--bg-right);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-        }
+/* ─── LAYOUT ─── */
 
-        h1 span {
-            color: #166534;
-        }
+.split-layout {
+  display: flex;
+  min-height: 100vh;
+}
 
-        .tagline {
-            color: #6b7280;
-            font-size: 1.125rem;
-            margin-bottom: 2rem;
-        }
+.left-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100vh;
+  background: var(--bg-left);
+  color: var(--text-left);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3.5rem 3rem;
+  z-index: 100;
+}
 
-        .message {
-            background: white;
-            border: 1px solid #e5e2dd;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
+.right-panel {
+  margin-left: 40%;
+  width: 60%;
+  padding: 4rem 4.5rem 6rem;
+}
 
-        .message p {
-            color: #6b7280;
-            line-height: 1.7;
-        }
+/* ─── LEFT PANEL ─── */
 
-        .links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+.left-identity {}
 
-        .links a {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: white;
-            border: 1px solid #e5e2dd;
-            border-radius: 8px;
-            color: #1f2937;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
+.left-name {
+  font-family: var(--heading-font);
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
 
-        .links a:hover {
-            border-color: #166534;
-            color: #166534;
-        }
+.left-title {
+  font-family: var(--body-font);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text-left-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.25rem;
+}
 
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem;
-            }
+.left-location {
+  font-size: 0.8rem;
+  color: var(--text-left-muted);
+  margin-top: 0.25rem;
+}
 
-            .links {
-                flex-direction: column;
-            }
-        }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+/* ─── NAV ─── */
+
+.left-nav {
+  margin: 2.5rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  text-decoration: none;
+  color: var(--text-left-muted);
+  font-family: var(--body-font);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.nav-link:hover {
+  color: var(--text-left);
+}
+
+.nav-link.active {
+  color: var(--accent);
+}
+
+.nav-link.active .nav-number {
+  color: var(--accent);
+}
+
+.nav-number {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-left-muted);
+  opacity: 0.5;
+  min-width: 1.5rem;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-link.active .nav-number,
+.nav-link:hover .nav-number {
+  opacity: 1;
+}
+
+/* ─── LEFT FOOTER ─── */
+
+.left-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.left-tagline {
+  font-family: var(--body-font);
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--text-left-muted);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.left-email {
+  font-family: var(--body-font);
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: opacity 0.3s ease;
+}
+
+.left-email:hover {
+  opacity: 0.75;
+}
+
+/* ─── MOBILE HEADER (hidden on desktop) ─── */
+
+.mobile-header {
+  display: none;
+}
+
+.mobile-overlay {
+  display: none;
+}
+
+/* ─── RIGHT PANEL SECTIONS ─── */
+
+.section {
+  margin-bottom: 5rem;
+}
+
+.section:last-child {
+  margin-bottom: 2rem;
+}
+
+.section-label {
+  font-family: var(--body-font);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.2;
+}
+
+/* ─── PHILOSOPHY ─── */
+
+.philosophy-quote {
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-right);
+  margin-bottom: 2rem;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--accent);
+}
+
+.philosophy-approach {
+  font-size: 0.95rem;
+  color: var(--text-right-muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.values-list {
+  list-style: none;
+  counter-reset: values;
+}
+
+.values-list li {
+  counter-increment: values;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-right);
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.values-list li::before {
+  content: counter(values, decimal-leading-zero);
+  font-family: var(--body-font);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--accent);
+  min-width: 1.25rem;
+}
+
+/* ─── JOURNEY ─── */
+
+.journey-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.journey-item {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(42, 37, 32, 0.06);
+  align-items: baseline;
+}
+
+.journey-item:last-child {
+  border-bottom: none;
+}
+
+.journey-period {
+  font-family: var(--body-font);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.journey-content {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.journey-role {
+  font-weight: 500;
+  color: var(--text-right);
+}
+
+.journey-company {
+  color: var(--text-right-muted);
+}
+
+.journey-desc {
+  font-size: 0.82rem;
+  color: var(--text-right-muted);
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
+
+/* ─── PROJECTS ─── */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.project-card {
+  background: white;
+  border: 1px solid rgba(42, 37, 32, 0.08);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  border-color: rgba(196, 99, 74, 0.25);
+  box-shadow: 0 4px 20px rgba(42, 37, 32, 0.06);
+}
+
+.project-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.project-name {
+  font-family: var(--heading-font);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-right);
+}
+
+.project-status {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-right-muted);
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5cb85c;
+  flex-shrink: 0;
+}
+
+.project-type {
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.project-desc {
+  font-size: 0.82rem;
+  color: var(--text-right-muted);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.stack-tag {
+  font-size: 0.65rem;
+  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+  background: var(--accent-light);
+  color: var(--accent);
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+}
+
+/* ─── SKILLS ─── */
+
+.skills-tier {
+  margin-bottom: 2rem;
+}
+
+.skills-tier:last-child {
+  margin-bottom: 0;
+}
+
+.tier-label {
+  font-family: var(--body-font);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-right-muted);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(42, 37, 32, 0.06);
+}
+
+.skill-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+  cursor: default;
+}
+
+.skill-name {
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--text-right);
+  min-width: 10rem;
+  flex-shrink: 0;
+}
+
+.skill-bar-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(42, 37, 32, 0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent);
+  width: 0;
+  transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.skill-bar-fill.strong {
+  opacity: 1;
+}
+
+.skill-bar-fill.moderate {
+  opacity: 0.65;
+}
+
+.skill-bar-fill.learning {
+  opacity: 0.35;
+}
+
+.skill-pct {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-right-muted);
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+.skill-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 10rem;
+  right: 2.5rem;
+  background: var(--bg-left);
+  color: var(--text-left);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  padding: 0.6rem 0.85rem;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 10;
+}
+
+.skill-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 2rem;
+  border: 5px solid transparent;
+  border-top-color: var(--bg-left);
+}
+
+.skill-row:hover .skill-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── HONESTY ─── */
+
+.failures-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 2rem;
+}
+
+.failure-item {
+  border-bottom: 1px solid rgba(42, 37, 32, 0.06);
+}
+
+.failure-item:last-child {
+  border-bottom: none;
+}
+
+.failure-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-right);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: var(--body-font);
+  transition: color 0.2s ease;
+}
+
+.failure-header:hover {
+  color: var(--accent);
+}
+
+.failure-chevron {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+  color: var(--text-right-muted);
+  flex-shrink: 0;
+}
+
+.failure-item.open .failure-chevron {
+  transform: rotate(180deg);
+}
+
+.failure-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.failure-item.open .failure-body {
+  max-height: 300px;
+}
+
+.failure-body-inner {
+  padding: 0 0 1rem;
+}
+
+.failure-desc {
+  font-size: 0.85rem;
+  color: var(--text-right-muted);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.failure-lesson {
+  font-size: 0.82rem;
+  color: var(--accent);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.gaps-line {
+  font-size: 0.85rem;
+  color: var(--text-right-muted);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.critics-callout {
+  background: rgba(42, 37, 32, 0.03);
+  border-left: 3px solid rgba(42, 37, 32, 0.1);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.critics-heading {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-right-muted);
+  margin-bottom: 0.75rem;
+}
+
+.critics-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.critics-list li {
+  font-size: 0.82rem;
+  color: var(--text-right-muted);
+  font-style: italic;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.critics-list li::before {
+  content: '\2014';
+  position: absolute;
+  left: 0;
+  color: var(--text-right-muted);
+  opacity: 0.4;
+}
+
+.honesty-response {
+  font-size: 0.9rem;
+  color: var(--text-right);
+  line-height: 1.7;
+}
+
+/* ─── Q&A ─── */
+
+.qa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.qa-item {
+  border-bottom: 1px solid rgba(42, 37, 32, 0.06);
+}
+
+.qa-item:last-child {
+  border-bottom: none;
+}
+
+.qa-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-right);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: var(--body-font);
+  gap: 1rem;
+  transition: color 0.2s ease;
+}
+
+.qa-question:hover {
+  color: var(--accent);
+}
+
+.qa-chevron {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+  color: var(--text-right-muted);
+  flex-shrink: 0;
+}
+
+.qa-item.open .qa-chevron {
+  transform: rotate(180deg);
+}
+
+.qa-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.qa-item.open .qa-answer {
+  max-height: 300px;
+}
+
+.qa-answer-inner {
+  padding: 0 0 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-right-muted);
+  line-height: 1.7;
+}
+
+/* ─── CONTACT ─── */
+
+.contact-section {
+  text-align: left;
+}
+
+.contact-email {
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  display: inline-block;
+}
+
+.contact-email:hover {
+  opacity: 0.7;
+}
+
+.contact-note {
+  font-size: 0.85rem;
+  color: var(--text-right-muted);
+  margin-top: 0.75rem;
+  line-height: 1.6;
+}
+
+/* ─── RESPONSIVE ─── */
+
+@media (max-width: 768px) {
+  .left-panel {
+    display: none;
+  }
+
+  .mobile-header {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 72px;
+    background: var(--bg-left);
+    color: var(--text-left);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    z-index: 200;
+  }
+
+  .mobile-name {
+    font-family: var(--heading-font);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-left);
+  }
+
+  .hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-left);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-left);
+    z-index: 190;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .mobile-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-overlay-nav {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .mobile-overlay-nav .nav-link {
+    font-size: 1rem;
+    color: var(--text-left-muted);
+    justify-content: center;
+  }
+
+  .mobile-overlay-nav .nav-link.active {
+    color: var(--accent);
+  }
+
+  .mobile-overlay-tagline {
+    position: absolute;
+    bottom: 3rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-left-muted);
+    font-style: italic;
+    padding: 0 2rem;
+  }
+
+  .mobile-overlay-email {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+
+  .mobile-overlay-email a {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .right-panel {
+    margin-left: 0;
+    width: 100%;
+    padding: 6rem 1.5rem 4rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-item {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .skill-name {
+    min-width: 7rem;
+  }
+
+  .section {
+    margin-bottom: 3.5rem;
+  }
+
+  .philosophy-quote {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skill-name {
+    min-width: 5.5rem;
+    font-size: 0.75rem;
+  }
+
+  .skill-pct {
+    font-size: 0.65rem;
+    min-width: 2rem;
+  }
+}
+
+/* ─── SCROLL REVEAL ─── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="icon">🌿</div>
-        <h1>fabian<span>.</span></h1>
-        <p class="tagline">Something new is brewing.</p>
 
-        <div class="message">
-            <p>I'm rebuilding my portfolio with some exciting AI-powered features. Check back soon for the full experience.</p>
-        </div>
+<!-- Mobile Header -->
+<header class="mobile-header">
+  <span class="mobile-name" id="mobileName"></span>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</header>
 
-        <div class="links">
-            <a href="https://www.linkedin.com/in/fabian-aguilar-4a1711a/" target="_blank">
-                <span>in</span> LinkedIn
-            </a>
-            <a href="https://github.com/fabianjagu" target="_blank">
-                <span>gh</span> GitHub
-            </a>
-            <a href="mailto:fabianjagu@gmail.com">
-                <span>@</span> Email
-            </a>
-        </div>
+<!-- Mobile Overlay Nav -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <nav class="mobile-overlay-nav" id="mobileNav"></nav>
+  <div class="mobile-overlay-tagline" id="mobileTagline"></div>
+  <div class="mobile-overlay-email" id="mobileEmail"></div>
+</div>
+
+<!-- Split Layout -->
+<div class="split-layout">
+
+  <!-- Left Panel -->
+  <aside class="left-panel" id="leftPanel">
+    <div class="left-identity">
+      <h1 class="left-name" id="leftName"></h1>
+      <div class="left-title" id="leftTitle"></div>
+      <div class="left-location" id="leftLocation"></div>
     </div>
+    <nav class="left-nav" id="leftNav"></nav>
+    <div class="left-footer">
+      <p class="left-tagline" id="leftTagline"></p>
+      <a class="left-email" id="leftEmail" href="#"></a>
+    </div>
+  </aside>
+
+  <!-- Right Panel -->
+  <main class="right-panel" id="rightPanel"></main>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var SECTIONS = [
+    { id: 'philosophy', label: 'Philosophy', num: '01' },
+    { id: 'journey',    label: 'Journey',    num: '02' },
+    { id: 'projects',   label: 'Projects',   num: '03' },
+    { id: 'skills',     label: 'Skills',     num: '04' },
+    { id: 'honesty',    label: 'Honesty',    num: '05' },
+    { id: 'qa',         label: 'Q&A',        num: '06' },
+    { id: 'contact',    label: 'Contact',    num: '07' }
+  ];
+
+  // SVG chevron template for accordions
+  var chevronTpl = '<svg class="%%CLS%%" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>';
+
+  // Safely escape text for DOM insertion.
+  // All data originates from a local JSON file (not user input),
+  // but we escape as defense-in-depth.
+  function esc(str) {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;');
+  }
+
+  // Build a section wrapper with numbered label and reveal animation
+  function buildSection(id, num, label, content) {
+    return '<section class="section reveal" id="section-' + id + '">' +
+      '<div class="section-label">' + num + '. ' + label + '</div>' +
+      content + '</section>';
+  }
+
+  function renderSite(data) {
+    var identity = data.identity;
+    var philosophy = data.philosophy;
+    var career = data.career;
+    var projects = data.projects;
+    var skills = data.skills;
+    var gaps = data.failures_and_gaps;
+    var personality = data.personality;
+    var questions = data.common_questions;
+
+    // ─── LEFT PANEL (safe: textContent, no HTML parsing) ───
+    document.getElementById('leftName').textContent = identity.name;
+    document.getElementById('leftTitle').textContent = identity.title;
+    document.getElementById('leftLocation').textContent = identity.location;
+    document.getElementById('leftTagline').textContent = identity.tagline;
+    document.getElementById('leftEmail').textContent = identity.email;
+    document.getElementById('leftEmail').href = 'mailto:' + identity.email;
+
+    // Mobile header (safe: textContent)
+    document.getElementById('mobileName').textContent = identity.name;
+    document.getElementById('mobileTagline').textContent = identity.tagline;
+
+    // Mobile email link — built via DOM
+    var mobileEmailContainer = document.getElementById('mobileEmail');
+    var mobileEmailLink = document.createElement('a');
+    mobileEmailLink.href = 'mailto:' + identity.email;
+    mobileEmailLink.textContent = identity.email;
+    mobileEmailContainer.appendChild(mobileEmailLink);
+
+    // Page title
+    document.title = identity.name + ' \u2014 ' + identity.title;
+
+    // ─── BUILD NAV via DOM ───
+    function buildNav(container) {
+      SECTIONS.forEach(function(s) {
+        var a = document.createElement('a');
+        a.className = 'nav-link';
+        a.href = '#section-' + s.id;
+        a.dataset.section = s.id;
+
+        var numSpan = document.createElement('span');
+        numSpan.className = 'nav-number';
+        numSpan.textContent = s.num;
+
+        a.appendChild(numSpan);
+        a.appendChild(document.createTextNode(s.label));
+        container.appendChild(a);
+      });
+    }
+
+    buildNav(document.getElementById('leftNav'));
+    buildNav(document.getElementById('mobileNav'));
+
+    // ─── RIGHT PANEL CONTENT ───
+    // All data from local JSON is escaped via esc() before template insertion
+    var right = document.getElementById('rightPanel');
+    var html = '';
+
+    // 01. Philosophy
+    html += buildSection('philosophy', '01', 'Philosophy',
+      '<blockquote class="philosophy-quote">' + esc(philosophy.core) + '</blockquote>' +
+      '<p class="philosophy-approach">' + esc(philosophy.approach) + '</p>' +
+      '<ul class="values-list">' + philosophy.values.map(function(v) {
+        return '<li>' + esc(v) + '</li>';
+      }).join('') + '</ul>'
+    );
+
+    // 02. Journey
+    var journeyItems = career.timeline.map(function(t) {
+      return '<li class="journey-item">' +
+        '<span class="journey-period">' + esc(t.period) + '</span>' +
+        '<div class="journey-content">' +
+          '<span class="journey-role">' + esc(t.role) + '</span>' +
+          ' <span class="journey-company">\u2014 ' + esc(t.company) + '</span>' +
+          '<div class="journey-desc">' + esc(t.description) + '</div>' +
+        '</div></li>';
+    }).join('');
+
+    html += buildSection('journey', '02', 'Journey',
+      '<p class="philosophy-approach" style="margin-bottom:1.5rem">' + esc(career.trajectory) + '</p>' +
+      '<ul class="journey-list">' + journeyItems + '</ul>'
+    );
+
+    // 03. Projects
+    var cards = projects.current.map(function(p) {
+      return '<div class="project-card">' +
+        '<div class="project-header">' +
+          '<span class="project-name">' + esc(p.name) + '</span>' +
+          '<span class="project-status"><span class="status-dot"></span>' + esc(p.status) + '</span>' +
+        '</div>' +
+        '<div class="project-type">' + esc(p.type) + '</div>' +
+        '<p class="project-desc">' + esc(p.description) + '</p>' +
+        '<div class="project-stack">' + p.stack.map(function(s) {
+          return '<span class="stack-tag">' + esc(s) + '</span>';
+        }).join('') + '</div></div>';
+    }).join('');
+
+    html += buildSection('projects', '03', 'Projects',
+      '<div class="projects-grid">' + cards + '</div>'
+    );
+
+    // 04. Skills
+    function renderSkillTier(label, items, tier) {
+      var pctMap = { strong: 90, moderate: 65, learning: 35 };
+      var base = pctMap[tier];
+      var rows = items.map(function(s, i) {
+        var pct = base + (items.length - i - 1) * 2;
+        var assessment = s.honest_assessment || '';
+        return '<div class="skill-row">' +
+          '<span class="skill-name">' + esc(s.name) + '</span>' +
+          '<div class="skill-bar-track"><div class="skill-bar-fill ' + tier + '" data-width="' + pct + '"></div></div>' +
+          '<span class="skill-pct">' + pct + '%</span>' +
+          (assessment ? '<div class="skill-tooltip">' + esc(assessment) + '</div>' : '') +
+        '</div>';
+      }).join('');
+      return '<div class="skills-tier"><div class="tier-label">' + esc(label) + '</div>' + rows + '</div>';
+    }
+
+    html += buildSection('skills', '04', 'Skills',
+      renderSkillTier('Strong', skills.strong, 'strong') +
+      renderSkillTier('Moderate', skills.moderate, 'moderate') +
+      renderSkillTier('Learning', skills.learning, 'learning')
+    );
+
+    // 05. Honesty
+    var failureItems = gaps.notable_failures.map(function(f) {
+      return '<div class="failure-item" data-accordion="failure">' +
+        '<button class="failure-header">' + esc(f.title) +
+          chevronTpl.replace('%%CLS%%', 'failure-chevron') +
+        '</button>' +
+        '<div class="failure-body"><div class="failure-body-inner">' +
+          '<p class="failure-desc">' + esc(f.description) + '</p>' +
+          '<p class="failure-lesson">' + esc(f.lesson) + '</p>' +
+        '</div></div></div>';
+    }).join('');
+
+    var gapsText = gaps.honest_gaps.join(' \u2022 ');
+
+    var criticsItems = gaps.what_critics_say.map(function(c) {
+      return '<li>' + esc(c) + '</li>';
+    }).join('');
+
+    html += buildSection('honesty', '05', 'Honesty',
+      '<div class="failures-list">' + failureItems + '</div>' +
+      '<p class="gaps-line">' + esc(gapsText) + '</p>' +
+      '<div class="critics-callout">' +
+        '<div class="critics-heading">What critics might say</div>' +
+        '<ul class="critics-list">' + criticsItems + '</ul>' +
+      '</div>' +
+      '<p class="honesty-response">' + esc(gaps.my_response) + '</p>'
+    );
+
+    // 06. Q&A
+    var qaItems = questions.map(function(q) {
+      return '<div class="qa-item" data-accordion="qa">' +
+        '<button class="qa-question">' + esc(q.question) +
+          chevronTpl.replace('%%CLS%%', 'qa-chevron') +
+        '</button>' +
+        '<div class="qa-answer"><div class="qa-answer-inner">' +
+          esc(q.answer) +
+        '</div></div></div>';
+    }).join('');
+
+    html += buildSection('qa', '06', 'Q&A',
+      '<div class="qa-list">' + qaItems + '</div>'
+    );
+
+    // 07. Contact
+    html += buildSection('contact', '07', 'Contact',
+      '<div class="contact-section">' +
+        '<a class="contact-email" href="mailto:' + esc(identity.email) + '">' + esc(identity.email) + '</a>' +
+        '<p class="contact-note">' + esc(personality.communication_style) + '</p>' +
+      '</div>'
+    );
+
+    // Commit all section HTML to the DOM in a single write.
+    // Data is from a local JSON file and all values are escaped via esc().
+    right.insertAdjacentHTML('beforeend', html);
+
+    // ─── POST-RENDER INITIALIZATION ───
+    initAccordions();
+    initNavigation();
+    initScrollReveal();
+    initSkillBars();
+    initMobileMenu();
+  }
+
+  // ─── ACCORDIONS ───
+  function initAccordions() {
+    document.querySelectorAll('[data-accordion]').forEach(function(item) {
+      var btn = item.querySelector('button');
+      btn.addEventListener('click', function() {
+        var isOpen = item.classList.contains('open');
+        var siblings = item.parentElement.querySelectorAll('[data-accordion].open');
+        siblings.forEach(function(sib) {
+          if (sib !== item) sib.classList.remove('open');
+        });
+        item.classList.toggle('open', !isOpen);
+      });
+    });
+  }
+
+  // ─── NAVIGATION + ACTIVE SECTION DETECTION ───
+  function initNavigation() {
+    var sectionEls = SECTIONS.map(function(s) {
+      return document.getElementById('section-' + s.id);
+    }).filter(Boolean);
+
+    var navLinks = document.querySelectorAll('.nav-link');
+
+    // Click: smooth scroll to section
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var targetId = link.getAttribute('href').substring(1);
+        var target = document.getElementById(targetId);
+        if (target) {
+          var offset = window.innerWidth <= 768 ? 80 : 0;
+          var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+        closeMobileMenu();
+      });
+    });
+
+    // IntersectionObserver: highlight active nav item
+    var currentActive = null;
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id.replace('section-', '');
+          if (id !== currentActive) {
+            currentActive = id;
+            navLinks.forEach(function(l) {
+              l.classList.toggle('active', l.dataset.section === id);
+            });
+          }
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0
+    });
+
+    sectionEls.forEach(function(el) { observer.observe(el); });
+  }
+
+  // ─── SCROLL REVEAL ───
+  function initScrollReveal() {
+    var reveals = document.querySelectorAll('.reveal');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(function(el) { observer.observe(el); });
+  }
+
+  // ─── SKILL BARS: animate width on scroll ───
+  function initSkillBars() {
+    var bars = document.querySelectorAll('.skill-bar-fill');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var bar = entry.target;
+          requestAnimationFrame(function() {
+            bar.style.width = bar.dataset.width + '%';
+          });
+          observer.unobserve(bar);
+        }
+      });
+    }, { threshold: 0.2 });
+    bars.forEach(function(bar) { observer.observe(bar); });
+  }
+
+  // ─── MOBILE MENU ───
+  function initMobileMenu() {
+    var hamburger = document.getElementById('hamburger');
+    hamburger.addEventListener('click', function() {
+      var overlay = document.getElementById('mobileOverlay');
+      if (overlay.classList.contains('open')) {
+        closeMobileMenu();
+      } else {
+        overlay.classList.add('open');
+        hamburger.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  }
+
+  function closeMobileMenu() {
+    var hamburger = document.getElementById('hamburger');
+    var overlay = document.getElementById('mobileOverlay');
+    overlay.classList.remove('open');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ─── LOAD DATA ───
+  fetch('data/resume-context.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) { renderSite(data); })
+    .catch(function() {
+      var msg = document.createElement('p');
+      msg.style.cssText = 'padding:2em;font-family:sans-serif;color:#666;';
+      msg.textContent = 'Loading\u2026 Please use a local server to serve this file (e.g. npx serve or python -m http.server).';
+      document.body.appendChild(msg);
+    });
+
+})();
+</script>
 </body>
 </html>

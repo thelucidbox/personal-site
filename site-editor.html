@@ -1,0 +1,2076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Editor — Fabian Aguilar</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #1a1a2e;
+            --bg-sidebar: #16162a;
+            --bg-card: #222240;
+            --bg-input: #2a2a4a;
+            --text: #e0e0e8;
+            --text-muted: #8888a0;
+            --accent: #6c63ff;
+            --accent-hover: #7b73ff;
+            --border: #333355;
+            --success: #4ade80;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --sidebar-w: 360px;
+            --bottombar-h: 56px;
+            --radius-card: 8px;
+            --radius-input: 6px;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .app {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            min-width: var(--sidebar-w);
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .sidebar-header p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+
+        .sidebar-nav::-webkit-scrollbar { width: 4px; }
+        .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+        .sidebar-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 24px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.15s ease;
+            user-select: none;
+        }
+
+        .nav-item:hover {
+            background: rgba(108, 99, 255, 0.06);
+            color: var(--text);
+        }
+
+        .nav-item.active {
+            background: rgba(108, 99, 255, 0.1);
+            border-left-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .nav-item .nav-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .nav-item .nav-label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .nav-item .nav-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-left: auto;
+        }
+
+        .import-zone {
+            margin: 12px 16px;
+            padding: 16px;
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-card);
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .import-zone:hover, .import-zone.drag-over {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(108, 99, 255, 0.05);
+        }
+
+        .import-zone input[type="file"] { display: none; }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .editor-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 40px;
+            padding-bottom: calc(var(--bottombar-h) + 32px);
+        }
+
+        .editor-scroll::-webkit-scrollbar { width: 6px; }
+        .editor-scroll::-webkit-scrollbar-track { background: transparent; }
+        .editor-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+        .section-header { margin-bottom: 28px; }
+
+        .section-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .field-group { margin-bottom: 20px; }
+
+        .field-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="url"],
+        textarea {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-input);
+            color: var(--text);
+            padding: 10px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            line-height: 1.5;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="url"]:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        input[type="text"]::placeholder,
+        textarea::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 20px;
+            margin-bottom: 16px;
+            position: relative;
+            transition: border-color 0.15s ease;
+        }
+
+        .card:hover { border-color: rgba(108, 99, 255, 0.3); }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .card-header h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .card-actions button {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            transition: all 0.15s ease;
+        }
+
+        .card-actions button:hover {
+            background: var(--bg-input);
+            color: var(--text);
+            border-color: var(--accent);
+        }
+
+        .card-actions button.danger:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .string-list-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .string-list-item input { flex: 1; }
+
+        .string-list-item .reorder-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .string-list-item .reorder-btns button {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            width: 22px;
+            height: 16px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .string-list-item .reorder-btns button:hover {
+            background: var(--bg-input);
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .string-list-item .remove-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            flex-shrink: 0;
+        }
+
+        .string-list-item .remove-btn:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .add-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: 1px dashed var(--border);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: var(--radius-input);
+            cursor: pointer;
+            font-size: 13px;
+            font-family: inherit;
+            transition: all 0.15s ease;
+            margin-top: 4px;
+        }
+
+        .add-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(108, 99, 255, 0.05);
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(108, 99, 255, 0.15);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .tag-pill .tag-remove {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .tag-pill .tag-remove:hover { opacity: 1; }
+
+        .tag-input-wrapper {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tag-input-wrapper input { flex: 1; }
+
+        .tag-input-wrapper .tag-add-btn {
+            background: var(--accent);
+            border: none;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: var(--radius-input);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: background 0.15s;
+        }
+
+        .tag-input-wrapper .tag-add-btn:hover { background: var(--accent-hover); }
+
+        .confidence-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .confidence-row label {
+            margin-bottom: 0;
+            font-size: 11px;
+            white-space: nowrap;
+            min-width: 80px;
+        }
+
+        .confidence-row input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: var(--bg-input);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .confidence-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .confidence-row input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .confidence-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            min-width: 36px;
+            text-align: right;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 1200px) {
+            .two-col { grid-template-columns: 1fr; }
+        }
+
+        .bottombar {
+            height: var(--bottombar-h);
+            min-height: var(--bottombar-h);
+            background: var(--bg-sidebar);
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            gap: 12px;
+        }
+
+        .bottombar-left, .bottombar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bottombar button {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: var(--radius-input);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: inherit;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .bottombar button:hover {
+            border-color: var(--accent);
+            background: rgba(108, 99, 255, 0.1);
+        }
+
+        .bottombar button.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .bottombar button.primary:hover { background: var(--accent-hover); }
+
+        .save-indicator {
+            font-size: 12px;
+            color: var(--success);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .save-indicator.visible { opacity: 1; }
+
+        .json-panel {
+            width: 0;
+            overflow: hidden;
+            background: var(--bg-sidebar);
+            border-left: 1px solid var(--border);
+            transition: width 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .json-panel.open {
+            width: 480px;
+            min-width: 480px;
+        }
+
+        .json-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .json-panel-header h3 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .json-panel-header button {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.15s;
+        }
+
+        .json-panel-header button:hover {
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .json-panel pre {
+            flex: 1;
+            overflow: auto;
+            padding: 16px 20px;
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .json-panel pre::-webkit-scrollbar { width: 6px; }
+        .json-panel pre::-webkit-scrollbar-track { background: transparent; }
+        .json-panel pre::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+        .toast {
+            position: fixed;
+            bottom: calc(var(--bottombar-h) + 16px);
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 12px 20px;
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .toast.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast.success { border-left: 3px solid var(--success); }
+        .toast.error { border-left: 3px solid var(--danger); }
+        .toast.info { border-left: 3px solid var(--accent); }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            max-width: 460px;
+            width: 90%;
+        }
+
+        .modal h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .modal p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .modal-buttons button {
+            padding: 8px 20px;
+            border-radius: var(--radius-input);
+            font-size: 13px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .modal-buttons .btn-secondary {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .modal-buttons .btn-secondary:hover { border-color: var(--accent); }
+
+        .modal-buttons .btn-primary {
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: #fff;
+        }
+
+        .modal-buttons .btn-primary:hover { background: var(--accent-hover); }
+
+        .server-note {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: var(--radius-input);
+            padding: 10px 14px;
+            margin: 12px 16px;
+            font-size: 11px;
+            color: var(--warning);
+            line-height: 1.5;
+        }
+
+        .server-note strong { display: block; margin-bottom: 2px; }
+        .server-note code {
+            background: rgba(245, 158, 11, 0.1);
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+
+        .guide-section {
+            margin: 12px 16px;
+            border-radius: var(--radius-card);
+            overflow: hidden;
+        }
+
+        .guide-toggle {
+            width: 100%;
+            background: rgba(108, 99, 255, 0.08);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-radius: var(--radius-card);
+            color: var(--accent);
+            padding: 10px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.15s ease;
+        }
+
+        .guide-toggle:hover {
+            background: rgba(108, 99, 255, 0.12);
+        }
+
+        .guide-toggle .chevron {
+            transition: transform 0.2s ease;
+            font-size: 10px;
+        }
+
+        .guide-toggle.open .chevron {
+            transform: rotate(180deg);
+        }
+
+        .guide-toggle.open {
+            border-radius: var(--radius-card) var(--radius-card) 0 0;
+        }
+
+        .guide-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: rgba(108, 99, 255, 0.04);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-top: none;
+            border-radius: 0 0 var(--radius-card) var(--radius-card);
+        }
+
+        .guide-content.open {
+            max-height: 600px;
+        }
+
+        .guide-content-inner {
+            padding: 14px;
+        }
+
+        .guide-step {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .guide-step:last-child { margin-bottom: 0; }
+
+        .guide-step-num {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+        }
+
+        .guide-step-text {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .guide-step-text strong { color: var(--text); }
+        .guide-step-text code {
+            background: rgba(108, 99, 255, 0.1);
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: 10px;
+            color: var(--accent);
+        }
+
+        .guide-divider {
+            height: 1px;
+            background: rgba(108, 99, 255, 0.15);
+            margin: 10px 0;
+        }
+
+        .guide-shortcut {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .guide-shortcut kbd {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 1px 6px;
+            font-size: 10px;
+            font-family: inherit;
+            color: var(--text);
+        }
+
+        .subsection {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .subsection h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .status-select {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-input);
+            color: var(--text);
+            padding: 8px 12px;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.15s;
+            width: 100%;
+        }
+
+        .status-select:focus { border-color: var(--accent); }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--text-muted);
+        }
+
+        .empty-state .empty-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+            opacity: 0.4;
+        }
+
+        .empty-state p { font-size: 14px; }
+
+        .tier-label {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .tier-strong { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+        .tier-moderate { background: rgba(108, 99, 255, 0.15); color: var(--accent); }
+        .tier-learning { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+
+        .kbd-hint {
+            font-size: 10px;
+            color: var(--text-muted);
+            opacity: 0.6;
+            margin-left: 4px;
+        }
+
+        .bottombar button.claude-code {
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.15), rgba(140, 130, 255, 0.1));
+            border-color: rgba(108, 99, 255, 0.4);
+            color: var(--accent);
+        }
+
+        .bottombar button.claude-code:hover {
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.25), rgba(140, 130, 255, 0.15));
+            border-color: var(--accent);
+        }
+
+        .cc-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .cc-modal-overlay.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cc-modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            max-width: 560px;
+            width: 90%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cc-modal h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cc-modal h3 .cc-badge {
+            font-size: 10px;
+            font-weight: 600;
+            background: rgba(108, 99, 255, 0.15);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .cc-modal .cc-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .cc-prompt-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-input);
+            padding: 14px;
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            color: var(--text-muted);
+            overflow: auto;
+            max-height: 300px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            flex: 1;
+            min-height: 120px;
+        }
+
+        .cc-modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .cc-modal-actions button {
+            padding: 8px 20px;
+            border-radius: var(--radius-input);
+            font-size: 13px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .cc-modal-actions .btn-secondary {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .cc-modal-actions .btn-secondary:hover { border-color: var(--accent); }
+
+        .cc-modal-actions .btn-primary {
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: #fff;
+        }
+
+        .cc-modal-actions .btn-primary:hover { background: var(--accent-hover); }
+
+        .cc-modal-actions .btn-download {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .cc-modal-actions .btn-download:hover { border-color: var(--accent); }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Site Editor</h1>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <p>resume-context.json</p>
+                    <a href="/Users/fabianaguilar/Projects/ALOS/playgrounds/index.html" title="Back to ALOS Playground Hub — all playgrounds in one place" style="font-size:11px;color:var(--accent);text-decoration:none;opacity:0.7;transition:opacity 0.15s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">ALOS Hub &rarr;</a>
+                </div>
+            </div>
+            <div class="import-zone" id="importZone" title="Drag a resume-context.json file here to load it into the editor, or click to browse your files. This replaces all current editor content.">
+                <input type="file" id="fileInput" accept=".json">
+                Drop JSON here or click to import
+            </div>
+            <nav class="sidebar-nav" id="sidebarNav"></nav>
+            <div class="guide-section">
+                <button class="guide-toggle" id="guideToggle" title="Step-by-step instructions for editing and updating your site content">
+                    How to Update Your Site
+                    <span class="chevron">&#9660;</span>
+                </button>
+                <div class="guide-content" id="guideContent">
+                    <div class="guide-content-inner">
+                        <div class="guide-step">
+                            <div class="guide-step-num">1</div>
+                            <div class="guide-step-text"><strong>Edit content</strong> — Select a section from the sidebar and modify the fields. Changes auto-save to your browser every 500ms.</div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-step-num">2</div>
+                            <div class="guide-step-text"><strong>Export your changes</strong> — Click <strong>Export JSON</strong> in the bottom bar to download <code>resume-context.json</code>.</div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-step-num">3</div>
+                            <div class="guide-step-text"><strong>Replace the file</strong> — Move the downloaded file to <code>data/resume-context.json</code> in your project, replacing the existing one.</div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-step-num">4</div>
+                            <div class="guide-step-text"><strong>See your changes</strong> — Refresh your site in the browser. All sections read from this JSON, so every page updates.</div>
+                        </div>
+                        <div class="guide-divider"></div>
+                        <div class="guide-step">
+                            <div class="guide-step-text" style="font-size:11px;">
+                                <strong style="color:var(--accent);">Fastest: Claude Code</strong> — Click the <strong>&#9671; Claude Code</strong> button to generate a ready-to-paste prompt. Copy it into Claude Code and it writes the file directly. No manual steps.
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-step-text" style="font-size:11px;">
+                                <strong>Alternative:</strong> Click <strong>Copy</strong> to copy the JSON to your clipboard, then paste it directly into <code>data/resume-context.json</code> using your code editor.
+                            </div>
+                        </div>
+                        <div class="guide-divider"></div>
+                        <div class="guide-shortcut"><span>Save to browser</span> <kbd>&#8984;S</kbd></div>
+                        <div class="guide-shortcut"><span>Toggle JSON preview</span> <kbd>&#8984;&#8679;P</kbd></div>
+                        <div class="guide-shortcut"><span>Export JSON file</span> <kbd>&#8984;&#8679;E</kbd></div>
+                    </div>
+                </div>
+            </div>
+            <div class="server-note">
+                <strong>Local server required</strong>
+                Run <code>npx serve .</code> or <code>python3 -m http.server</code> from your project root, then open this page.
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="editor-scroll" id="editorScroll">
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">&#9998;</div>
+                    <p>Select a section from the sidebar to begin editing.</p>
+                </div>
+                <div id="editorContent" style="display:none;"></div>
+            </div>
+            <div class="bottombar">
+                <div class="bottombar-left">
+                    <button class="primary" id="btnSave" title="Save to browser localStorage. Your edits persist across page reloads. (&#8984;S)">&#128190; Save</button>
+                    <button id="btnLoad" title="Import a JSON file from your computer. This replaces all current content in the editor.">&#128194; Load File</button>
+                    <span class="save-indicator" id="saveIndicator">Saved</span>
+                </div>
+                <div class="bottombar-right">
+                    <button id="btnClaudeCode" class="claude-code" title="Generate a ready-to-paste prompt for Claude Code. It writes the updated JSON directly to your project — no manual file moving.">&#9671; Claude Code</button>
+                    <button id="btnExport" title="Download as resume-context.json. Replace data/resume-context.json in your project to update the site. (&#8984;&#8679;E)">&#11015; Export JSON</button>
+                    <button id="btnCopy" title="Copy the full JSON to clipboard. Paste into data/resume-context.json with your code editor as an alternative to Export.">&#128203; Copy</button>
+                    <button id="btnPreview" title="Toggle a live JSON preview panel to see the raw data as you edit. (&#8984;&#8679;P)">{ } Preview</button>
+                </div>
+            </div>
+        </main>
+
+        <aside class="json-panel" id="jsonPanel">
+            <div class="json-panel-header">
+                <h3>JSON Preview</h3>
+                <button id="btnClosePreview" title="Close preview">&times;</button>
+            </div>
+            <pre id="jsonPreview"></pre>
+        </aside>
+    </div>
+
+    <div class="modal-overlay" id="restoreModal">
+        <div class="modal">
+            <h3>Restore saved edits?</h3>
+            <p>Found locally saved edits from a previous session. Would you like to restore them or start fresh from the JSON file?</p>
+            <div class="modal-buttons">
+                <button class="btn-secondary" id="btnRestoreFresh">Start Fresh</button>
+                <button class="btn-primary" id="btnRestoreSaved">Restore Saved</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cc-modal-overlay" id="ccModal">
+        <div class="cc-modal">
+            <h3>Apply via Claude Code <span class="cc-badge">Prompt Ready</span></h3>
+            <p class="cc-desc">Copy this prompt and paste it into Claude Code. It will write your updated content directly to <code style="background:rgba(108,99,255,0.1);padding:1px 4px;border-radius:3px;font-size:11px;color:var(--accent);">data/resume-context.json</code> — no manual file moving needed.</p>
+            <div class="cc-prompt-box" id="ccPromptBox"></div>
+            <div class="cc-modal-actions">
+                <button class="btn-secondary" id="ccClose">Cancel</button>
+                <button class="btn-download" id="ccDownload" title="Download the prompt as a .md file you can reference later">&#11015; Download .md</button>
+                <button class="btn-primary" id="ccCopy" title="Copy the prompt to your clipboard, then paste into Claude Code">&#128203; Copy Prompt</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+    // =================================================================
+    // Site Editor — Self-Contained CMS for resume-context.json
+    //
+    // Security: All user-supplied values are escaped via escapeHTML()
+    // and escapeAttr() before DOM insertion. This is a local-only tool
+    // that only processes the owner's own JSON data.
+    // =================================================================
+
+    const STORAGE_KEY = 'site-editor-data';
+    const JSON_PATH = 'data/resume-context.json';
+
+    let data = {};
+    let activeSection = null;
+    let saveTimeout = null;
+    let restoreResolver = null;
+
+    // -- Section Registry --
+    const sections = [
+        { id: 'identity',            label: 'Hero',            icon: '\u2605', desc: 'identity',          tip: 'Edit your name, title, tagline, and location — the first thing visitors see' },
+        { id: 'philosophy',          label: 'Philosophy',      icon: '\u25C6', desc: 'core values',       tip: 'Your core beliefs, approach to work, and personal values list' },
+        { id: 'career',              label: 'Journey',         icon: '\u21BA', desc: 'career timeline',   tip: 'Career summary, trajectory narrative, and timeline entries with learnings' },
+        { id: 'projects',            label: 'Projects',        icon: '\u25A9', desc: 'current & past',    tip: 'Current and past projects with tech stack tags and status' },
+        { id: 'skills',              label: 'Skills',          icon: '\u2697', desc: '3 tiers',            tip: 'Three skill tiers (Strong/Moderate/Learning) with confidence sliders and honest assessments' },
+        { id: 'failures_and_gaps',   label: 'Honesty',         icon: '\u26A0', desc: 'failures & gaps',   tip: 'Notable failures, honest gaps, what critics say, and your response' },
+        { id: 'personality',         label: 'Personality',     icon: '\u2600', desc: 'style & energy',    tip: 'Communication style, work style, what energizes and drains you' },
+        { id: 'common_questions',    label: 'Q&A',             icon: '\u2753', desc: 'common questions',  tip: 'Frequently asked questions and your prepared answers' },
+        { id: 'instructions_for_ai', label: 'AI Instructions', icon: '\u2699', desc: 'tone & policy',    tip: 'Guide how AI represents you — tone, honesty policy, and redirect rules' },
+        { id: 'contact',             label: 'Contact',         icon: '\u2709', desc: 'email & links',     tip: 'Email and location (pulls from identity section)' },
+    ];
+
+    // =================================================================
+    // DOM Helpers — safe element creation
+    // =================================================================
+    function el(tag, attrs, children) {
+        const node = document.createElement(tag);
+        if (attrs) {
+            for (const [k, v] of Object.entries(attrs)) {
+                if (k === 'className') node.className = v;
+                else if (k === 'style' && typeof v === 'object') Object.assign(node.style, v);
+                else if (k.startsWith('on') && typeof v === 'function') node.addEventListener(k.slice(2).toLowerCase(), v);
+                else if (k === 'textContent') node.textContent = v;
+                else node.setAttribute(k, v);
+            }
+        }
+        if (children) {
+            if (typeof children === 'string') node.textContent = children;
+            else if (Array.isArray(children)) children.forEach(c => { if (c) node.appendChild(c); });
+            else node.appendChild(children);
+        }
+        return node;
+    }
+
+    function textNode(str) { return document.createTextNode(str || ''); }
+
+    // Sanitization for contexts where we build HTML strings for complex nested structures
+    function escapeHTML(str) {
+        if (!str) return '';
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.textContent; // This returns the original — we need actual escaping for string context
+    }
+
+    function escapeAttr(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function safeText(str) {
+        return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // =================================================================
+    // Deep path getters/setters
+    // =================================================================
+    function getPath(obj, path) {
+        return path.split('.').reduce(function(o, k) {
+            if (o == null) return undefined;
+            return o[isNaN(k) ? k : parseInt(k)];
+        }, obj);
+    }
+
+    function setPath(obj, path, value) {
+        var keys = path.split('.');
+        var current = obj;
+        for (var i = 0; i < keys.length - 1; i++) {
+            var k = isNaN(keys[i]) ? keys[i] : parseInt(keys[i]);
+            if (current[k] == null) {
+                current[k] = isNaN(keys[i + 1]) ? {} : [];
+            }
+            current = current[k];
+        }
+        var lastKey = keys[keys.length - 1];
+        var finalKey = isNaN(lastKey) ? lastKey : parseInt(lastKey);
+        if (typeof value === 'string' && !isNaN(value) && path.endsWith('.confidence')) {
+            value = parseInt(value);
+        }
+        current[finalKey] = value;
+    }
+
+    // =================================================================
+    // Initialization
+    // =================================================================
+    async function init() {
+        buildSidebarNav();
+        wireBottomBar();
+
+        var fileData = null;
+        try {
+            var resp = await fetch(JSON_PATH);
+            if (resp.ok) fileData = await resp.json();
+        } catch (e) { /* fetch failed — file:// or missing */ }
+
+        var stored = localStorage.getItem(STORAGE_KEY);
+
+        if (fileData && stored) {
+            data = await promptRestore(fileData, JSON.parse(stored));
+        } else if (stored) {
+            data = JSON.parse(stored);
+            showToast('Loaded from localStorage', 'info');
+        } else if (fileData) {
+            data = fileData;
+            showToast('Loaded from resume-context.json', 'success');
+        } else {
+            data = buildEmptyData();
+            showToast('No data found. Starting with empty template.', 'info');
+        }
+
+        selectSection(sections[0].id);
+        updateJSONPreview();
+    }
+
+    function buildEmptyData() {
+        return {
+            identity: { name: '', title: '', tagline: '', location: '', email: '' },
+            philosophy: { core: '', approach: '', values: [] },
+            career: { summary: '', trajectory: '', timeline: [] },
+            projects: { current: [], past: [] },
+            skills: { strong: [], moderate: [], learning: [] },
+            failures_and_gaps: { notable_failures: [], honest_gaps: [], what_critics_say: [], my_response: '' },
+            personality: { communication_style: '', work_style: '', what_energizes: '', what_drains: '' },
+            common_questions: [],
+            instructions_for_ai: { tone: '', honesty_policy: '', when_uncertain: '', personality: '', redirect_inappropriate: '' }
+        };
+    }
+
+    function promptRestore(fileData, storedData) {
+        return new Promise(function(resolve) {
+            restoreResolver = function(useStored) {
+                document.getElementById('restoreModal').classList.remove('visible');
+                if (useStored) {
+                    showToast('Restored saved edits', 'info');
+                    resolve(storedData);
+                } else {
+                    localStorage.removeItem(STORAGE_KEY);
+                    showToast('Loaded fresh from file', 'success');
+                    resolve(fileData);
+                }
+            };
+            document.getElementById('restoreModal').classList.add('visible');
+        });
+    }
+
+    document.getElementById('btnRestoreFresh').addEventListener('click', function() { if (restoreResolver) restoreResolver(false); });
+    document.getElementById('btnRestoreSaved').addEventListener('click', function() { if (restoreResolver) restoreResolver(true); });
+
+    // =================================================================
+    // Sidebar Navigation (built with safe DOM methods)
+    // =================================================================
+    function buildSidebarNav() {
+        var nav = document.getElementById('sidebarNav');
+        nav.textContent = '';
+        sections.forEach(function(s) {
+            var item = el('div', { className: 'nav-item', 'data-section': s.id, title: s.tip }, [
+                el('span', { className: 'nav-icon', textContent: s.icon }),
+                el('span', { className: 'nav-label', textContent: s.label }),
+                el('span', { className: 'nav-desc', textContent: s.desc }),
+            ]);
+            item.addEventListener('click', function() { selectSection(s.id); });
+            nav.appendChild(item);
+        });
+    }
+
+    function selectSection(id) {
+        activeSection = id;
+        document.querySelectorAll('.nav-item').forEach(function(el) {
+            el.classList.toggle('active', el.getAttribute('data-section') === id);
+        });
+        document.getElementById('emptyState').style.display = 'none';
+        var content = document.getElementById('editorContent');
+        content.style.display = 'block';
+        renderSection(id);
+        document.getElementById('editorScroll').scrollTop = 0;
+    }
+
+    // =================================================================
+    // Bottom Bar Wiring
+    // =================================================================
+    function wireBottomBar() {
+        document.getElementById('btnSave').addEventListener('click', saveToLocalStorage);
+        document.getElementById('btnLoad').addEventListener('click', loadFromFile);
+        document.getElementById('btnExport').addEventListener('click', exportJSON);
+        document.getElementById('btnCopy').addEventListener('click', copyJSON);
+        document.getElementById('btnPreview').addEventListener('click', toggleJSONPanel);
+        document.getElementById('btnClosePreview').addEventListener('click', toggleJSONPanel);
+        // Claude Code button is wired separately in the Claude Code Integration section
+    }
+
+    // =================================================================
+    // Section Renderers (use safe string building with escaped values)
+    // =================================================================
+    function renderSection(id) {
+        var container = document.getElementById('editorContent');
+        var renderers = {
+            identity: renderIdentity,
+            philosophy: renderPhilosophy,
+            career: renderCareer,
+            projects: renderProjects,
+            skills: renderSkills,
+            failures_and_gaps: renderHonesty,
+            personality: renderPersonality,
+            common_questions: renderQA,
+            instructions_for_ai: renderAIInstructions,
+            contact: renderContact,
+        };
+        var render = renderers[id];
+        if (render) {
+            // Build HTML string with all user values escaped
+            container.textContent = '';
+            var wrapper = document.createElement('div');
+            wrapper.innerHTML = render();
+            container.appendChild(wrapper);
+            attachEventListeners();
+        }
+    }
+
+    function textField(path, label, opts) {
+        opts = opts || {};
+        var val = getPath(data, path) || '';
+        var type = opts.type || 'text';
+        var placeholder = opts.placeholder || '';
+        var id = 'field-' + path.replace(/\./g, '-');
+
+        if (opts.textarea) {
+            return '<div class="field-group">'
+                + '<label for="' + id + '">' + safeText(label) + '</label>'
+                + '<textarea id="' + id + '" data-path="' + escapeAttr(path) + '" placeholder="' + escapeAttr(placeholder) + '" rows="' + (opts.rows || 3) + '">' + safeText(val) + '</textarea>'
+                + '</div>';
+        }
+        return '<div class="field-group">'
+            + '<label for="' + id + '">' + safeText(label) + '</label>'
+            + '<input type="' + escapeAttr(type) + '" id="' + id + '" data-path="' + escapeAttr(path) + '" value="' + escapeAttr(val) + '" placeholder="' + escapeAttr(placeholder) + '">'
+            + '</div>';
+    }
+
+    function sectionHeader(title, description) {
+        return '<div class="section-header"><h2>' + safeText(title) + '</h2><p>' + safeText(description) + '</p></div>';
+    }
+
+    // --- Identity ---
+    function renderIdentity() {
+        return sectionHeader('Hero', 'Your name, title, tagline, and location. The first thing visitors see.')
+            + '<div class="two-col">'
+            + textField('identity.name', 'Full Name', { placeholder: 'Your name' })
+            + textField('identity.title', 'Title', { placeholder: 'e.g. AI Builder & Tools Creator' })
+            + '</div>'
+            + textField('identity.tagline', 'Tagline', { placeholder: 'A short sentence that captures your essence' })
+            + '<div class="two-col">'
+            + textField('identity.location', 'Location', { placeholder: 'e.g. Austin, TX' })
+            + textField('identity.email', 'Email', { type: 'email', placeholder: 'your@email.com' })
+            + '</div>';
+    }
+
+    // --- Philosophy ---
+    function renderPhilosophy() {
+        return sectionHeader('Philosophy', 'Your core beliefs, approach, and values.')
+            + textField('philosophy.core', 'Core Philosophy', { textarea: true, rows: 3 })
+            + textField('philosophy.approach', 'Approach', { textarea: true, rows: 3 })
+            + '<div class="field-group"><label>Values</label>'
+            + renderStringList('philosophy.values')
+            + '</div>';
+    }
+
+    // --- Career ---
+    function renderCareer() {
+        var timeline = (data.career && data.career.timeline) || [];
+        var cards = timeline.map(function(item, i) { return renderTimelineCard(item, i); }).join('');
+        return sectionHeader('Journey', 'Your career summary, trajectory, and detailed timeline.')
+            + textField('career.summary', 'Summary', { textarea: true, rows: 3 })
+            + textField('career.trajectory', 'Trajectory', { textarea: true, rows: 2 })
+            + '<div class="subsection"><h3>Timeline</h3>'
+            + '<div id="timeline-cards">' + cards + '</div>'
+            + '<button class="add-btn" data-action="addTimeline">+ Add Timeline Entry</button>'
+            + '</div>';
+    }
+
+    function renderTimelineCard(item, i) {
+        var title = safeText(item.period || 'New Entry') + ' \u2014 ' + safeText(item.role || 'Role');
+        return '<div class="card" data-index="' + i + '">'
+            + '<div class="card-header"><h4>' + title + '</h4>'
+            + cardActions('career.timeline', i)
+            + '</div>'
+            + '<div class="two-col">'
+            + textField('career.timeline.' + i + '.period', 'Period', { placeholder: 'e.g. 2020-2023' })
+            + textField('career.timeline.' + i + '.role', 'Role', { placeholder: 'Job title' })
+            + '</div>'
+            + textField('career.timeline.' + i + '.company', 'Company', { placeholder: 'Company name' })
+            + textField('career.timeline.' + i + '.description', 'Description', { textarea: true, rows: 2 })
+            + textField('career.timeline.' + i + '.key_learning', 'Key Learning', { textarea: true, rows: 2, placeholder: 'What did this role teach you?' })
+            + '</div>';
+    }
+
+    // --- Projects ---
+    function renderProjects() {
+        var current = (data.projects && data.projects.current) || [];
+        var past = (data.projects && data.projects.past) || [];
+        return sectionHeader('Projects', 'Current and past projects.')
+            + '<div class="subsection" style="margin-top:0;padding-top:0;border:none;"><h3>Current Projects</h3>'
+            + '<div id="current-project-cards">' + current.map(function(p, i) { return renderCurrentProjectCard(p, i); }).join('') + '</div>'
+            + '<button class="add-btn" data-action="addCurrentProject">+ Add Current Project</button></div>'
+            + '<div class="subsection"><h3>Past Projects</h3>'
+            + '<div id="past-project-cards">' + past.map(function(p, i) { return renderPastProjectCard(p, i); }).join('') + '</div>'
+            + '<button class="add-btn" data-action="addPastProject">+ Add Past Project</button></div>';
+    }
+
+    function renderCurrentProjectCard(p, i) {
+        var stackTags = (p.stack || []).map(function(t) {
+            return '<span class="tag-pill">' + safeText(t) + '<span class="tag-remove" data-tag-path="projects.current.' + i + '.stack" data-tag-value="' + escapeAttr(t) + '">\u00D7</span></span>';
+        }).join('');
+
+        var statusOpts = ['Active development', 'Beta', 'Released', 'Paused', 'Archived'];
+        var selectHTML = '<select class="status-select" data-path="projects.current.' + i + '.status">';
+        statusOpts.forEach(function(opt) {
+            selectHTML += '<option value="' + escapeAttr(opt) + '"' + (p.status === opt ? ' selected' : '') + '>' + safeText(opt) + '</option>';
+        });
+        selectHTML += '</select>';
+
+        return '<div class="card" data-index="' + i + '">'
+            + '<div class="card-header"><h4>' + safeText(p.name || 'New Project') + '</h4>'
+            + cardActions('projects.current', i) + '</div>'
+            + '<div class="two-col">'
+            + textField('projects.current.' + i + '.name', 'Name', { placeholder: 'Project name' })
+            + textField('projects.current.' + i + '.type', 'Type', { placeholder: 'e.g. Web App, CLI Tool' })
+            + '</div>'
+            + textField('projects.current.' + i + '.description', 'Description', { textarea: true, rows: 2 })
+            + '<div class="field-group"><label>Tech Stack</label>'
+            + '<div class="tag-container">' + stackTags + '</div>'
+            + '<div class="tag-input-wrapper">'
+            + '<input type="text" id="stack-input-' + i + '" placeholder="Add tags (comma-separated, press Enter)" data-tag-add-path="projects.current.' + i + '.stack">'
+            + '<button class="tag-add-btn" data-tag-add-btn="' + i + '">Add</button>'
+            + '</div></div>'
+            + '<div class="two-col"><div class="field-group"><label>Status</label>' + selectHTML + '</div>'
+            + textField('projects.current.' + i + '.url', 'URL', { type: 'url', placeholder: 'https://...' })
+            + '</div></div>';
+    }
+
+    function renderPastProjectCard(p, i) {
+        return '<div class="card" data-index="' + i + '">'
+            + '<div class="card-header"><h4>' + safeText(p.name || 'Past Project') + '</h4>'
+            + cardActions('projects.past', i) + '</div>'
+            + textField('projects.past.' + i + '.name', 'Name', { placeholder: 'Project name' })
+            + textField('projects.past.' + i + '.description', 'Description', { textarea: true, rows: 2 })
+            + textField('projects.past.' + i + '.outcome', 'Outcome', { textarea: true, rows: 2, placeholder: 'What was the result?' })
+            + '</div>';
+    }
+
+    // --- Skills ---
+    function renderSkills() {
+        var tiers = [
+            { key: 'strong', label: 'Strong', cls: 'tier-strong', fields: ['name', 'evidence', 'honest_assessment'] },
+            { key: 'moderate', label: 'Moderate', cls: 'tier-moderate', fields: ['name', 'evidence', 'honest_assessment'] },
+            { key: 'learning', label: 'Learning', cls: 'tier-learning', fields: ['name', 'current_level', 'learning_path', 'honest_assessment'] },
+        ];
+
+        var html = sectionHeader('Skills', 'Three tiers: strong, moderate, and learning. Confidence slider maps to a 0-100 field.');
+        tiers.forEach(function(tier) {
+            var items = (data.skills && data.skills[tier.key]) || [];
+            var cards = items.map(function(item, i) { return renderSkillCard(tier, item, i); }).join('');
+            html += '<div class="subsection"' + (tier.key === 'strong' ? ' style="margin-top:0;padding-top:0;border:none;"' : '') + '>'
+                + '<span class="tier-label ' + tier.cls + '">' + safeText(tier.label) + '</span>'
+                + '<div id="skills-' + tier.key + '-cards">' + cards + '</div>'
+                + '<button class="add-btn" data-action="addSkill" data-tier="' + tier.key + '">+ Add ' + safeText(tier.label) + ' Skill</button>'
+                + '</div>';
+        });
+        return html;
+    }
+
+    function renderSkillCard(tier, item, i) {
+        var path = 'skills.' + tier.key + '.' + i;
+        var confidence = item.confidence !== undefined ? item.confidence : 50;
+
+        var fieldsHTML = textField(path + '.name', 'Skill Name', { placeholder: 'e.g. Python, Communication' });
+        if (tier.key === 'learning') {
+            fieldsHTML += '<div class="two-col">'
+                + textField(path + '.current_level', 'Current Level', { placeholder: 'Beginner / Intermediate / Advanced' })
+                + textField(path + '.learning_path', 'Learning Path', { placeholder: 'How are you learning this?' })
+                + '</div>';
+        } else {
+            fieldsHTML += textField(path + '.evidence', 'Evidence', { textarea: true, rows: 2, placeholder: 'What proves this skill?' });
+        }
+        fieldsHTML += textField(path + '.honest_assessment', 'Honest Assessment', { textarea: true, rows: 2, placeholder: 'Candid self-assessment' });
+
+        return '<div class="card" data-index="' + i + '">'
+            + '<div class="card-header"><h4>' + safeText(item.name || 'New Skill') + '</h4>'
+            + cardActions('skills.' + tier.key, i) + '</div>'
+            + fieldsHTML
+            + '<div class="confidence-row">'
+            + '<label title="Self-assessed confidence (0-100). Stored as the confidence field.">Confidence</label>'
+            + '<input type="range" min="0" max="100" value="' + confidence + '" data-path="' + escapeAttr(path) + '.confidence" title="Drag to set confidence level (0=none, 100=expert)">'
+            + '<span class="confidence-value">' + confidence + '%</span>'
+            + '</div></div>';
+    }
+
+    // --- Honesty ---
+    function renderHonesty() {
+        var failures = (data.failures_and_gaps && data.failures_and_gaps.notable_failures) || [];
+        var failureCards = failures.map(function(f, i) { return renderFailureCard(f, i); }).join('');
+
+        return sectionHeader('Honesty', 'Notable failures, honest gaps, what critics say, and your response.')
+            + '<div class="subsection" style="margin-top:0;padding-top:0;border:none;"><h3>Notable Failures</h3>'
+            + '<div id="failures-cards">' + failureCards + '</div>'
+            + '<button class="add-btn" data-action="addFailure">+ Add Failure</button></div>'
+            + '<div class="subsection"><h3>Honest Gaps</h3>'
+            + renderStringList('failures_and_gaps.honest_gaps') + '</div>'
+            + '<div class="subsection"><h3>What Critics Say</h3>'
+            + renderStringList('failures_and_gaps.what_critics_say') + '</div>'
+            + textField('failures_and_gaps.my_response', 'Your Response', { textarea: true, rows: 3, placeholder: 'How do you respond to the above?' });
+    }
+
+    function renderFailureCard(f, i) {
+        return '<div class="card" data-index="' + i + '">'
+            + '<div class="card-header"><h4>' + safeText(f.title || 'New Failure') + '</h4>'
+            + cardActions('failures_and_gaps.notable_failures', i) + '</div>'
+            + textField('failures_and_gaps.notable_failures.' + i + '.title', 'Title', { placeholder: 'What happened?' })
+            + textField('failures_and_gaps.notable_failures.' + i + '.description', 'Description', { textarea: true, rows: 2 })
+            + textField('failures_and_gaps.notable_failures.' + i + '.lesson', 'Lesson', { textarea: true, rows: 2, placeholder: 'What did you learn?' })
+            + '</div>';
+    }
+
+    // --- Personality ---
+    function renderPersonality() {
+        return sectionHeader('Personality', 'Communication style, work style, and what drives you.')
+            + textField('personality.communication_style', 'Communication Style', { textarea: true, rows: 2 })
+            + textField('personality.work_style', 'Work Style', { textarea: true, rows: 2 })
+            + textField('personality.what_energizes', 'What Energizes You', { textarea: true, rows: 2 })
+            + textField('personality.what_drains', 'What Drains You', { textarea: true, rows: 2 });
+    }
+
+    // --- Q&A ---
+    function renderQA() {
+        var questions = data.common_questions || [];
+        var cards = questions.map(function(q, i) { return renderQACard(q, i); }).join('');
+        return sectionHeader('Q&A', 'Common questions visitors might ask and your prepared answers.')
+            + '<div id="qa-cards">' + cards + '</div>'
+            + '<button class="add-btn" data-action="addQA">+ Add Question</button>';
+    }
+
+    function renderQACard(q, i) {
+        var preview = q.question ? q.question.substring(0, 50) + (q.question.length > 50 ? '...' : '') : 'New Question';
+        return '<div class="card" data-index="' + i + '">'
+            + '<div class="card-header"><h4>' + safeText(preview) + '</h4>'
+            + cardActions('common_questions', i) + '</div>'
+            + textField('common_questions.' + i + '.question', 'Question', { placeholder: 'What do people ask?' })
+            + textField('common_questions.' + i + '.answer', 'Answer', { textarea: true, rows: 3, placeholder: 'Your honest answer' })
+            + '</div>';
+    }
+
+    // --- AI Instructions ---
+    function renderAIInstructions() {
+        return sectionHeader('AI Instructions', 'Guide how AI represents you. Tone, honesty policy, personality, and redirects.')
+            + textField('instructions_for_ai.tone', 'Tone', { textarea: true, rows: 2, placeholder: 'How should AI sound when speaking for you?' })
+            + textField('instructions_for_ai.honesty_policy', 'Honesty Policy', { textarea: true, rows: 2 })
+            + textField('instructions_for_ai.when_uncertain', 'When Uncertain', { textarea: true, rows: 2, placeholder: 'What should AI say when it doesn\'t know?' })
+            + textField('instructions_for_ai.personality', 'Personality', { textarea: true, rows: 2 })
+            + textField('instructions_for_ai.redirect_inappropriate', 'Redirect Inappropriate', { textarea: true, rows: 2, placeholder: 'How to handle off-limits questions' });
+    }
+
+    // --- Contact ---
+    function renderContact() {
+        return sectionHeader('Contact', 'Email and contact links. These pull from the identity section.')
+            + textField('identity.email', 'Email', { type: 'email', placeholder: 'your@email.com' })
+            + textField('identity.location', 'Location', { placeholder: 'e.g. Austin, TX' })
+            + '<p style="color:var(--text-muted);font-size:12px;margin-top:16px;">'
+            + 'Additional contact links (GitHub, LinkedIn, X) can be added by extending the identity object in the JSON. Use the JSON Preview to add custom fields directly.'
+            + '</p>';
+    }
+
+    // =================================================================
+    // Shared card action buttons
+    // =================================================================
+    function cardActions(path, index) {
+        return '<div class="card-actions">'
+            + '<button data-move-path="' + escapeAttr(path) + '" data-move-index="' + index + '" data-move-dir="-1" title="Move this item up in the list. Changes the display order on your site.">\u2191</button>'
+            + '<button data-move-path="' + escapeAttr(path) + '" data-move-index="' + index + '" data-move-dir="1" title="Move this item down in the list. Changes the display order on your site.">\u2193</button>'
+            + '<button class="danger" data-remove-path="' + escapeAttr(path) + '" data-remove-index="' + index + '" title="Remove this item permanently. Export your JSON first if you want a backup.">\u00D7</button>'
+            + '</div>';
+    }
+
+    // =================================================================
+    // String List Editor
+    // =================================================================
+    function renderStringList(path) {
+        var arr = getPath(data, path) || [];
+        var items = arr.map(function(val, i) {
+            return '<div class="string-list-item">'
+                + '<div class="reorder-btns">'
+                + '<button data-move-path="' + escapeAttr(path) + '" data-move-index="' + i + '" data-move-dir="-1" title="Move this value up in the list">\u25B2</button>'
+                + '<button data-move-path="' + escapeAttr(path) + '" data-move-index="' + i + '" data-move-dir="1" title="Move this value down in the list">\u25BC</button>'
+                + '</div>'
+                + '<input type="text" value="' + escapeAttr(val) + '" data-list-path="' + escapeAttr(path) + '" data-list-index="' + i + '" title="Edit this value directly. Changes auto-save.">'
+                + '<button class="remove-btn" data-remove-path="' + escapeAttr(path) + '" data-remove-index="' + i + '" title="Remove this item from the list">\u00D7</button>'
+                + '</div>';
+        }).join('');
+
+        return '<div id="list-' + path.replace(/\./g, '-') + '">' + items + '</div>'
+            + '<button class="add-btn" data-action="addString" data-list-target="' + escapeAttr(path) + '">+ Add Item</button>';
+    }
+
+    // =================================================================
+    // Event Delegation (single listener approach — no inline handlers)
+    // =================================================================
+    function attachEventListeners() {
+        var content = document.getElementById('editorContent');
+
+        // Text/textarea fields with data-path
+        content.querySelectorAll('[data-path]').forEach(function(el) {
+            if (el.tagName === 'SELECT') {
+                el.addEventListener('change', function() { handleInput(this); });
+            } else if (el.type === 'range') {
+                el.addEventListener('input', function() {
+                    this.nextElementSibling.textContent = this.value + '%';
+                    handleInput(this);
+                });
+            } else {
+                el.addEventListener('input', function() { handleInput(this); });
+            }
+        });
+
+        // String list inputs
+        content.querySelectorAll('[data-list-path]').forEach(function(el) {
+            el.addEventListener('input', function() {
+                var path = this.getAttribute('data-list-path');
+                var index = parseInt(this.getAttribute('data-list-index'));
+                var arr = getPath(data, path);
+                if (arr) {
+                    arr[index] = this.value;
+                    scheduleSave();
+                }
+            });
+        });
+
+        // Move buttons
+        content.querySelectorAll('[data-move-path]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var path = this.getAttribute('data-move-path');
+                var index = parseInt(this.getAttribute('data-move-index'));
+                var dir = parseInt(this.getAttribute('data-move-dir'));
+                moveItem(path, index, dir);
+            });
+        });
+
+        // Remove buttons
+        content.querySelectorAll('[data-remove-path]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var path = this.getAttribute('data-remove-path');
+                var index = parseInt(this.getAttribute('data-remove-index'));
+                removeItem(path, index);
+            });
+        });
+
+        // Tag remove buttons
+        content.querySelectorAll('[data-tag-path]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var path = this.getAttribute('data-tag-path');
+                var value = this.getAttribute('data-tag-value');
+                removeTag(path, value);
+            });
+        });
+
+        // Tag add buttons
+        content.querySelectorAll('[data-tag-add-btn]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var i = this.getAttribute('data-tag-add-btn');
+                var input = document.getElementById('stack-input-' + i);
+                if (input) addTag(input.getAttribute('data-tag-add-path'), 'stack-input-' + i);
+            });
+        });
+
+        // Tag input Enter key
+        content.querySelectorAll('[data-tag-add-path]').forEach(function(input) {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addTag(this.getAttribute('data-tag-add-path'), this.id);
+                }
+            });
+        });
+
+        // Add buttons (addString, addTimeline, etc.)
+        content.querySelectorAll('[data-action]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var action = this.getAttribute('data-action');
+                if (action === 'addString') addStringItem(this.getAttribute('data-list-target'));
+                else if (action === 'addTimeline') addTimelineEntry();
+                else if (action === 'addCurrentProject') addCurrentProject();
+                else if (action === 'addPastProject') addPastProject();
+                else if (action === 'addSkill') addSkill(this.getAttribute('data-tier'));
+                else if (action === 'addFailure') addFailure();
+                else if (action === 'addQA') addQA();
+            });
+        });
+    }
+
+    function handleInput(el) {
+        var path = el.getAttribute('data-path');
+        if (!path) return;
+        setPath(data, path, el.value);
+        scheduleSave();
+    }
+
+    // =================================================================
+    // Auto-Save
+    // =================================================================
+    function scheduleSave() {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(function() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            flashSaveIndicator();
+            updateJSONPreview();
+        }, 500);
+    }
+
+    function saveToLocalStorage() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        flashSaveIndicator();
+        showToast('Saved to localStorage', 'success');
+        updateJSONPreview();
+    }
+
+    function flashSaveIndicator() {
+        var ind = document.getElementById('saveIndicator');
+        ind.classList.add('visible');
+        setTimeout(function() { ind.classList.remove('visible'); }, 2000);
+    }
+
+    // =================================================================
+    // JSON Preview
+    // =================================================================
+    function toggleJSONPanel() {
+        document.getElementById('jsonPanel').classList.toggle('open');
+        updateJSONPreview();
+    }
+
+    function updateJSONPreview() {
+        var pre = document.getElementById('jsonPreview');
+        if (pre) pre.textContent = JSON.stringify(data, null, 2);
+    }
+
+    // =================================================================
+    // Add / Remove / Move
+    // =================================================================
+    function addStringItem(path) {
+        var arr = getPath(data, path);
+        if (arr) {
+            arr.push('');
+            scheduleSave();
+            renderSection(activeSection);
+            setTimeout(function() {
+                var items = document.querySelectorAll('[data-list-path="' + path + '"]');
+                if (items.length) items[items.length - 1].focus();
+            }, 10);
+        }
+    }
+
+    function addTimelineEntry() {
+        if (!data.career) data.career = { summary: '', trajectory: '', timeline: [] };
+        if (!data.career.timeline) data.career.timeline = [];
+        data.career.timeline.push({ period: '', role: '', company: '', description: '', key_learning: '' });
+        scheduleSave();
+        renderSection(activeSection);
+    }
+
+    function addCurrentProject() {
+        if (!data.projects) data.projects = { current: [], past: [] };
+        if (!data.projects.current) data.projects.current = [];
+        data.projects.current.push({ name: '', type: '', description: '', stack: [], status: 'Active development', url: null });
+        scheduleSave();
+        renderSection(activeSection);
+    }
+
+    function addPastProject() {
+        if (!data.projects) data.projects = { current: [], past: [] };
+        if (!data.projects.past) data.projects.past = [];
+        data.projects.past.push({ name: '', description: '', outcome: '' });
+        scheduleSave();
+        renderSection(activeSection);
+    }
+
+    function addSkill(tier) {
+        if (!data.skills) data.skills = { strong: [], moderate: [], learning: [] };
+        if (!data.skills[tier]) data.skills[tier] = [];
+        if (tier === 'learning') {
+            data.skills[tier].push({ name: '', current_level: '', learning_path: '', honest_assessment: '', confidence: 25 });
+        } else {
+            data.skills[tier].push({ name: '', evidence: '', honest_assessment: '', confidence: 50 });
+        }
+        scheduleSave();
+        renderSection(activeSection);
+    }
+
+    function addFailure() {
+        if (!data.failures_and_gaps) data.failures_and_gaps = { notable_failures: [], honest_gaps: [], what_critics_say: [], my_response: '' };
+        if (!data.failures_and_gaps.notable_failures) data.failures_and_gaps.notable_failures = [];
+        data.failures_and_gaps.notable_failures.push({ title: '', description: '', lesson: '' });
+        scheduleSave();
+        renderSection(activeSection);
+    }
+
+    function addQA() {
+        if (!data.common_questions) data.common_questions = [];
+        data.common_questions.push({ question: '', answer: '' });
+        scheduleSave();
+        renderSection(activeSection);
+    }
+
+    function removeItem(path, index) {
+        var arr = getPath(data, path);
+        if (arr && Array.isArray(arr)) {
+            arr.splice(index, 1);
+            scheduleSave();
+            renderSection(activeSection);
+        }
+    }
+
+    function moveItem(path, index, direction) {
+        var arr = getPath(data, path);
+        if (!arr || !Array.isArray(arr)) return;
+        var newIndex = index + direction;
+        if (newIndex < 0 || newIndex >= arr.length) return;
+        var temp = arr[index];
+        arr[index] = arr[newIndex];
+        arr[newIndex] = temp;
+        scheduleSave();
+        renderSection(activeSection);
+    }
+
+    // =================================================================
+    // Tag Management
+    // =================================================================
+    function addTag(path, inputId) {
+        var input = document.getElementById(inputId);
+        if (!input) return;
+        var raw = input.value.trim();
+        if (!raw) return;
+        var tags = raw.split(',').map(function(t) { return t.trim(); }).filter(Boolean);
+        var arr = getPath(data, path);
+        if (arr && Array.isArray(arr)) {
+            tags.forEach(function(tag) {
+                if (arr.indexOf(tag) === -1) arr.push(tag);
+            });
+            scheduleSave();
+            renderSection(activeSection);
+        }
+    }
+
+    function removeTag(path, value) {
+        var arr = getPath(data, path);
+        if (arr && Array.isArray(arr)) {
+            var idx = arr.indexOf(value);
+            if (idx > -1) {
+                arr.splice(idx, 1);
+                scheduleSave();
+                renderSection(activeSection);
+            }
+        }
+    }
+
+    // =================================================================
+    // Import / Export
+    // =================================================================
+    function exportJSON() {
+        var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'resume-context.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('Exported resume-context.json', 'success');
+    }
+
+    function copyJSON() {
+        navigator.clipboard.writeText(JSON.stringify(data, null, 2)).then(function() {
+            showToast('JSON copied to clipboard', 'success');
+        }).catch(function() {
+            showToast('Copy failed \u2014 use Export instead', 'error');
+        });
+    }
+
+    function loadFromFile() {
+        var input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        input.onchange = function(e) { importFile(e.target.files[0]); };
+        input.click();
+    }
+
+    function importFile(file) {
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                var parsed = JSON.parse(e.target.result);
+                data = parsed;
+                scheduleSave();
+                renderSection(activeSection);
+                showToast('Imported ' + file.name, 'success');
+            } catch (err) {
+                showToast('Invalid JSON: ' + err.message, 'error');
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    // Drag and drop
+    var importZone = document.getElementById('importZone');
+    var fileInput = document.getElementById('fileInput');
+
+    importZone.addEventListener('click', function() { fileInput.click(); });
+    fileInput.addEventListener('change', function(e) { importFile(e.target.files[0]); });
+
+    importZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        importZone.classList.add('drag-over');
+    });
+    importZone.addEventListener('dragleave', function() {
+        importZone.classList.remove('drag-over');
+    });
+    importZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        importZone.classList.remove('drag-over');
+        var file = e.dataTransfer.files[0];
+        if (file && file.name.endsWith('.json')) {
+            importFile(file);
+        } else {
+            showToast('Please drop a .json file', 'error');
+        }
+    });
+
+    // =================================================================
+    // Toast
+    // =================================================================
+    function showToast(message, type) {
+        type = type || 'info';
+        var toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.className = 'toast ' + type + ' visible';
+        setTimeout(function() { toast.classList.remove('visible'); }, 3000);
+    }
+
+    // =================================================================
+    // Keyboard Shortcuts
+    // =================================================================
+    document.addEventListener('keydown', function(e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+            e.preventDefault();
+            saveToLocalStorage();
+        }
+        if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === 'p' || e.key === 'P')) {
+            e.preventDefault();
+            toggleJSONPanel();
+        }
+        if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === 'e' || e.key === 'E')) {
+            e.preventDefault();
+            exportJSON();
+        }
+    });
+
+    // =================================================================
+    // Claude Code Integration
+    // =================================================================
+    function generateClaudeCodePrompt() {
+        var jsonStr = JSON.stringify(data, null, 2);
+        return 'Write the following JSON to `data/resume-context.json` in the personal-site project, replacing the existing file entirely. Do not modify the content — write it exactly as provided.\n\n```json\n' + jsonStr + '\n```';
+    }
+
+    function showClaudeCodeModal() {
+        var prompt = generateClaudeCodePrompt();
+        document.getElementById('ccPromptBox').textContent = prompt;
+        document.getElementById('ccModal').classList.add('visible');
+    }
+
+    function hideClaudeCodeModal() {
+        document.getElementById('ccModal').classList.remove('visible');
+    }
+
+    document.getElementById('btnClaudeCode').addEventListener('click', showClaudeCodeModal);
+    document.getElementById('ccClose').addEventListener('click', hideClaudeCodeModal);
+    document.getElementById('ccModal').addEventListener('click', function(e) {
+        if (e.target === this) hideClaudeCodeModal();
+    });
+
+    document.getElementById('ccCopy').addEventListener('click', function() {
+        var prompt = generateClaudeCodePrompt();
+        navigator.clipboard.writeText(prompt).then(function() {
+            hideClaudeCodeModal();
+            showToast('Claude Code prompt copied — paste it into your session', 'success');
+        }).catch(function() {
+            showToast('Copy failed — try the download option', 'error');
+        });
+    });
+
+    document.getElementById('ccDownload').addEventListener('click', function() {
+        var prompt = generateClaudeCodePrompt();
+        var blob = new Blob([prompt], { type: 'text/markdown' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'update-site-content.md';
+        a.click();
+        URL.revokeObjectURL(url);
+        hideClaudeCodeModal();
+        showToast('Downloaded update-site-content.md', 'success');
+    });
+
+    // =================================================================
+    // Guide Toggle
+    // =================================================================
+    document.getElementById('guideToggle').addEventListener('click', function() {
+        this.classList.toggle('open');
+        document.getElementById('guideContent').classList.toggle('open');
+    });
+
+    // =================================================================
+    // Boot
+    // =================================================================
+    init();
+    </script>
+</body>
+</html>
